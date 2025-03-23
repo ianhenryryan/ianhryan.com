@@ -1,0 +1,3009 @@
+body, body * {
+    font-family: "Lucida Grande",Tahoma,Helvetica,Arial,sans-serif;
+    font-size: 11px;
+    font-style: normal;
+}
+body {
+    background: #000 url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/bg.png);
+    margin: 0;
+    padding: 0;
+}
+img {
+    border: 0;
+    vertical-align: middle;
+}
+h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 28px;
+    font-weight: bold;
+    color: #f1f1f1;
+    text-transform: uppercase;
+    text-decoration: none !important;
+    border: 0px;
+}
+h2 {
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #f1f1f1;
+    text-transform: uppercase;
+    text-decoration: none !important;
+    border: 0px;
+}
+h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #f1f1f1;
+    margin: 0;
+    padding: 0;
+    text-decoration: none !important;
+    border: 0px;
+}
+h4 {
+    font-size: 14px;
+    font-weight: bold;
+    color: #f1f1f1;
+    margin: 0;
+    padding: 0;
+}
+h5 {
+    font-size: 11px;
+    font-weight: bold;
+    color: #3777a8;
+    margin: 0;
+    padding: 8px 2px 0 2px;
+    text-transform: uppercase;
+}
+
+sup {
+    font-weight: normal;
+    font-size: 9px;
+}
+.panel {
+    position: relative;
+}
+.panel-screen {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+}
+.panel-layer {
+    position: absolute;
+    visibility: hidden;
+    z-index: 1000;
+}
+.transparent {
+	filter: alpha(opacity=0);
+	opacity: 0;
+	-moz-opacity: 0;
+}
+.highlight {
+    color: #fc0;
+}
+.r1 {
+    background: transparent none;
+	border-bottom: 1px dotted #919191;
+}
+.r2 {
+    background: transparent none;
+	border-bottom: 1px dotted #919191;
+}
+.r3 {
+    background: #666 none;
+}
+a.expand {
+	background: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/icons/expand.png) no-repeat 0 0px;
+    padding-left: 15px;
+	height: 16px;
+}
+a.collapse {
+	background: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/icons/collapse.png) no-repeat 0 0px;
+    padding-left: 15px;
+	height: 16px;
+}
+
+#breadcrumbs {
+	background: #000 url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/bread_bg.png) repeat-x;
+	border-left: 1px solid #000;
+	border-right: 1px solid #000;
+	clear: both;
+	display: block;
+	margin: auto;
+	padding: 2px 5px 6px 5px;
+	width: 948px;
+	text-align: left;
+	font-family: Tahoma,Helvetica,Arial,sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: #666;
+}
+#breadcrumbs a {
+	font-family: Tahoma,Helvetica,Arial,sans-serif;
+	font-size: 9px;
+	font-weight: normal;
+	color: #aaa;
+}
+#breadcrumbs a:hover {
+	font-size: 9px;
+	font-weight: normal;
+	color: #eee;
+}
+#breadcrumbs strong {
+	font-size: 9px;
+	color: #fff;
+}
+
+ul.breadcrumbs {
+    margin: 0;
+    padding: 5px 0 10px 0;
+    text-align: left;
+}
+ul.breadcrumbs li {
+    display: inline;
+    list-style-type: none;
+    font-size: 11px;
+    font-weight: normal;
+    color: #eee;
+}
+ul.breadcrumbs p {
+    display: inline;
+    margin: 0;
+    padding: 0px 5px;
+}
+ul.breadcrumbs a {
+    padding: 0px 5px;
+    font-size: 11px;
+    font-weight: normal;
+    color: #09f;
+    text-decoration: none;
+}
+ul.breadcrumbs li a:hover {
+    color: #fff;
+    background-repeat: repeat-x;
+}
+
+#overDiv {
+    position: absolute;
+    visibility: hidden;
+    z-index: 1000;
+    font-size: 10px !important;
+}
+#overDiv p {
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid #036;
+}
+#overDiv p:first-child {
+    border-top: 0px;
+}
+#overDiv b {
+    font-size: 10px !important;
+    color: #ccc;
+}
+
+#form-errors {
+    clear: both;
+    border: 1px solid #f90;
+    text-align: left;
+    background: #ffd url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/icons/64/alert.png) no-repeat 5px 0px;
+    color: #c10;
+    font-weight: bold;
+    padding-top: 5px;
+    padding-left: 60px;
+    margin-bottom: 10px;
+}
+#form-errors ul {
+    margin-left: 30px;
+    padding: 5px;
+    font-weight: normal;
+}
+#form-errors a {
+    color: #900;
+    text-decoration: underline;
+}
+#form-errors a:hover {
+    color: #f00;
+    text-decoration: underline;
+}
+
+#arena-alert {
+	clear: both;
+    width: 946px;
+	text-align: left;
+	font-size: 11px;
+	border: 2px solid #f90;
+	margin: 5px;
+}
+#arena-alert-header {
+	font-weight: bold;
+	padding: 2px 1px;
+	background-color: #fc0;
+	border-bottom: 1px solid #f90;
+	height: 20px;
+}
+#arena-alert-header div {
+	padding: 3px 1px;
+	text-transform: uppercase;
+	float: left;
+}
+#arena-alert-header a {
+	float: right;
+	text-decoration: none;
+	text-transform: uppercase;
+	color: #c00;
+}
+#arena-alert-header a:hover {
+	color: #f00;
+}
+#arena-alert-message {
+	background: #ffffdd url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/icons/64/alert.png) no-repeat 5px 5px;
+	padding: 5px 5px 5px 74px;
+	min-height: 40px;
+    line-height: 18px;
+}
+#arena-alert-date {
+    font-size: 10px;
+	color: #c90;
+    line-height: 16px;
+}
+#arena-alert-title {
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-bottom: 1px solid #f90;
+}
+#arena-alert-message a {
+	color: #06c;
+	text-decoration: underline;
+}
+#arena-alert-message a:hover {
+	color: #09f;
+}
+
+.exturl {
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/common/exturl.gif);
+    background-repeat: no-repeat;
+    background-position: right center;
+    padding-right: 14px;
+}
+
+.clr {
+    clear: both;
+}
+.clrlt {
+    clear: left;
+}
+.clrrt {
+    clear: right;
+}
+.txtL {
+    text-align: left !important;
+}
+.txtR {
+    text-align: right !important;
+}
+.txtC {
+    text-align: center !important;
+}
+.hide {
+	display: none;
+}
+.lt {
+    float: left;
+}
+.rt {
+    float: right;
+}
+.sm {
+    width: 170px;
+}
+.md {
+    width: 310px;
+}
+.hxl {
+    width: 380px;
+}
+.lg {
+    width: 630px;
+}
+.xl {
+    width: 770px;
+}
+.full {
+    width: 950px;
+}
+.auto {
+    width: auto;
+}
+
+.adlb {
+    width: 728px;
+    height: 90px;
+    overflow: hidden;
+}
+.adrect {
+    width: 300px;
+    height: 250px;
+    overflow: hidden;
+}
+.adsky {
+    width: 160px;
+    height: 600px;
+    overflow: hidden;
+}
+.adgb {
+    width: 190px;
+    height: 105px;
+    overflow: hidden;
+}
+
+.sm h3.bar {
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/box_header_170.png);
+    border-bottom: 1px solid #f1f1f1;
+}
+.md h3.bar {
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/box_header_310.png);
+    border-bottom: 1px solid #f1f1f1;
+}
+.lg h3.bar {
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/box_header_630.png);
+    border-bottom: 1px solid #f1f1f1;
+}
+.xl h3.bar {
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/box_header_770.png);
+    border-bottom: 1px solid #f1f1f1;
+}
+.full h3.bar {
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/box_header_950.png);
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.nopad {
+    padding: 0px;
+}
+.nomgn {
+    margin: 0px;
+}
+.smpad {
+    padding: 5px;
+}
+.smmgn {
+    margin: 5px;
+}
+.nomgntop {
+    margin-top: 0px;
+}
+
+div.boxOuter {
+    margin: 4px;
+    text-align: left;
+    background: #2b5b80 url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/box_bg.png) repeat-x;
+    display: block;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #315892 #133464 #133464 #315892;
+    color: #e1e1e1;
+}
+div.boxOuter h3 {
+	padding: 5px;
+	border-bottom: 1px solid #000;
+	background: transparent url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/h3_bg.png) repeat-x;
+	font-family: Tahoma,Helvetica,Arial,sans-serif !important;
+    font-size: 10px !important;
+    font-weight: bold;
+	text-transform: uppercase;
+	text-align: center !important;
+    color: #f1f1f1;
+}
+div.boxOuter div.boxInner {
+    clear: both;
+	display: block;
+	background: #2a3035 url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/box_content_bg.png) repeat-x;
+    font-size: 11px;
+	line-height: 14px;
+    border: 1px solid #3777a8;
+    margin: 5px;
+}
+div.boxOuter div.boxAd {
+    background: #2a3035 url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/box_content_bg.png) repeat-x;
+    border: 1px solid #3777a8;
+    margin: 4px;
+    display: block;
+    color: #e1e1e1;
+}
+div.boxOuter div.boxAdTxt {
+	color: #002;
+	text-transform: uppercase;
+	font-size: 8px;
+	text-align: center;
+	padding-bottom: 2px;
+}
+div.boxOuter div.boxContent {
+	background: #2a3035 url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/box_content_bg.png) repeat-x;
+    border: 1px solid #3777a8;
+    margin: 5px;
+    padding: 5px;
+    display: block;
+	color: #e1e1e1;
+}
+div.boxOuter a {
+    color: #09f;
+}
+div.boxOuter a:hover {
+    color: #fff;
+}
+div.boxOuter div.boxContent em {
+    color: #919191;
+    font-style: italic;
+}
+div.boxOuter div.boxForm {
+    background: #2a3035 url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/box_form_bg.png) repeat-x;
+}
+div.boxOuter div.boxNews {
+    background: #dfe6ed url(/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/box_news_bg.png) repeat-x;
+    border:1px solid #0f283b;
+    color: #222;
+    display:block;
+    margin: 5px;
+    padding: 5px;
+}
+div.boxOuter div.boxNews,
+div.boxOuter div.boxNews * {
+    font-family: "Lucida Grande",Tahoma,Arial,sans-serif;
+    font-size: 12px;
+    line-height: 18px;
+    color: #000;
+}
+div.boxOuter div.boxNews a {
+    color: #06c;
+}
+div.boxOuter div.boxNews a:hover {
+    color: #09f;
+}
+div.boxOuter div.boxNews .news-byline {
+    font-size: 11px;
+    font-weight: bold;
+    color: #aaa;
+}
+div.boxOuter div.boxNews .news-summary {
+    font-style: italic;
+    font-weight: bold;
+    color: #a7b1ba;
+}
+div.boxPlatform {
+	width: 630px;
+	height: 404px;
+    color: #a1a1a1;
+}
+div.boxPlatform h5 {
+    color: #003;
+}
+div.boxPlatform div.boxInner {
+	padding: 5px;
+    margin-bottom: 0px;
+}
+div.boxPlatform strong {
+    color: #f1f1f1;
+    font-size: 11px;
+}
+div.boxPlatform #pltlogo {
+	height: 50px;
+}
+div.boxPlatformNews {
+    clear: both;
+	padding-bottom: 4px;
+	margin: 0 0 4px 0;
+	font-size: 11px;
+	color: #f1f1f1;
+	border-bottom: 1px dotted #666;
+}
+div.boxPlatformNews a {
+	text-decoration: underline;
+}
+div.boxDashboard {
+	width: 630px;
+	height: 322px;
+}
+img#imgDashboard {
+	margin: 5px;
+    border: 1px solid #3777a8;
+	height: 310px;
+	width: 185px;
+	float: left;
+}
+#boxArenaNews_Display {
+	margin-left: 0px;
+    margin-top: 0px;
+	float: right;
+	width: 415px;
+	height: 277px;
+	overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 0;
+}
+#boxArenaNewsCtl {
+    background: #2a3035 url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/box_content_bg.png) repeat-x;
+    border: 1px solid #3777a8;
+    margin: 5px 5px 0px 0;
+    padding: 5px;
+    display: block;
+    color: #f1f1f1;
+    float: right;
+    font-size: 11px;
+    font-weight: bold;
+    width: 415px;
+    height: 12px;
+}
+#boxArenaNewsCtl a {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 11px;
+    color: #09f;
+}
+#boxArenaNewsCtl a:hover {
+    color: #fff;
+}
+div#boxArenaNewsTitle {
+	padding-bottom: 4px;
+	margin: 0 0 4px 0;
+	font-weight: bold;
+	font-size: 14px;
+	color: #f1f1f1;
+	border-bottom: 1px dotted #666;
+}
+div.dateline {
+	padding: 2px 0;
+	margin: 0px;
+	font-weight: normal;
+	font-size: 10px;
+	color: #f1f1f1;
+}
+div.byline {
+	padding: 5px 0;
+	font-weight: normal;
+}
+div.byline a {
+	background: transparent url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/common/member.gif) no-repeat scroll left center;
+	padding: 3px 0 3px 20px;
+	font-weight: bold;
+	color: #f1f1f1 !important;
+	text-decoration: none;
+}
+div.byline a:hover {
+	text-decoration: underline;
+}
+
+img.btn-join {
+	width: 47px;
+	height: 17px;
+	border: 0;
+	margin: 0;
+	padding: 8px 8px 0 6px;
+}
+
+hr.divider {
+    border: 0;
+    color: #666;
+    background-color: #666;
+    height: 1px;
+    margin: 4px 0;
+    padding: 0;
+}
+
+input.go {
+    border: 0;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+input.img[type=checkbox] {
+	position: absolute;
+	left: -999em;
+}
+input.img[type=checkbox] + label {
+	display: block;
+	height: 16px;
+	padding-left: 20px;
+	background: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/forms/checkbox.png) top left no-repeat;
+}
+input.img[type=checkbox]:checked + label {
+	background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/forms/checkbox_on.png);
+}
+input.img[type=radio] {
+	position: absolute;
+	left: -999em;
+}
+input.img[type=radio] + label {
+	display: block;
+	height: 16px;
+	padding-left: 25px;
+	background: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/forms/radio.png) top left no-repeat;
+}
+input.img[type=radio]:checked + label {
+	background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/forms/radio_on.png);
+}
+
+form.std {
+    margin: 0;
+    padding: 0;
+}
+form.std fieldset {
+	border: 1px inset #09f;
+    margin: 0 0 20px 0;
+}
+form.std legend {
+    font-size: 10px;
+	font-weight: bold;
+	color: #09c;
+	text-transform: uppercase;
+}
+form.std br {
+    clear: both;
+    line-height: 10px;
+}
+form.std .info {
+    padding: 3px;
+    font-size: 10px;
+    color: #d1d1d1;
+}
+form.std .lbl {
+    float: left;
+    text-align: right;
+    width: 200px;
+    color: #999;
+    font-size: 10px;
+    font-weight: bold;
+}
+form.std .field {
+    margin-left: 210px;
+    font-weight: bold;
+}
+form.std .data {
+    margin-left: 210px;
+}
+form.std .desc {
+    font-size: 10px;
+    color: #ccc;
+}
+form.std .req {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+form.std .req:before {
+    content: "* ";
+    color: #f00;
+    font-weight: bold;
+}
+form.std input,
+form.std textarea,
+form.std select,
+form.std .input {
+    font-family: "Lucida Grande",Tahoma,Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    background: #fff;
+    color: #000;
+    border: 2px inset #888;
+    padding: 2px;
+}
+form.std input[type=text], form.std select {
+    width: 200px;
+}
+form.std form.std input[type=file] {
+	width: 300px;
+}
+form.std input.sm[type=text], form.std input.sm[type=file], form.std select.sm {
+    width: 50px;
+}
+form.std input.lg[type=text], form.std input.lg[type=file], form.std select.lg {
+    width: 400px;
+}
+form.std input[type=checkbox], form.std input[type=radio] {
+    background: transparent none;
+    color: #f1f1f1;
+    padding: 0;
+    margin: 0 5px 0 0;
+    border-width: 0px;
+}
+form.std textarea.lg {
+    width: 400px;
+    height: 100px;
+}
+
+form.mcol {
+    display: inline;
+    font-family: "Lucida Grande",Tahoma,Arial,Helvetica,sans-serif;
+    font-size: 11px;
+}
+form.mcol fieldset {
+    border-width: 1px;
+    border-color: #999;
+    margin: 0 0 20px 0;
+}
+form.mcol legend {
+    font-weight: bold;
+}
+form.mcol .m25 {
+    margin-left: 25px;
+}
+form.mcol .form-element {
+    font-family: "Lucida Grande",Tahoma,Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    clear: both;
+    text-align: left;
+    padding: 5px 0;
+    margin-left: 10px;
+}
+form.mcol .form-element div.left {
+    float: left;
+    display: block;
+    width: 50%;
+}
+form.mcol .form-element div.right {
+    float: right;
+    display: block;
+    width: 50%;
+}
+form.mcol .form-element input,
+form.mcol .form-element textarea,
+form.mcol .form-element select {
+    font-family: "Lucida Grande",Tahoma,Arial,Helvetica,sans-serif;
+    font-size: 11px;
+    background: #fff;
+    color: #000;
+    border: 2px inset #3777a8;
+    padding: 2px;
+}
+form.mcol .form-element .tiny {
+    width: 40px;
+}
+form.mcol .form-element .narrow {
+    width: 100px;
+}
+form.mcol .form-element .normal {
+    width: 250px;
+}
+form.mcol .form-element .wide {
+    width: 300px;
+}
+form.mcol .form-element .huge {
+    width: 540px;
+}
+form.mcol .form-element textarea.huge {
+    height: 60px;
+}
+
+div.btn {
+    display: inline;
+}
+div.btn input {
+	border: 2px double #888;
+	border-top-color: #fff;
+	border-left-color: #fff;
+	padding: 3px;
+	background: #fff url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/buttons/bg.png) repeat-x -5px -5px;
+	color: #222;
+	font-size: 10px;
+	font-weight: bold;
+	font-family: "Lucida Grande",Tahoma,Verdana,Helvetica,Arial,sans-serif;
+}
+
+table.list {
+    width: 100%;
+    border-collapse: collapse;
+}
+table.list th {
+    background: #111111 url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/list_header_bg.gif) repeat-x;
+    color: #e1e1e1;
+    padding: 6px;
+    border-bottom: 1px solid #000;
+    border-left: 1px solid #000;
+    text-align: left;
+}
+table.list th:first-child {
+    border-left: 0px;
+}
+table.list td {
+    padding: 2px 6px;
+    background-color: #282828;
+    color: #e1e1e1;
+    height: 24px;
+}
+table.list .alt1 {
+    background-color: #212121;
+}
+table.list .alt2 {
+    background-color: #313131;
+}
+table.list .alt3 {
+    background-color: #383838;
+}
+table.list tr.highlight > td {
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/row_highlight.png);
+}
+table.list tr.highlight > td * {
+    color: #fff !important;
+}
+table.list tr.flag-delete td {
+    background: #f00 none !important;
+}
+table.list tr.flag-update td {
+    background: #090 none !important;
+}
+table.list tr.nodata td {
+    background-color: #282828;
+    text-align: center;
+    padding: 10px;
+}
+table.list td a {
+    color: #4489f4;
+}
+table.list td a:hover {
+    color: #fff;
+}
+table.list-center th,
+table.list-center td {
+    text-align: center;
+}
+table.hover tr:hover > td {
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/row_hover.png);
+}
+table.hover tr:hover > td a {
+    color: #fff;
+}
+
+table.list-sm {
+    width: 100%;
+    border-collapse: collapse;
+}
+table.list-sm th {
+    background: #111111 url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/list_header_bg.gif) repeat-x;
+    color: #e1e1e1;
+    padding: 2px;
+    border-bottom: 1px solid #000;
+    border-left: 1px solid #000;
+    text-align: left;
+}
+table.list-sm txt-rt {
+	text-align: right;
+}
+table.list-sm th:first-child {
+    border-left: 0px;
+}
+table.list-sm td {
+    padding: 1px 3px;
+    background-color: #282828;
+    color: #e1e1e1;
+    height: 24px;
+}
+table.list-sm tr.nodata td {
+    background-color: #282828;
+    text-align: center;
+    padding: 10px;
+}
+table.list-sm a:hover {
+    color: #fff;
+}
+table.list-sm .alt1 {
+    background-color: #212121;
+}
+table.list-sm .alt2 {
+    background-color: #313131;
+}
+table.list-sm .alt3 {
+    background-color: #383838;
+}
+table.list-sm td a {
+    color: #4489f4;
+}
+table.list-xs th, table.list-xs td {
+	font-size: 10px;
+}
+
+.stat {
+    white-space: nowrap;
+    text-align: center;
+}
+table.list th[title] {
+    cursor: help;
+}
+
+div.paging {
+    display: block;
+    height: 40px;
+}
+div.paging .paging-jump {
+    display: block;
+    float: left;
+    color: #c1c1c1;
+}
+div.paging .paging-jump input {
+    width: 30px;
+    background-color: #333;
+    color: #e1e1e1;
+    border: 1px solid #666;
+}
+div.paging .paging-pages {
+    display: block;
+    float: right;
+}
+div.paging .paging-pages ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+div.paging .paging-pages ul li {
+    display: inline;
+}
+div.paging .paging-pages ul li strong {
+    display: block;
+    float: left;
+    text-align: center;
+    font-size: 11px;
+    font-weight: bold;
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/menu_on.png);
+    color: #09f;
+    border: 1px solid #fff;
+    width: 25px;
+    padding: 1px;
+    margin: 0 1px;
+}
+div.paging .paging-pages ul li a:link,
+div.paging .paging-pages ul li a:visited,
+div.paging .paging-pages ul li a:active {
+    display: block;
+    float: left;
+    text-align: center;
+    font-size: 11px;
+    font-weight: normal;
+    text-decoration: none;
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #666;
+    width: 25px;
+    padding: 1px;
+    margin: 0 1px;
+}
+div.paging .paging-pages ul li a:hover {
+    background-color: #616161;
+    color: #e1e1e1;
+    border: 1px solid #fff;
+}
+
+.txt-comment,
+.txt-comment-hover,
+a.txt-comment,
+a.txt-comment:hover {
+	color: #666 !important;
+	font-size: 10px !important;
+	font-weight: normal !important;
+}
+.txt-rt {
+	font-weight: normal;
+	text-align: right;
+}
+
+.icon-rank {
+    width: 12px;
+    height: 7px;
+    border: 0;
+    padding-left: 2px;
+    vertical-align: middle;
+}
+.icon12 {
+    width: 12px;
+    height: 12px;
+    border: 0;
+}
+.icon16 {
+    width: 16px;
+    height: 16px;
+    border: 0;
+}
+.icon24 {
+    width: 24px;
+    height: 24px;
+    border: 0;
+}
+.icon32 {
+    width: 32px;
+    height: 32px;
+    border: 0;
+}
+.icon48 {
+    width: 48px;
+    height: 48px;
+    border: 0;
+}
+.icon64 {
+    display: block;
+    width: 64px;
+    height: 64px;
+    border: 0;
+}
+.icon-rt {
+    padding-right: 5px;
+}
+.icon-lt {
+    padding-left: 5px;
+}
+.icon-f-lt {
+    float: left;
+    display: block;
+    padding: 0 5px 0 0;
+}
+.icon-f-rt {
+    position: relative;
+    float: left;
+    display: block;
+    padding: 0 0 0 5px;
+}
+
+div.boxMedium {
+	width: 310px;
+    margin: 5px;
+    text-align: left;
+	background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/box_bg.png);
+    background-repeat: repeat-x;
+}
+div.boxMedium h3 {
+    margin: 0;
+	padding: 4px 6px;
+	height: 14px;
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/box_header_310.png);
+    background-repeat: no-repeat;
+	font-family: "Lucida Grande",Tahoma,Helvetica,Arial,sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+	text-transform: uppercase;
+    color: #fff;
+}
+div.boxMedium h4 {
+    margin: 0;
+	padding: 9px 6px;
+	height: 12px;
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/box_header_310.png);
+    background-repeat: no-repeat;
+	font-family: "Lucida Grande",Tahoma,Helvetica,Arial,sans-serif;
+    font-size: 9px;
+    font-weight: bold;
+	text-transform: uppercase;
+    color: #fff;
+}
+div.boxMedium h5 {
+    margin: 0;
+	padding: 9px 6px;
+	height: 12px;
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/box_header_310.png);
+    background-repeat: no-repeat;
+	font-family: "Lucida Grande",Tahoma,Helvetica,Arial,sans-serif;
+    font-size: 8px;
+    font-weight: bold;
+	text-transform: uppercase;
+    color: #666;
+}
+div.boxMedium p {
+	clear: both;
+	background: #f1f1f1 none;
+    font-size: 11px;
+	line-height: 14px;
+	margin: 5px;
+    padding: 5px;
+	border: 1px solid #fff;
+	outline: #999 solid 1px;
+}
+div.box,
+form.box {
+	clear: both;
+	display: block;
+	background: #f1f1f1 none;
+    font-size: 11px;
+	line-height: 14px;
+	margin: 5px;
+    padding: 5px;
+	border: 1px solid #fff;
+	outline: #999 solid 1px;
+}
+div.tabbed-box p {
+	height: 243px;
+}
+div.boxLarge {
+	width: 630px;
+    margin: 5px;
+    text-align: left;
+	background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/box_bg.png);
+    background-repeat: repeat-x;
+}
+div.boxLarge h3 {
+    margin: 0;
+    padding: 4px 6px;
+	height: 14px;
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/box_header_630.png);
+    background-repeat: no-repeat;
+	font-family: "Lucida Grande",Tahoma,Helvetica;
+    font-size: 12px;
+    font-weight: bold;
+	text-transform: uppercase;
+    color: #fff;
+}
+div.boxLarge p {
+    margin: 0;
+	display: block;
+	position: relative;
+}
+p.no-header {
+	margin: 5px 0 0 0 !important;
+    padding: 0 5px 5px 5px !important;
+}
+
+div#rotator {
+	width: 630px;
+	height: 315px;
+	position: relative;
+	float: left;
+	margin: 4px;
+}
+ul#rotator-tabs {
+	margin: 0;
+	padding: 0;
+	width: 130px;
+	position: absolute;
+	z-index: 1000;
+	left: 0;
+}
+ul#rotator-tabs li {
+	list-style: none;
+	vertical-align: middle;
+	width: 106px;
+}
+ul#rotator-tabs li a {
+	background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/news/rotator/tab.png);
+	display: block;
+	padding: 4px 7px 8px 7px;
+	height: 36px;
+	color: #afd5ed;
+	font-family: Arial,Helvetica;
+	font-size: 10px;
+	font-weight: bold;
+	width: 106px;
+	text-decoration: none;
+	vertical-align: middle;
+}
+ul#rotator-tabs li a:hover {
+	background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/news/rotator/tab_hover.png);
+	color: #000033;
+}
+ul#rotator-tabs li a.on {
+	background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/news/rotator/tab_on.png);
+	color: #003;
+	font-weight: bold;
+	width: 116px;
+}
+ul#rotator-tabs li a.on:hover {
+	text-decoration: none;
+}
+ul#rotator-tabs li.on a {
+	color: #fff;
+}
+#rotator .boxFeature {
+	padding:6px;
+	margin-left:110px;
+}
+#feature {
+	width:507px;
+	height:277px;
+	position: relative;
+	overflow: hidden;
+	border:1px solid #3777A8;
+}
+#feature .feature-text {
+	background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/opacity/75.png);
+	width: 490px;
+	position: absolute;
+	bottom: 15px;
+	padding: 10px 10px 10px 20px;
+	font-family: "Lucida Grande",Tahoma,Helvetica,Arial;
+	font-size: 12px;
+	border-top: 1px dotted #ccc;
+	border-bottom: 1px dotted #ccc;
+}
+#feature-image {
+	width: 64px;
+	height: 64px;
+	border: 0;
+	padding-right: 10px;
+	float: left;
+}
+#feature-title {
+	width: 410px;
+	font-size: 18px;
+	text-transform: uppercase;
+	color: #f1f1f1;
+	display: block;
+	font-weight: bold;
+}
+#feature-body {
+	color: #aaa;
+	width: 395px;
+	padding-bottom: 12px;
+}
+#feature-link {
+	background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/opacity/50.png);
+	border: 1px solid #333;
+	padding: 6px 3px;
+}
+#feature-link a {
+	background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/go.png);
+	background-repeat: no-repeat;
+	padding: 2px 0 3px 22px;
+	color: #09f;
+}
+#feature-link a:hover {
+	color: #fff;
+}
+#feature-extra {
+	padding: 5px 0 0 25px;
+	font-size: 10px;
+}
+#feature-extra a
+{
+	padding: 0 1px;
+	color: #999;
+	font-size: 10px;
+}
+#feature-extra a:hover {
+	color: #fff;
+}
+#rotator .more-features {
+	padding-left: 3px;
+}
+#rotator .more-features div {
+	clear: both;
+	background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/row_bg.png);
+	line-height: 14px;
+	padding: 2px;
+	font-size: 9px;
+	border: 1px solid #3777A8;
+	width: 616px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+#rotator .more-features strong {
+	font-size:9px;
+	padding-right:2px;
+	text-transform:uppercase;
+}
+#rotator .more-features a {
+	font-size:9px;
+	color:#999;
+	text-decoration: none;
+}
+#rotator .more-features a:hover {
+	color: #eee;
+	text-decoration: underline;
+}
+
+div.arena-news {
+	background: #f1f1f1 none;
+    font-family: "Lucida Grande",Tahoma,Arial;
+    font-size: 11px;
+	line-height: 14px;
+    width: 410px;
+	height: 250px;
+    overflow: auto;
+	margin: 5px;
+    padding: 5px;
+	border: 1px solid #fff;
+	outline: #666 solid 1px;
+	float: right;
+}
+div.arena-news strong {
+	font-size: 12px;
+	font-weight: bold;
+}
+
+a.arenabar {
+	background: #000 url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/row_bg.png) repeat-x;
+	border: 1px solid #000;
+    width: auto;
+	height: 22px;
+	padding: 3px 3px 5px 3px;
+	margin: 3px;
+	cursor: default;
+	display: block;
+	text-decoration: none;
+}
+a.arenabar:hover {
+	background: transparent url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/row_hover.png) repeat-x;
+    border-color: #09f #003  #003 #09f ;
+}
+a.arenabar:hover div {
+	color: #fff;
+}
+a.arenabar img {
+	border: 0;
+	width: 24px;
+	height: 24px;
+}
+a.arenabar div {
+	background: transparent;
+	padding: 0px 0 0 8px;
+	font-size: 10px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #c1c1c1;
+}
+a.arenabar div .platform {
+	color: #666;
+	font-size: 9px;
+	font-weight: normal;
+	font-family: "Lucida Grande",Helvetica,Arial,sans-serif;
+}
+a.arenabar:hover div .platform {
+	color:#fff;
+}
+
+div.ad-728x90 {
+	display: block;
+	margin: 5px;
+	padding: 5px;
+	width: 728px;
+	height: 105px;
+	background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/ads/728x90.png);
+	background-repeat: no-repeat;
+}
+div.ad-300x250 {
+	display: block;
+	margin: 5px;
+	padding: 5px;
+	width: 300px;
+	height: 265px;
+	background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/ads/300x250.png);
+	background-repeat: no-repeat;
+}
+div.ad-160x600 {
+	display: block;
+	margin: 5px;
+	padding: 5px;
+	width: 160px;
+	height: 615px;
+	background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/ads/160x600.png);
+	background-repeat: no-repeat;
+}
+
+div.row {
+    clear: both;
+    padding-top: 5px;
+}
+
+div.ad-728 {
+    width: 738px;
+}
+div.membership {
+	display: block;
+	margin: 5px 5px 5px 0;
+	padding: 5px;
+    width: 190px;
+    height: 105px;
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/ads/200x90.png);
+	background-repeat: no-repeat;
+	text-align: center;
+}
+div.membership img {
+	border: 0px;
+	width: 190px;
+	height: 105px;
+	display: inline;
+	margin: 0;
+	padding: 0;
+}
+
+div.h-small {
+    width: 200px;
+}
+div.h-medium {
+    width: 310px;
+}
+div.h-large {
+    width: 630px;
+}
+div.h-xlarge {
+    width: 960px;
+}
+
+.gamercard {
+	font-size: 10px;
+	color: #ccc;
+}
+.gamercard a:link, .gamercard a:active, .gamercard a:visited, .gamercard a:hover {
+	font-size: 10px;
+	color: #fff;
+}
+.gamercard #myteams {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    width: 38px;
+    height: 6px;
+}
+.gamercard img.icon {
+	width: 16px;
+	height: 16px;
+	border: 0;
+}
+.gamercard img.avatar {
+	width: 55px;
+	height: 55px;
+	float: left;
+	margin: 0 5px 5px 0;
+}
+.gamercard .gamertag a {
+	font-size: 11px;
+	font-weight: bold;
+	color: #fc0;
+	text-decoration: none;
+}
+.gamercard .gamertag a:hover {
+	font-size: 11px;
+	font-weight: bold;
+	color: #fff;
+}
+.gamercard em {
+	font-size: 10px;
+	color: #fff;
+}
+
+#header {
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/header_bg.jpg);
+    background-repeat: repeat-x;
+    clear: both;
+}
+#masthead {
+    position: relative;
+    margin: 0 auto;
+    width: 980px;
+    height: 101px;
+    clear: both;
+}
+#mybar {
+    width: 499px;
+    height: 26px;
+    float: right;
+    position: relative;
+    z-index: 10;
+}
+#btnLogin {
+    font-weight: bold;
+}
+#mybar div.mybar-left {
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/mybar_left.png);
+    background-repeat: no-repeat;
+    height: 26px;
+    left: 0px;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    z-index: 10;
+}
+#mybar div.mybar-right {
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/mybar_right.png);
+    background-repeat: no-repeat;
+    float: right;
+    height: 26px;
+    left: 0px;
+    position: relative;
+    top: 0px;
+    width: 46px;
+    z-index: 10;
+}
+#mybar div.mybar-menu {
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/mybar_bg.png);
+    background-repeat: repeat-x;
+    width: 390px;
+    height: 26px;
+    position: absolute;
+    top: 0px;
+    left: 63px;
+    margin: 0;
+    padding: 0;
+    z-index: 10;
+}
+#mybar div.mybar-menu ul {
+    width: 375px;
+    height: 26px;
+    margin: 0;
+    padding: 0 5px 0 10px;
+    z-index: 10;
+}
+#mybar div.mybar-menu ul li {
+    display: inline;
+    list-style-type: none;
+    font-family: "Lucida Grande",Tahoma,Arial,sans-serif;
+    font-size: 10px;
+    line-height: 22px;
+    color: #fff;
+    padding: 0 5px 0 0;
+}
+#mybar div.mybar-menu ul li:before {
+    content: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/menu_divider.png) " ";
+    padding: 0 5px 0 0;
+}
+#mybar div.mybar-menu ul li:first-child:before {
+    content: "";
+    padding: 0;
+}
+#mybar div.mybar-menu ul li a {
+    font-family: "Lucida Grande",Tahoma,Arial,sans-serif;
+    font-size: 10px;
+	text-decoration: none;
+}
+#mybar div.mybar-menu ul li.welcome {
+    font-weight: bold;
+}
+#mybar div.mybar-menu ul li.welcome a {
+    color: #fc0;
+}
+#mybar div.mybar-menu ul li.welcome a:hover {
+    color: #fff;
+}
+#mybar div.mybar-menu ul li.mail a {
+    background: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/icons/mail.png) no-repeat 0 3px;
+    padding-left: 15px;
+    color: #eee;
+}
+#mybar div.mybar-menu ul li.mail a:hover {
+    color: #fff;
+}
+#mybar div.mybar-menu ul li.loginout a {
+    color: #6dcff6;
+}
+#mybar div.mybar-menu ul li.loginout a:hover {
+    color: #fff;
+}
+#mybar div.mybar-menu ul li.support a {
+    background: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/icons/support.png) no-repeat;
+    padding-left: 15px;
+    text-decoration: none;
+    color: #eee;
+}
+#mybar div.mybar-menu ul li.support a:hover {
+    background: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/icons/support.png) no-repeat;
+    padding-left: 15px;
+    text-decoration: none;
+    color: #fff;
+}
+#mybar div.mybar-menu ul li.store a {
+    background: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/icons/store.png) no-repeat;
+    padding-left: 20px;
+    text-decoration: none;
+    color: #eee;
+}
+#mybar div.mybar-menu ul li.store a:hover {
+    background: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/icons/store.png) no-repeat;
+    padding-left: 20px;
+    text-decoration: none;
+    color: #fff;
+}
+#mybar #quicklinks {
+	width: 150px;
+    height: 26px;
+    margin: 0;
+    padding: 0 5px 0 10px;
+    position: relative;
+    top: -25px;
+    left: 260px;
+}
+#mybar-content {
+	background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/login_bg.png) !important;
+	background: transparent url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/login_bg.gif) no-repeat;
+	display: block;
+	position: absolute;
+	top: -45px;
+	left: 24px;
+	width: 444px;
+	height: 71px;
+	z-index: 5;
+	color: #6dcff6;
+	font-size: 10px;
+	padding: 5px 0 0 10px;
+	font-family: "Lucida Grande",Tahoma,Arial,sans-serif;
+    font-size: 9px;
+}
+#mybar-content form {
+    margin: 0;
+    padding: 0;
+    display: inline;
+}
+#mybar-content input.in {
+	margin: 0 5px 0 5px;
+	border: 1px solid #369;
+	background-color: #23445d;
+	color: #fff;
+	width: 120px;
+}
+#mybar-content .remember {
+	display: inline;
+	position: relative;
+	left: 280px;
+}
+#mybar-content .remember label {
+	font-size: 9px;
+	color: #6dcff6;
+	padding-top: 3px;
+}
+#mybar-content ul {
+    clear: both;
+    margin: 0;
+	padding: 0;
+	position: relative;
+}
+#mybar-content ul li {
+    display: inline;
+    list-style-type: none;
+    line-height: 22px;
+    padding: 0 6px 0 0;
+}
+#mybar-content ul li:before {
+    content: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/menu_divider.png) " ";
+    padding: 0 6px 0 0;
+}
+#mybar-content ul li:first-child:before {
+    content: "";
+    padding: 0;
+}
+#mybar-content ul li a {
+    font-size: 9px;
+	color: #e1e1e1;
+}
+#mybar-content ul li a:hover {
+    color: #fff;
+}
+#mybar .team {
+    position: relative;
+    display: inline;
+}
+#mybar .team img.team-alert {
+    position: absolute;
+    z-index: 1000;
+    top: 12px;
+    left: 14px;
+    width: 12px;
+    height: 12px;
+    border: 0;
+}
+
+.thumb {
+	width: 120px;
+	height: 90px;
+	border: 1px solid #fff;
+	float: left;
+	margin: 0 5px 5px 0;
+}
+.thumbsm {
+	width: 60px;
+	height: 40px;
+	border: 1px solid #fff;
+	float: left;
+	margin: 0 5px 5px 0;
+}
+
+#logo {
+    position: absolute;
+    top: 23px;
+    left: 23px;
+}
+#logo img.logo {
+    width: 336px;
+    height: 73px;
+    position: relative;
+}
+
+#menubar {
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/menu_bg.png);
+    background-repeat: repeat-x;
+    height: 29px;
+    z-index: 5000;
+}
+#main-menu {
+    width: 1075px;
+    height: 29px;
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/menu.png);
+    background-repeat: no-repeat;
+    margin: 0 auto;
+	z-index: 5000;
+}
+#main-menu ul {
+    float: left;
+    width: 800px;
+    height: 26px;
+    margin: 0;
+    padding: 4px 0 0 90px;
+	z-index: 5000;
+}
+#main-menu li {
+    display: inline;
+    position: relative;
+    list-style-type: none;
+    color: #fff;
+	z-index: 5000;
+}
+#main-menu li:before {
+    content: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/menu_divider.png);
+    padding: 0 2px 0 0px;
+}
+#main-menu li:first-child:before {
+    content: "";
+}
+#main-menu a {
+    padding: 4px 5px;
+    height: 18px;
+    line-height: 15px;
+    font-family: "Lucida Grande",Tahoma,Helvetica,Arial,sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #c4cacf;
+    border-width: 0 1px 0 1px;
+    border-style: solid;
+    border-color: transparent;
+	z-index: 5000;
+}
+#main-menu a.parent {
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/icons/dropdown_hover.png);
+    background-repeat: no-repeat;
+    background-position: -32px;
+    padding-right: 1px;
+}
+#main-menu a.parent:after {
+    content: " " url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/icons/dropdown.png);
+    background-position: center right;
+}
+#main-menu a.parent:hover:after {
+    content: " " url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/icons/dropdown_hover.png);
+}
+#main-menu a.on {
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/menu_on2.png) !important;
+    background-repeat: repeat-x;
+    border-left-color: #1e2022;
+    border-right-color: #5e7a90;
+    color: #003 !important;
+}
+#main-menu a:hover {
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/menu_hover2.png);
+    background-repeat: repeat-x;
+    background-position: 0;
+    border-left-color: #1e2022;
+    border-right-color: #5e7a90;
+    color: #fff;
+}
+#main-menu li ul {
+    width: 200px;
+    display: none;
+	padding: 0;
+	margin: 0;
+	position: absolute;
+    left: 4px;
+	top: 17px;
+	z-index: 5000;
+}
+#main-menu li ul li:before {
+    content: "";
+    padding: 0;
+    z-index: 5001;
+}
+#main-menu li ul li a:before {
+    content: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/icons/12/arena.png) " ";
+    background-position: left center;
+    z-index: 5001;
+}
+#main-menu li ul li a.news:before {
+    content: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/icons/12/news.png) " ";
+    background-position: left center;
+    z-index: 5001;
+}
+#main-menu li ul li a.forum:before {
+    content: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/icons/12/forum.png) " ";
+    background-position: left center;
+    z-index: 5001;
+}
+#main-menu li ul li a.member:before {
+    content: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/icons/12/member.png) " ";
+    background-position: left center;
+    z-index: 5001;
+}
+#main-menu li ul li a.options:before {
+    content: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/icons/12/options.png) " ";
+    background-position: left center;
+    z-index: 5001;
+}
+#main-menu li ul li a.search:before {
+    content: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/icons/12/search.png) " ";
+    background-position: left center;
+    z-index: 5001;
+}
+#main-menu li ul li a.video:before {
+    content: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/icons/12/video.png) " ";
+    background-position: left center;
+    z-index: 5001;
+}
+#main-menu li ul li.divider {
+    display: block;
+    width: 228px;
+    height: 1px;
+    padding: 0;
+	margin: 0;
+	font-size: 1px;
+    line-height: 1px;
+    z-index: 1000;
+    background-color: #fff;
+    border-color: #999;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+#main-menu li ul li a {
+    display: block;
+	font-size: 9px;
+    padding: 1px 3px;
+    width: 220px;
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/opacity/90.png);
+	border-color: #555;
+	border-bottom-color: #333;
+    border-width: 0 1px 1px 1px;
+    border-style: solid;
+	z-index: 5001;
+}
+#main-menu li ul li:last-child a {
+	border-bottom-color: #555;
+}
+#main-menu li ul li a:hover {
+    color: #fff;
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/menu_hover2.png);
+    background-repeat: repeat-x;
+	z-index: 5001;
+    border-left-color: #555;
+    border-right-color: #555;
+}
+#main-menu li ul li.current a {
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/menu_on2.png) !important;
+    color: #003 !important;
+}
+#main-menu li ul li.current a:before {
+    content: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/icons/check_hover.png) " ";
+    background-position: left center;
+    z-index: 5001;
+}
+#main-menu li ul li.current a:hover {
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/menu_hover2.png);
+    color: #fff;
+}
+#main-menu li ul li.current a:hover:before {
+    content: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/icons/check_hover.png) " ";
+    z-index: 5001;
+}
+#main-menu li:hover ul {
+    display: block;
+    z-index: 5000;
+}
+#menu-search {
+    display: inline;
+    position: relative;
+    top: 2px;
+    left: -45px;
+}
+#menu-search input.box {
+    width: 120px;
+    font-size: 9px;
+    color: #666;
+    border-width: 1px;
+    border-style: solid;
+    border-top-color: #1e2022;
+    border-right-color: #5e7a90;
+    border-bottom-color: #5e7a90;
+    border-left-color: #1e2022;
+}
+
+#locale {
+    float: right;
+    position: relative;
+    left: -45px;
+    font-family: "Lucida Grande",Tahoma,Helvetica,Sans;
+    font-size: 10px;
+    color: #999;
+}
+#locale img {
+    width: 20px;
+    height: 13px;
+    border: 0;
+    vertical-align: middle;
+}
+
+#arena-header {
+	clear: both;
+	width: 1075px;
+	height: 105px;
+	border: 0;
+	margin: 0 auto;
+	padding: 0;
+	text-align: center;
+	position: relative;
+	z-index: 4000;
+}
+#arena-logo {
+	width: 985px;
+	height: 80px;
+	border: 0;
+	margin: 0 auto;
+	z-index: 0;
+}
+#arena-menu {
+	clear: both;
+	width: 1075px;
+	height: 25px;
+	background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/submenu_bg.png);
+	background-repeat: no-repeat;
+	position: absolute;
+	left: 1px;
+	top: 80px;
+	z-index: 4000;
+}
+#arena-menu ul {
+	margin: 0;
+	padding: 5px 0 0 60px;
+	text-align: left;
+}
+#arena-menu li {
+	display: inline;
+	list-style-type: none;
+	font-weight: normal;
+	font-size: 8px;
+	color: #000;
+	position: relative;
+	z-index: 4000;
+}
+#arena-menu li.menu-title {
+	font-size: 10px;
+	font-weight: bold;
+	font-style: normal;
+	color: #c00;
+	padding: 5px 6px;
+}
+#arena-menu li.menu-title a.expand {
+	background: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/icons/expand.png) no-repeat 0 0;
+    padding: 0px 16px 0 0;
+    margin: 0;
+}
+#arena-menu li.menu-title a.collapse {
+	background: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/icons/collapse.png) no-repeat 0 0;
+    padding: 0px 16px 0 0;
+    margin: 0;
+}
+#arena-menu a {
+	color: #000;
+	font-size: 10px;
+	font-weight: bold;
+	padding: 5px 4px;
+	text-decoration: none;
+	z-index: 4000;
+}
+#arena-menu li:after {
+	content: " " url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/menu_divider_dark.png);
+}
+#arena-menu li:first-child:after {
+	content: "";
+}
+#arena-menu li:last-child:after {
+	content: "";
+}
+#arena-menu li a:hover {
+	color: #fff;
+	background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/tabs/bg_alt_on.png);
+	background-repeat: repeat-x;
+}
+#arena-menu li a.on {
+	color: #fff;
+	background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/submenu_on.png);
+	background-repeat: repeat-x;
+}
+#arena-menu li a.pro-circuit {
+	color: #c00;
+	font-size: 10px;
+	font-weight: bold;
+	padding: 5px 5px;
+	text-decoration: none;
+	z-index: 0;
+}
+#arena-menu li a.pro-circuit:hover {
+	color: #fff;
+	background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/submenu_hover.png);
+	background-repeat: repeat-x;
+}
+#arena-menu li a.parent:after {
+    content: " " url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/icons/dropdown.png);
+    background-position: center right;
+}
+#arena-menu li a.parent:hover:after {
+    content: " " url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/icons/dropdown_hover.png);
+}
+
+#arena-menu li ul {
+    width: 220px;
+    display: none;
+	padding: 0;
+	margin: 0;
+	position: absolute;
+	left: 0px;
+	top: 15px;
+	z-index: 4000;
+}
+#arena-menu li:hover ul {
+    display: block;
+    z-index: 4000;
+}
+#arena-menu li ul li:after {
+	content: "";
+    padding: 0;
+    z-index: 4001;
+}
+#arena-menu li ul li a {
+	font-weight: bold;
+    display: block;
+	line-height: 19px;
+    padding: 2px 3px;
+    width: 200px;
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/opacity/white_menu.png);
+	border-color: #fff;
+    border-width: 0 1px 1px 1px;
+    border-style: solid;
+	z-index: 4001;
+	margin: 0;
+}
+#arena-menu li ul li a:hover {
+    color: #fff;
+	z-index: 4001;
+    border-left-color: #fff;
+    border-right-color: #fff;
+}
+#arena-menu li ul li.ladder {
+	height: 20px;
+	width: auto;
+}
+#arena-menu li ul li.ladder a {
+	background: transparent url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/menus/arena_sub.png) no-repeat 0 0;
+	padding-left: 20px;
+}
+#arena-menu li ul li.ladder a:hover {
+	background: transparent url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/menus/arena_sub_over.png) no-repeat 0 0;
+	padding-left: 20px;
+}
+#arena-menu li ul li.tournament a {
+	background: transparent url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/menus/arena_sub.png) no-repeat 0 -24px;
+	padding-left: 20px;
+}
+#arena-menu li ul li.tournament a:hover {
+	background: transparent url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/menus/arena_sub_over.png) no-repeat 0 -24px;
+	padding-left: 20px;
+}
+
+div.confirmation {
+	margin: 5px;
+	padding: 1px 0 0 0;
+}
+div.confirmation div {
+	background: #bdfa92 url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/confirm_bg.png?rev=w) repeat-x;
+	border-color: #67d619;
+	border-style: solid;
+	border-width: 0pt 1px;
+	color: #142b05;
+	font-family: "Lucida Grande",Tahoma,Helvetica,sans-serif;
+	font-size: 11px;
+	text-align: center;
+	text-decoration: none;
+	cursor: default;
+}
+div.confirmation div a {
+	font-size: 11px;
+	color: #2c5113;
+	text-decoration: none;
+}
+div.confirmation div a:hover {
+	text-decoration: underline;
+}
+div.confirmation div b {
+	border-color: #67d619;
+	border-style: solid;
+	border-width: 1px 0 0 0;
+	display: block;
+	position: relative;
+	left: 0;
+	top: -1px;
+}
+div.confirmation div b b {
+	border-width: 0 0 1px 0;
+	top: 2px;
+	padding-top: 5px;
+	height: 22px;
+}
+
+div.notice {
+	margin: 5px;
+	padding: 1px 0 0 0;
+}
+div.notice div {
+	background: #f1f1f1 url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/notice_bg.png) repeat-x;
+	border-color: #fa0;
+	border-style: solid;
+	border-width: 0pt 1px;
+	color: #000;
+	font-family: "Lucida Grande",Tahoma,Helvetica,sans-serif;
+	font-size: 11px;
+	text-align: center;
+	text-decoration: none;
+	cursor: default;
+}
+div.notice div a {
+	font-size: 11px;
+	color: #000;
+	text-decoration: none;
+}
+div.notice div a:hover {
+	text-decoration: underline;
+}
+div.notice div b {
+	border-color: #fa0;
+	border-style: solid;
+	border-width: 1px 0 0 0;
+	display: block;
+	position: relative;
+	left: 0;
+	top: -1px;
+}
+div.notice div b b {
+	border-width: 0 0 1px 0;
+	top: 2px;
+	padding-top: 5px;
+	height: 22px;
+}
+
+#ticker {
+    color: #f1f1f1;
+    height: 128px;
+}
+#ticker_title {
+    float: left;
+    padding: 4px 0 4px 5px;
+    margin: 0;
+    color: #f1f1f1;
+    font-weight: bold;
+}
+#ticker_ctl {
+    color: #f1f1f1;
+    float: right;
+    font-size: 9px;
+    padding: 0 2px 0 0;
+}
+#ticker_ctl a {
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    color: #09f;
+}
+#ticker_ctl a:hover {
+    color: #fff;
+}
+#ticker_results {
+    margin-top: 0px;
+    font-weight: bold;
+    height: 36px;
+    line-height: 18px;
+}
+#ticker_results div {
+    float: right;
+    color: #999;
+    margin: 0;
+    padding: 0;
+}
+#ticker_results div.sep {
+    float: none;
+	height: 1px;
+	background: #666;
+	overflow: hidden;
+}
+#ticker_links {
+    padding: 2px;
+    width: 296px;
+    line-height: 18px;
+}
+#ticker_links select {
+    float: right;
+    border: 1px solid #333;
+    background: #0e161d;
+    color:#e1e1e1;
+}
+
+ul.news  {
+	margin: 0;
+	padding: 0;
+	text-align: left;
+}
+ul.news li {
+	clear: both;
+	padding: 3px;
+	list-style-type: none;
+	font-weight: normal;
+	font-size: 10px;
+	line-height: 15px;
+	height: 15px;
+	border-bottom: 1px dotted #c1c1c1;
+	color: #d1d1d1;
+}
+ul.news li:last-child {
+	border-bottom-width: 0px;
+}
+ul.news li a {
+	font-weight: normal;
+	color: #f1f1f1;
+	text-decoration: none;
+	float: none;
+	height: 15px;
+	width: 220px;
+}
+ul.news li a.trim {
+	float: left;
+	overflow: hidden;
+}
+ul.news li a:hover {
+    text-decoration: underline;
+}
+ul.news li span {
+	float: right;
+	text-align: right;
+	font-size: 9px;
+	font-weight: bold;
+	color: #f9b600;
+}
+ul.news li span a {
+	font-size: 9px;
+	font-weight: normal;
+	color: #1b74b8;
+	text-decoration: underline;
+	float: none;
+	height: auto;
+	width: auto;
+}
+ul.news li span a:hover {
+	font-weight: normal;
+	color: #fff;
+}
+ul.news-ds li {
+	height: 30px;
+}
+ul.news-ts li {
+	height: 45px;
+}
+
+ul.list  {
+	margin: 0;
+	padding: 0;
+	text-align: left;
+}
+ul.list li {
+	clear: both;
+	padding: 3px;
+	list-style-type: none;
+	font-weight: normal;
+	font-size: 10px;
+	line-height: 15px;
+	height: 15px;
+	border-top: 1px solid #333;
+	border-bottom: 1px solid #000;
+	color: #d1d1d1;
+}
+ul.list li:first-child {
+	border-top-width: 0px;
+}
+ul.list li:last-child {
+	border-bottom-width: 0px;
+}
+ul.list li a {
+	font-weight: normal;
+	text-decoration: none;
+	color: #c1c1c1;
+	float: none;
+	height: 15px;
+	width: 220px;
+}
+ul.list li a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+ul.list li div.trim {
+	float: left;
+	overflow: hidden;
+	//white-space: nowrap;
+	//text-overflow: ellipsis;
+}
+ul.list li span {
+	float: right;
+	text-align: right;
+	font-size: 9px;
+	font-weight: bold;
+	color: #f9b600;
+}
+ul.list li span a {
+	font-size: 9px;
+	font-weight: normal;
+	color: #1b74b8;
+	text-decoration: underline;
+	float: none;
+	height: auto;
+	width: auto;
+}
+ul.list li span a:hover {
+	font-weight: normal;
+	color: #fff;
+}
+ul.list-ds li {
+	height: 30px;
+}
+ul.list-ts li {
+	height: 45px;
+}
+
+.tabs {
+	padding: 5px;
+	margin: 0;
+	height: 18px;
+}
+.tabs ul {
+	margin: 0;
+	padding: 0;
+	position: relative;
+	z-index: 0;
+}
+.tabs ul li {
+	float: left;
+	list-style-type: none;
+	font-size: 10px;
+	border-width: 0;
+	padding: 8px 2px 8px 0;
+	margin: 0 3px 0 0;
+	white-space: nowrap;
+	background-image: url("http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/tabs/fulltab.png");
+	background-position: right center;
+	background-repeat: no-repeat;
+}
+.tabs ul li:hover {
+	background-image: url("http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/tabs/fulltab_over.png");
+}
+.tabs ul li.rt {
+	float: right;
+}
+.tabs ul li a {
+	color: #2f8bc5;
+	font-family: "Lucida Grande",Tahoma,Helvetica,sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	text-decoration: none;
+	background-image: url("http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/tabs/fulltab.png");
+	background-position: left center;
+	background-repeat: no-repeat;
+	border-width: 0;
+	padding: 8px 7px 8px 8px;
+	margin: 0;
+}
+.tabs ul li a:hover {
+	background-image: url("http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/tabs/fulltab_over.png");
+	color: #fff;
+	text-decoration: underline;
+}
+.tabs ul li.on {
+	background-image: url("http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/tabs/fulltab_on.png");
+	border-width: 0;
+}
+.tabs ul li.on a {
+	background-image: url("http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/tabs/fulltab_on.png");
+	color: #003;
+	text-decoration: none;
+}
+.tabs ul li.empty {
+	background-image: none;
+    padding: 0;
+    margin: 0;
+    height: 2px;
+    border-width: 0;
+}
+
+#container {
+    clear: both;
+    width: 962px;
+    background: transparent url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/opacity/50.png);
+	border: 1px solid #333;
+	border-width: 0 1px 0 1px;
+    margin: auto;
+    padding: 0;
+    text-align: center;
+    display: block;
+    z-index: 0 !important;
+}
+
+ul.rules li {
+    color: #a1a1a1;
+}
+ul.rules li strong {
+    color: #fff;
+}
+
+.comment {
+    clear: both;
+    padding: 5px;
+}
+.comment-alt {
+    clear: both;
+    padding: 5px;
+    background: #15232e none;
+    border-top: 1px solid #315892;
+    border-bottom: 1px solid #315892;
+}
+.comment a, .comment-alt a {
+    color: #09f;
+}
+.comment a:hover, .comment-alt a:hover {
+    color: #fff;
+}
+.comment-avatar {
+    float: left;
+    width: 64px;
+}
+.comment-link {
+    float: right;
+    border: 0;
+}
+.comment-body {
+    margin-left: 72px;
+}
+.comment-title {
+    padding: 5px 0;
+    height: 15px;
+    border-bottom: 1px dotted #666;
+}
+.comment-user {
+    float: left;
+    color: #999;
+    padding-right: 10px;
+}
+.comment-dateline {
+    float: left;
+    padding: 0 10px;
+    border-left: 1px dotted #666;
+    font-size: 10px;
+    color: #999;
+}
+.comment-rating {
+    color: #f90;
+    font-weight: bold;
+}
+.comment-text {
+    color: #fff;
+    padding: 5px 0;
+}
+
+#footer {
+    clear: both;
+    margin: 0;
+    width: 100%;
+    height: 35px;
+    border-top: 1px solid #f9b600;
+    background: #000 url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/footer_bg.png) repeat-x;
+    color: #ccc;
+    font-size: 9px;
+}
+#footer #footer-text {
+    width: 950px;
+    margin: 0 auto;
+    height: 29px;
+    padding-top: 6px;
+}
+#footer #copyright {
+    font-size: 9px;
+    float: left;
+}
+#footer ul {
+    float: right;
+    margin: 0;
+    padding: 0;
+}
+#footer li {
+    display: inline;
+    list-style-type: none;
+    padding: 0 5px 0 5px;
+}
+#footer li:before {
+    content: " | ";
+    padding-right: 10px;
+}
+#footer li:first-child:before {
+    content: "";
+}
+#footer a {
+    font-size: 9px;
+    color: #f9b600;
+    text-decoration: none;
+}
+#footer a:hover {
+    color: #fff;
+}
+
+#team-profile {
+    height: 200px;
+}
+#team-profile .tag {
+    color: #999;
+    font-size: 10px;
+    font-weight: bold;
+}
+#team-logo {
+    width: 300px;
+    height: 200px;
+    border: 0;
+    float: left;
+    padding: 0 10px 0 0;
+}
+#team-profile hr {
+    border: 0;
+    color: #3e7397;
+    background-color: #3e7397;
+    height: 1px;
+    margin: 4px 0;
+    padding: 0;
+}
+
+.win {
+    color: #0c0 !important;
+    font-weight: bold;
+}
+.loss {
+    color: #c00 !important;
+    font-weight: bold;
+}
+
+div.bar-outer {
+    background: #111 url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/list_header_bg.gif) repeat scroll 0;
+    border: 1px solid #000;
+    height: 16px;
+    text-align: left;
+    width: 50px;
+    position: relative;
+}
+div.bar-inner {
+    background: #06c url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/icons/16/pctbar.png) repeat scroll 0;
+    height: 16px;
+}
+div.bar-inner-green {
+    background: #060 url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/icons/16/pctbar_green.png) repeat scroll 0;
+    height: 16px;
+}
+div.bar-inner-purple {
+    background: #303 url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/icons/16/pctbar_purple.png) repeat scroll 0;
+    height: 16px;
+}
+div.bar-inner-gold {
+    background: #cc0 url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/icons/16/pctbar_gold.png) repeat scroll 0;
+    height: 16px;
+}
+div.bar-text {
+    color: #fff;
+    font-size: 9px;
+    font-weight: bold;
+    height: 16px;
+    text-align: center;
+    width: 50px;
+}
+
+.scorecard {
+    display: block;
+    float: left;
+    width: 306px;
+}
+.scorecard .title {
+    background: transparent url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/scorecard/title.png) no-repeat;
+    font-size: 10px;
+    height: 11px;
+    padding: 4px 5px;
+}
+.scorecard .datetime {
+    float: left;
+    font-size: 10px;
+    margin-left: 2px;
+    color: #919191;
+}
+.scorecard a {
+    font-size: 10px;
+}
+.scorecard .scorebox {
+    display: block;
+    width: 306px;
+    height: 22px;
+}
+.scorecard .scorebox .team {
+    float: left;
+    display: block;
+    margin-bottom: 1px;
+    padding: 4px 5px;
+    height: 12px;
+    width: 250px;
+    background: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/scorecard/team.png);
+    color: #fff;
+    font-size: 11px;
+    border: 1px solid #3777a8;
+}
+.scorecard .scorebox .team .arrow {
+    width: 7px;
+    height: 11px;
+    float: right;
+    border: 0;
+    margin-top: -11px;
+}
+.scorecard .scorebox .score {
+    float: left;
+    display: block;
+    margin-left: 1px;
+    text-align: center;
+    padding: 4px 5px;
+    height: 12px;
+    width: 30px;
+    background: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/scorecard/score.png);
+    color: #fff;
+    border: 1px solid #3777a8;
+}
+
+
+.listmenu a.lm-selected:link,
+.listmenu a.lm-selected:active,
+.listmenu a.lm-selected:visited,
+.listmenu a.lm-selected:hover {
+	background-color: #3875d7 !important;
+	background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/listbox_hover.gif) !important;
+}
+
+#pb {
+    width: 100%;
+	height: 20px;
+    text-align: center;
+	position: relative;
+	z-index: 100;
+}
+#pb div, #pb ul, #pb li {
+    margin: 0;
+    padding: 0;
+}
+#pb .pbblue {
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/pb/hdr_bg_blue.gif);
+    background-repeat: repeat-x;
+    height: 20px;
+    left: 0px;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    z-index: 0;
+}
+#pb .pbred {
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/pb/hdr_bg_red.gif);
+    background-repeat: repeat-x;
+    float: right;
+    height: 20px;
+    left: 0px;
+    position: relative;
+    top: 0px;
+    width: 50%;
+    z-index: 0;
+}
+#pb .pbmain {
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/pb/hdr_bg_red.gif);
+    background-repeat: repeat-x;
+    height: 20px;
+    left: 0px;
+    position: relative;
+    top: 0px;
+    width: 950px;
+    z-index: 0;
+}
+#pb .pbc {
+    width: 950px;
+    margin: auto;
+}
+#pb .pblogo {
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/pb/logo_mlg_sm.gif);
+    background-repeat: no-repeat;
+    float: left;
+    width: 78px;
+    height: 20px;
+}
+#pb .pblogo img {
+    display: inline;
+    width: 78px;
+    height: 20px;
+    border: 0;
+}
+#pb ul.pbmenu {
+    float: left;
+    width: 430px;
+}
+#pb .pbmenu li {
+    display: inline;
+    list-style-type: none;
+}
+#pb .pbmenu li a {
+    display: block;
+    float: left;
+    font-family: Tahoma,Helvetica,sans-serif;
+	font-size: 11px;
+    padding: 0px 7px;
+}
+#pb .pbmenu li a:link, #pb .pbmenu li a:visited, #pb .pbmenu li a:active {
+    color: #fff;
+    background-image:url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/pb/hdr_item_red_off.gif);
+    background-repeat:repeat-x;
+    text-decoration: none;
+    height:20px;
+    line-height:18px;
+}
+#pb .pbmenu li a:hover {
+    color: #fff;
+    background-image:url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/pb/hdr_item_red_on.gif);
+    background-repeat:repeat-x;
+    text-decoration: none;
+    height:20px;
+    line-height:18px;
+}
+#pb .pbpromo {
+    background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/pb/hdr_promobar.gif);
+    background-repeat: no-repeat;
+    height: 20px;
+    line-height: 18px;
+    width: 442px;
+    float: right;
+    text-align: left;
+	position: relative;
+	z-index: 1000;
+}
+#pb .pbpromo #portalBarText {
+    display: inline;
+    color: #fff;
+    padding-left: 26px;
+}
+#pb .pbpromo #portalBarText a {
+    color: #fff;
+    text-decoration: none;
+}
+#pb .pbpromo #portalBarText a:hover {
+    text-decoration: underline;
+}
+
+#popalert {
+    background: transparent url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/popalert/top.png) no-repeat top right;
+    width: 352px;
+    position: absolute;
+    z-index: 9999;
+    visibility: hidden;
+    overflow: hidden;
+}
+#popalert a {
+	font-family: "Lucida Grande",Tahoma,Helvetica,Arial,sans-serif;
+	font-size: 11px;
+	color: #039;
+}
+#popalert-arrow {
+	background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/popalert/arrow.png);
+	background-repeat: no-repeat;
+	width: 23px;
+	height: 22px;
+    position: absolute;
+    z-index: 10000;
+	top: 50px;
+	left: 0px;
+}
+#popalert-title {
+	font-family: "Lucida Grande",Tahoma,Helvetica,Arial,sans-serif;
+	font-size: 11px;
+    font-weight: bold;
+    height: 22px;
+    padding: 8px 0px 0px 8px;
+    float: left;
+    color: #fff;
+	margin-left: 22px;
+}
+#popalert-close {
+    padding: 6px 25px 0 0;
+    float: right;
+	vertical-align: middle;
+}
+#popalert-close a {
+	color: #09f;
+	font-size: 11px;
+	font-weight: bold;
+	background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/icons/close.png);
+	background-repeat: no-repeat;
+	background-position: right;
+	padding: 0 24px 8px 0;
+}
+#popalert-content {
+	background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/popalert/bg.png);
+	background-repeat: repeat-y;
+	min-height: 50px;
+    clear: both;
+    margin: 0;
+    z-index: inherit;
+    padding: 8px;
+    color: #000;
+	margin-left: 22px;
+}
+#popalert-options {
+	text-align: right;
+	position: absolute;
+	bottom: 30px;
+	right: 30px;
+}
+#popalert-options a {
+	background: transparent url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/icons/12/options.png) no-repeat;
+	padding-left: 16px;
+}
+#popalert-bottom {
+	background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/common/popalert/bottom.png);
+	background-repeat: no-repeat;
+	background-position: bottom left;
+    margin: 0;
+	height: 1px;
+    padding: 15px;
+    z-index: inherit;
+	margin-left: 22px;
+}
+#dimmer {
+	display: none;
+    background-color: #000;
+    height: 100%;
+    width: 100%;
+    display: none;
+    z-index: 9998;
+    top: 0px;
+    left: 0px;
+    position: absolute;
+}
+
+div.gtc {
+  background-repeat:no-repeat;
+  width:250px;
+  height:24px;
+}
+div.gtc-xbl {
+  background-image:url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/common/platforms/xbl_gamertag.gif);
+}
+div.gtc-psn {
+  background-image:url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/common/platforms/psn_id.gif);
+}
+div.gtc-wii {
+  background-image:url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/common/platforms/wii_code.gif);
+}
+div.gtc div {
+  padding-top:5px;
+  padding-left:120px;
+  width:120px;
+  text-align:center;
+  color:#fff !important;
+  font-weight:normal !important;
+  font-style:normal !important;
+  font-size:10px !important;
+  font-family:Tahoma,Arial,sans-serif !important;
+  text-decoration:none !important;
+}
+div.gtc a:link, div.gtc a:visited, div.gtc a:active {
+  color:#fff !important;
+  font-weight:normal !important;
+  font-style:normal !important;
+  font-size:10px !important;
+  font-family:Tahoma,Arial,sans-serif !important;
+  text-decoration:none !important;
+}
+div.gtc a:hover {
+  color:#f90 !important;
+  font-weight:normal !important;
+  font-style:normal !important;
+  font-size:10px !important;
+  font-family:Tahoma,Arial,sans-serif !important;
+  text-decoration:none !important;
+}
+
+.selectbox {
+	width: 200px;
+}
+.selectbox input {
+	width: 100%;
+	border: 1px solid #369;
+	background: #101a22 url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/sbarrows.png) no-repeat scroll center right;
+	margin: 0;
+	padding: 3px 25px 3px 1px;
+	text-align: left;
+	color: #e1e1e1;
+}
+.selectbox input[type=text] {
+	padding: 4px 25px 4px 4px;
+}
+.selectbox input:hover {
+	border-color: #69f;
+}
+.sbsm input {
+	padding: 0px 25px 0px 0;
+	font-size: 10px;
+}
+.sbsm input[type=text] {
+	padding: 1px 25px 1px 1px;
+}
+.sbsm input.hover {
+	border-color: #69f;
+}
+.selectbox div {
+	position: relative;
+	top: -1px;
+    z-index: 6001;
+	display: none;
+}
+.selectbox ul {
+	position: absolute;
+	z-index: 6000;
+	list-style: none;
+	border: 1px solid #369;
+	background-image: url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/opacity/85.png);
+	width: 198px;
+	overflow: auto;
+}
+.selectbox ul, .selectbox ul li {
+	margin: 0;
+	padding: 0;
+}
+.selectbox ul li:last-child {
+	border-bottom: 0px;
+}
+.selectbox li a {
+	display: block;
+    margin: 0;
+	padding: 0 4px;
+	white-space: nowrap;
+	background-color: transparent;
+	border-bottom: 1px solid #333;
+	font-size: 10px;
+	color: #e1e1e1;
+	text-decoration: none;
+}
+.selectbox li a:hover {
+	background: transparent url(http://web.archive.org/web/20100104153153im_/http://static.gamebattles.com/gb/skins/default/row_hover.png);
+	color: #fff;
+}
+.sbsm li a {
+	font-size: 10px;
+}
+* html .selectbox li a { height: 1%; }
+
+/*
+     FILE ARCHIVED ON 15:31:53 Jan 04, 2010 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 00:47:23 Mar 11, 2025.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  captures_list: 0.539
+  exclusion.robots: 0.022
+  exclusion.robots.policy: 0.013
+  esindex: 0.01
+  cdx.remote: 18.884
+  LoadShardBlock: 544.011 (3)
+  PetaboxLoader3.datanode: 528.902 (4)
+  PetaboxLoader3.resolve: 104.712 (2)
+  load_resource: 96.314
+*/

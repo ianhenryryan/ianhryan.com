@@ -1,0 +1,278 @@
+body
+{
+	color: #cccccc;
+}
+a:link, body_alink
+{
+	color: #4489f4;
+}
+a:visited, body_avisited
+{
+	color: #4489f4;
+}
+a:hover, a:active, body_ahover
+{
+	color: #ffffff;
+}
+.page
+{
+	color: #282828;
+}
+.page a:link, .page_alink
+{
+	color: #4489f4;
+}
+.page a:visited, .page_avisited
+{
+	color: #4489f4;
+}
+.page a:hover, .page a:active, .page_ahover
+{
+	color: #e1e1e1;
+}
+td, th, p, li
+{
+	color: #e1e1e1;
+}
+.tborder
+{
+	background: #D1D1E1;
+	color: #000000;
+}
+.tcat
+{
+	background: #136376 url(/web/20100104153032im_/http://static.gamebattles.com/gb/skins/default/tabs/bg_on.png) repeat-x top left;
+	color: #0099ff;
+	font-weight: bold;
+	border-width: 1px 0 1px 0;
+	border-style: solid;
+	border-color: #3777A8;
+}
+.tcat a:link, .tcat_alink
+{
+	color: #ffffff;
+	text-decoration: none;
+}
+.tcat a:visited, .tcat_avisited
+{
+	color: #ffffff;
+	text-decoration: none;
+}
+.tcat a:hover, .tcat a:active, .tcat_ahover
+{
+	color: #ffffff;
+	text-decoration: underline;
+}
+.thead
+{
+	background: #000000 url(/web/20100104153032im_/http://static.gamebattles.com/gb/skins/default/list_header_bg.gif) repeat-x top left;
+	color: #e1e1e1;
+	font-weight: bold;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #000000;
+	height: 29px;
+}
+.thead a:link, .thead_alink
+{
+	color: #e1e1e1;
+}
+.thead a:visited, .thead_avisited
+{
+	color: #e1e1e1;
+}
+.thead a:hover, .thead a:active, .thead_ahover
+{
+	color: #e1e1e1;
+}
+.tfoot
+{
+	background: #032e51;
+	color: #E0E0F6;
+}
+.tfoot a:link, .tfoot_alink
+{
+	color: #E0E0F6;
+}
+.tfoot a:visited, .tfoot_avisited
+{
+	color: #E0E0F6;
+}
+.tfoot a:hover, .tfoot a:active, .tfoot_ahover
+{
+	color: #FFFF66;
+}
+.alt1, .alt1Active
+{
+	background: #414141;
+}
+.alt2, .alt2Active
+{
+	background: #212121;
+}
+td.inlinemod
+{
+	background: #2b5b80;
+	color: #fff;
+}
+.wysiwyg
+{
+	background: #F5F5FF;
+	color: #f1f1f1;
+}
+.time
+{
+	color: #999;
+}
+.highlight
+{
+	color: #FF0000;
+	font-weight: bold;
+}
+.fjsel
+{
+	background: #0c5386;
+	color: #E0E0F6;
+}
+.fjdpth0
+{
+	background: #F7F7F7;
+	color: #000000;
+}
+.panel
+{
+	background: #2A3035 url(/web/20100104153032im_/http://static.gamebattles.com/gb/skins/default/box_content_bg.png) repeat-x;;
+	color: #e1e1e1;
+	padding: 10px;
+	border: 1px solid #3777A8;
+}
+.panelsurround
+{
+	background: #2B5B80 url(/web/20100104153032im_/http://static.gamebattles.com/gb/skins/default/box_bg.png) repeat-x top left;
+	color: #e1e1e1;
+}
+.vbmenu_control
+{
+	background: #000000 url(/web/20100104153032im_/http://static.gamebattles.com/gb/skins/default/tabs/bg.png) repeat-x top left;
+	color: #A9AFB4;
+	font: bold 11px "Lucida Grande",Tahoma,Arial,Helvetica,sans-serif;
+	padding: 3px 6px 3px 6px;
+	white-space: nowrap;
+}
+.vbmenu_control a:link, .vbmenu_control_alink
+{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.vbmenu_control a:visited, .vbmenu_control_avisited
+{
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.vbmenu_control a:hover, .vbmenu_control a:active, .vbmenu_control_ahover
+{
+	color: #FFFFFF;
+	text-decoration: underline;
+}
+.vbmenu_popup
+{
+	background: #2A3035 url(/web/20100104153032im_/http://static.gamebattles.com/gb/skins/default/box_content_bg.png) repeat-x;;
+	color: #e1e1e1;
+	border: 1px solid #0B198C;
+}
+.vbmenu_option
+{
+	background: #f1f1f1;
+	color: #000000;
+	font: 11px "Lucida Grande",Tahoma,Arial,Helvetica,sans-serif;
+	white-space: nowrap;
+	cursor: pointer;
+}
+.vbmenu_option a:link, .vbmenu_option_alink
+{
+	color: #4489f4;
+	text-decoration: none;
+}
+.vbmenu_option a:visited, .vbmenu_option_avisited
+{
+	color: #4489f4;
+	text-decoration: none;
+}
+.vbmenu_option a:hover, .vbmenu_option a:active, .vbmenu_option_ahover
+{
+	color: #003366;
+	text-decoration: none;
+}
+.vbmenu_hilite
+{
+	background: #e1e1e1;
+	color: #000000;
+	font: 11px "Lucida Grande",Tahoma,Arial,Helvetica,sans-serif
+	white-space: nowrap;
+	cursor: pointer;
+}
+.vbmenu_hilite a:link, .vbmenu_hilite_alink
+{
+	color: #003366;
+	text-decoration: none;
+}
+.vbmenu_hilite a:visited, .vbmenu_hilite_avisited
+{
+	color: #003366;
+	text-decoration: none;
+}
+.vbmenu_hilite a:hover, .vbmenu_hilite a:active, .vbmenu_hilite_ahover
+{
+	color: #003366;
+	text-decoration: none;
+}
+/* ***** small padding on 'thead' elements ***** */
+td.thead, div.thead { padding: 4px; }
+
+/* ***** basic styles for multi-page nav elements */
+.pagenav a { text-decoration: none; }
+.pagenav td { padding: 2px 4px 2px 4px; }
+
+/* ***** define margin and font-size for elements inside panels ***** */
+.fieldset { margin-bottom: 6px; }
+.fieldset, .fieldset td, .fieldset p, .fieldset li { font-size: 11px; }
+
+/* ***** don't change the following ***** */
+form { display: inline; }
+label { cursor: default; }
+.normal { font-weight: normal; }
+.inlineimg { vertical-align: middle; }
+.bigusername { font-size: 18px; text-decoration: none;}
+.bigusername font { font-size: 18px; }
+
+.alt0 {background-color: #313131;}
+
+.thead:first-child {border-left: 0px;}
+
+.vbmenu_control:hover {
+  background:#000000 url(/web/20100104153032im_/http://static.gamebattles.com/gb/skins/default/tabs/bg_hover.png) repeat-x scroll 0%;
+  color:#FFFFFF;
+}
+
+.forum_post {
+  font-size: 12px;
+ }
+/*
+     FILE ARCHIVED ON 15:30:32 Jan 04, 2010 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 00:47:22 Mar 11, 2025.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+*/
+/*
+playback timings (ms):
+  captures_list: 0.608
+  exclusion.robots: 0.022
+  exclusion.robots.policy: 0.01
+  esindex: 0.011
+  cdx.remote: 20.843
+  LoadShardBlock: 190.621 (3)
+  PetaboxLoader3.datanode: 238.899 (4)
+  load_resource: 186.669
+  PetaboxLoader3.resolve: 94.998
+*/
