@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ian H. Ryan - Home</title>
+  <title>Ian H. Ryan - Blog</title>
 
+  <!-- 98.css magic -->
   <link rel="stylesheet" href="https://unpkg.com/98.css">
   <link rel="stylesheet" href="style.css">
 
-  <style>
+	<style>
 	  html, body {
 	    margin: 0;
 	    padding: 0;
@@ -199,11 +200,11 @@
   border-radius: 3px;
   font-family: monospace;
 }
-    
-  </style>
-</head>
-<body>
 
+	</style>
+</head>
+
+<body>
   <!-- Sidebar -->
   <div class="sidebar">
     <div class="window">
@@ -217,22 +218,22 @@
       </div>
       <div class="window-body">
         <ul>
-          <li><a href="index.html"><img src="pictures/homepage-0.png" width="16" height="16"> home</a></li>
+          <li><a href="index.html"><img src="pictures/homepage-0.png" alt="Home Icon" width="16" height="16"> home</a></li>
           <li><a href="blog.html"><img src="pictures/notepad-1.png" alt="Blog Icon" width="16" height="16"> blog</a></li>
-          <li><a href="projects.html"><img src="pictures/floppy_drive_3_5_cool-2.png" width="16" height="16"> projects</a></li>
-          <li><a href="about.html"><img src="pictures/help_sheet-0.png" width="16" height="16"> about me</a></li>
-          <li><a href="IanRyan_Resume_2025.pdf"><img src="pictures/certificate_2-0.png" width="16" height="16"> resume</a></li>
-          <li><a href="Certifications_IanRyan.zip"><img src="pictures/world_network_directories-2.png" width="16" height="16"> certificates</a></li>
+          <li><a href="projects.html"><img src="pictures/floppy_drive_3_5_cool-2.png" alt="Projects Icon" width="16" height="16"> projects</a></li>
+          <li><a href="about.html"><img src="pictures/help_sheet-0.png" alt="About Icon" width="16" height="16"> about me</a></li>
+          <li><a href="IanRyan_Resume_2025.pdf"><img src="pictures/certificate_2-0.png" alt="Resume Icon" width="16" height="16"> resume</a></li>
+          <li><a href="Certifications_IanRyan.zip"><img src="pictures/world_network_directories-2.png" alt="Certs Icon" width="16" height="16"> certificates</a></li>
         </ul>
       </div>
     </div>
   </div>
 
-  <!-- Main Content -->
+  <!-- Blog Content -->
   <div class="content">
     <div class="window">
       <div class="title-bar">
-        <div class="title-bar-text">ianhryan.com</div>
+        <div class="title-bar-text">blog - my notebook</div>
         <div class="title-bar-controls">
           <button aria-label="Help"></button>
           <button aria-label="Minimize"></button>
@@ -240,30 +241,32 @@
         </div>
       </div>
       <div class="window-body">
-        <h2>my projects</h2>
-        <ul>
-          <li><strong>Capstone: Convolutional Neural Network</strong></li>
-          <li><strong>Deconvolution (De-blur) & Enhancement</strong></li>
-          <li><strong>Seed Pattern Recognition</strong></li>
-          <li><strong>Multi-Class CNN with Severe Class Imbalance from Combined Datasets</strong></li>
-          <li><a href="blog.html">blog</a></li>
-          <li><a href="projects.html">projects</a></li>
-          <li><a href="about.html">about me</a></li>
-          <li><a href="IanRyan_Resume_2025.pdf">resume</a></li>
-        </ul>
-        <br><br>
-	<p style="font-size: 18px;">
-  Recent B.S. Computer Science graduate with a passion for pattern recognition, computer vision, deep learning, and real-world ML deployment.
-</p>
-
-
-        <strong>Face to a name:</strong><br><br>
-
-        <img src="pictures/cheesin.jpg" alt="Face to a name" style="width: 300px; height: auto; margin-top: 10px;">
+        <div id="blog-container" class="blog-wrapper">
+          <h2>blog entries</h2>
+          <!-- Blog posts will load here -->
+        </div>
       </div>
     </div>
   </div>
 
+  <!-- Dynamic Loader Script -->
+  <script>
+    const blogContainer = document.getElementById("blog-container");
+    const posts = [
+      "multiclass_cnn_severe_imbal.html",
+    ];
+
+    posts.forEach(file => {
+      fetch(`posts/${file}`)
+        .then(res => res.text())
+        .then(html => {
+          const wrapper = document.createElement("div");
+          wrapper.innerHTML = html;
+          blogContainer.appendChild(wrapper);
+        })
+        .catch(err => console.error("Failed to load", file, err));
+    });
+  </script>
 </body>
 </html>
 

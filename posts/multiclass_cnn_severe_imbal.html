@@ -1,0 +1,1117 @@
+<div class="blog-post">
+  <h2 class="title">Project: Multi-Class CNN with Severe Class Imbalance from Combined Datasets</h2>
+  
+  <hr style="margin: 40px 0; border: none; border-top: 2px inset black;">
+
+  <section id="hardware-comparison">
+    <h2>╰╴ 1. 💻 From Cloud to Couch: Rebuilding the Pipeline on Local Hardware</h2>
+    <p>
+      The original version of this project — my capstone — was built and trained on an <strong>AWS SageMaker instance</strong>, which provided powerful GPU resources for prototyping and experimentation. But for this final version, I transitioned everything to run on my <strong>personal laptop</strong>.
+    </p>
+
+    <h4>Why the Shift?</h4>
+    <p>
+      <em>Financial constraints.</em> I couldn’t justify continuing to pay for cloud computing, so I adapted the pipeline to work within the limits of my local machine. The switch forced me to be more deliberate about memory usage — particularly <strong>CUDA VRAM</strong> — and made me pay closer attention to cleanup, caching, and resource management throughout the notebook.
+    </p>
+
+    <div class="env-comparison">
+  <div class="env-box">
+    <h3>☁️ Capstone Environment: AWS SageMaker</h3>
+    <ul>
+      <li><strong>Platform:</strong> AWS SageMaker Jupyter Notebook</li>
+      <li><strong>Instance Type:</strong> <code>ml.g4dn.2xlarge</code></li>
+      <li><strong>GPU:</strong> NVIDIA T4 Tensor Core (16 GB GDDR6)</li>
+      <li><strong>CPU:</strong> Intel Xeon Family</li>
+      <li><strong>RAM:</strong> 32 GB System Memory</li>
+      <li><strong>Storage:</strong> 5 GB EBS Volume</li>
+      <li><strong>OS:</strong> Amazon Linux 2 with JupyterLab 3</li>
+    </ul>
+  </div>
+
+  <div class="env-box">
+    <h3>🧠 Final Version Environment: My Laptop</h3>
+    <ul>
+      <li><strong>Model:</strong> Alienware m15 R7</li>
+      <li><strong>OS:</strong> Pop!_OS 22.04 LTS</li>
+      <li><strong>CPU:</strong> AMD Ryzen 7 6800H (16 threads @ 4.78 GHz)</li>
+      <li><strong>RAM:</strong> 16 GB DDR5</li>
+      <li><strong>GPU:</strong> NVIDIA GeForce RTX 3060 Mobile (6 GB VRAM)</li>
+      <li><strong>Secondary GPU:</strong> Integrated AMD Radeon Graphics</li>
+      <li><strong>CUDA Version:</strong> 12.8</li>
+      <li><strong>Kernel:</strong> 6.12.10-76061203-generic</li>
+    </ul>
+  </div>
+</div>
+
+
+    <h4>📊 GPU Status (via <code>nvidia-smi</code>):</h4>
+    <pre><code>+-----------------------------------------------------------------------------+
+| NVIDIA-SMI 570.124.04    Driver Version: 570.124.04    CUDA Version: 12.8   |
+|--------------------------+---------------------------+----------------------|
+| GPU  Name        Memory  | Bus-Id        GPU-Util    | Memory-Usage         |
+| 0    RTX 3060    6 GB    | 0000:01:00.0  0%           | 15 MiB / 6144 MiB   |
++-----------------------------------------------------------------------------+</code></pre>
+
+    <h4>🧮 Memory Snapshot (via <code>free -h</code>):</h4>
+    <pre><code>Mem:   14Gi   used: 5.1Gi   free: 1.2Gi   buff/cache: 8.6Gi
+Swap:  18Gi   used: 0B      free: 18Gi</code></pre>
+
+    <h3>⚙️ What Changed?</h3>
+    <ul>
+      <li>🔁 <strong>Cached Computation:</strong> I saved mean/std stats to disk to avoid recomputation on kernel restarts.</li>
+      <li>🧹 <strong>VRAM Management:</strong> I routinely cleared CUDA memory using <code>torch.cuda.empty_cache()</code> and <code>gc.collect()</code>.</li>
+      <li>🧱 <strong>Lightweight Pipeline:</strong> I restructured the notebook to be more memory-efficient and modular.</li>
+    </ul>
+  </section>
+  
+  <hr style="margin: 40px 0; border: none; border-top: 2px inset black;">
+  
+  <section id="dataset-cleanup">
+    <h2>╰╴ 2. 🧹 Dataset Cleanup, Refactoring & Fixing Merge Issues</h2>
+
+    <p>
+      In the early stages of the project, I uncovered several inconsistencies and bugs in the dataset preparation pipeline.
+      These weren’t just minor issues—they had a real impact on model performance, evaluation, and even basic functionality.
+      Before I could get any reliable training off the ground, I had to carefully debug and refactor how my datasets were being
+      merged, labeled, and verified. Here's what went wrong, how I tracked it down, and the steps I took to fix it.
+    </p>
+
+    <h3>🧩 Issue #1: Merging Datasets Broke Class Indexing</h3>
+
+    <h4>❌ Problem:</h4>
+    <p>This project involved merging two datasets:</p>
+    <ul>
+      <li><strong>INRIA:</strong> One class (<code>person</code>) with <code>train/</code>, <code>valid/</code>, <code>test/</code> splits</li>
+      <li><strong>Animal Dataset:</strong> 17 animal classes (e.g., badger, zebra, etc.) with the same structure</li>
+    </ul>
+    <p>PyTorch’s <code>ImageFolder</code> assigns indices alphabetically, so both datasets started at 0. When combined using <code>ConcatDataset</code>, this caused:</p>
+    <ul>
+      <li>Label collisions (e.g., <code>person</code> and <code>badger</code> both mapped to index 0)</li>
+      <li>Misclassified training examples</li>
+      <li>Broken evaluation logic</li>
+    </ul>
+
+    <h4>💡 Fix:</h4>
+    <p>I applied a label offset before combining the datasets:</p>
+
+    <pre><code>offset = len(inria_classes)
+animal_label = original_animal_label + offset</code></pre>
+
+    <p>✔️ This made the label space consistent and eliminated overlap.</p>
+
+    <hr style="width: 60%; margin: 40px auto; border: none; border-top: 1px solid #c0c0c0;">
+
+
+    <h3>🧹 Issue #2: Empty or Mismatched Class Folders</h3>
+
+    <h4>❌ Problem:</h4>
+    <ul>
+      <li>Some folders were completely empty</li>
+      <li>Others had mismatched folder names vs. class labels</li>
+      <li>Missing images caused underrepresented classes</li>
+    </ul>
+
+    <h4>💡 Fix:</h4>
+    <p>I built a dataset structure verifier that checked folder contents per split:</p>
+
+    <pre><code>def verify_combined_dataset_structure(base_path, class_names):
+    issues = False
+    for split in splits:
+        split_path = os.path.join(base_path, split)
+        for idx, class_name in enumerate(class_names):
+            class_dir = os.path.join(split_path, class_name)
+            if not os.path.exists(class_dir):
+                print(f"Missing: {class_dir}")
+                issues = True
+                continue
+            if not os.listdir(class_dir):
+                print(f"Empty: {class_dir}")
+                issues = True
+    if not issues:
+        print("✅ All folders verified.")</code></pre>
+
+    <p>✅ I now run this check before every training session.</p>
+
+    <hr style="width: 60%; margin: 40px auto; border: none; border-top: 1px solid #c0c0c0;">
+
+    <h3>🧼 Issue #3: Code Redundancy & Transform Confusion</h3>
+
+    <h4>❌ Problem:</h4>
+    <ul>
+      <li>Redundant transforms and inconsistent variable names</li>
+      <li>Scattered <code>ImageFolder</code> and <code>DataLoader</code> logic</li>
+    </ul>
+
+    <h4>💡 Fix:</h4>
+    <p>I consolidated the transforms into three core configs:</p>
+    <ul>
+      <li><code>train_transforms</code></li>
+      <li><code>val_test_transforms</code></li>
+      <li><code>resize_transforms</code></li>
+    </ul>
+    <p>✅ All dataset loading now happens <em>after</em> the merge and cleanup.</p>
+
+    <hr style="width: 60%; margin: 40px auto; border: none; border-top: 1px solid #c0c0c0;">
+
+    <h3>📌 My Takeaway</h3>
+    <p>When merging datasets:</p>
+    <ul>
+      <li>✅ Offset class indices manually</li>
+      <li>✅ Verify all folders and label consistency</li>
+      <li>✅ Persist label mappings (e.g., <code>class_names.json</code>)</li>
+      <li>✅ Merge before applying transforms or creating loaders</li>
+    </ul>
+    <p><strong>🧠 Dataset hygiene saves hours of downstream debugging.</strong></p>
+  </section>
+  
+  <hr style="margin: 40px 0; border: none; border-top: 2px inset black;">
+  
+  <section id="save-combined-dataset">
+  <h2>╰╴ 3. 🧩 Saving the Merged Dataset & Setting a Restart Checkpoint</h2>
+  <p>
+    After verifying that my combined dataset was structured correctly and balanced across splits, I wanted to:
+  </p>
+  <ul>
+    <li>💾 Save it in a reproducible format</li>
+    <li>🧹 Clean up memory by deleting the originals</li>
+    <li>🛡️ Avoid having to re-download or re-process if I restarted my notebook kernel</li>
+  </ul>
+  <p>
+    To accomplish this, I wrote a <code>save_combo_dataset()</code> function that:
+  </p>
+  <ul>
+    <li>Saves all image data in <code>data/comboset/</code> with the correct class structure</li>
+    <li>Writes <code>class_names.json</code> (a list of class labels)</li>
+    <li>Writes <code>dataset_stats.json</code> (split sizes, class distribution, total images, label offset info)</li>
+  </ul>
+
+  <pre><code>save_combo_dataset(train_dataset, val_dataset, test_dataset, overwrite=True)</code></pre>
+
+  <h3>🗑️ Deleting Original Datasets to Save Space</h3>
+  <p>
+    Immediately afterward, I deleted the <code>animal</code> and <code>INRIA-pdd</code> folders to free up disk and VRAM. I even added a redundant "nuke-from-orbit" check just in case any stray folders stuck around:
+  </p>
+
+  <pre><code class="language-python"># Paths to original datasets
+animal_path = "/home/ian/Desktop/Cap/data/animal"
+inria_path = "/home/ian/Desktop/Cap/data/INRIA-pdd"
+
+# Delete folders
+shutil.rmtree(animal_path, ignore_errors=True)
+shutil.rmtree(inria_path, ignore_errors=True)
+
+# Clear CUDA memory and Python garbage
+torch.cuda.empty_cache()
+torch.cuda.ipc_collect()
+gc.collect()
+
+# Double delete, just to be sure
+if os.path.exists(animal_path):
+    shutil.rmtree(animal_path, ignore_errors=True)
+
+if os.path.exists(inria_path):
+    shutil.rmtree(inria_path, ignore_errors=True)
+
+print("Removed animal and INRIA-pdd folders. CUDA memory cleared.")</code></pre>
+
+  <h3>🔁 Post-Restart Checkpoint</h3>
+  <p>
+    To protect against Jupyter kernel crashes or restarts, I created a recovery cell that reloads the class names from <code>class_names.json</code>. This meant I could continue training or evaluation without having to re-run earlier cells:
+  </p>
+
+  <pre><code class="language-python"># Post restart resume training/eval
+if 'combined_classes' not in globals():
+    combo_path = 'data/comboset'
+    with open(os.path.join(combo_path, 'class_names.json'), 'r') as f:
+        combined_classes = json.load(f)
+
+out_classes = len(combined_classes)
+print("Restored class names:", combined_classes)
+print("Number of output classes:", out_classes)</code></pre>
+
+  <p><strong>✅ This became a safe and efficient checkpoint to restart from, without having to re-download or re-process data.</strong></p>
+
+  <h4>💡 What This Enabled</h4>
+  <ul>
+    <li>✅ <strong>Space Efficiency</strong>: Removed 2 full datasets from disk</li>
+    <li>✅ <strong>VRAM Recovery</strong>: Prevented CUDA crashes during later training</li>
+    <li>✅ <strong>Modular Workflow</strong>: Could pause/resume without redoing everything</li>
+    <li>✅ <strong>Cleaner Notebook State</strong>: Reduced bugs and clutter from lingering data</li>
+  </ul>
+</section>
+
+  <hr style="margin: 40px 0; border: none; border-top: 2px inset black;">
+  <section id="global-config">
+  <h2>╰╴ 4. 🌍 Global Configuration & Dataset Verification</h2>
+  <p>
+    After merging the two datasets into <code>comboset</code> and saving a persistent checkpoint, I needed a reliable way to resume my work — especially after restarting the kernel or clearing memory. This section defined global paths, ensured consistency across the codebase, and validated that the dataset structure was correct before any model training began.
+  </p>
+
+  <h3>📁 Global Paths & Helpers</h3>
+  <p>
+    To avoid path hardcoding or redefinition errors, I introduced a set of consistent global paths and a helper function to dynamically grab train/val/test directories from a given base path:
+  </p>
+
+  <pre><code class="language-python"># Global config
+if 'combo_path' not in globals():
+    combo_path = 'data/comboset'
+
+splits = ['train', 'valid', 'test']
+
+# Helper function to extract split paths
+def get_split_paths(base_path):
+    return (
+        os.path.join(base_path, 'train'),
+        os.path.join(base_path, 'valid'),
+        os.path.join(base_path, 'test')
+    )
+
+train_path, val_path, test_path = get_split_paths(combo_path)</code></pre>
+
+  <h3>🔍 Validating Folder Structure</h3>
+  <p>
+    Before moving forward, I needed a guarantee that every class was represented across all splits and that no images were silently dropped. So I built a custom verification script:
+  </p>
+
+  <pre><code class="language-python">def verify_combined_dataset_structure(base_path, class_names):
+    issues = False
+    for split in splits:
+        split_path = os.path.join(base_path, split)
+        print(f"\nChecking split: {split}/")
+
+        for idx, class_name in enumerate(class_names):
+            class_dir = os.path.join(split_path, class_name)
+            if not os.path.exists(class_dir):
+                print(f"├── Missing class folder: {class_dir}")
+                issues = True
+                continue
+
+            files = os.listdir(class_dir)
+            connector = "└──" if idx == len(class_names) - 1 else "├──"
+            if not files:
+                print(f"{connector} Empty class folder: {class_dir}")
+                issues = True
+            else:
+                print(f"{connector} {class_name}: {len(files)} images")
+
+    print("\nNo issues." if not issues else "\nIssues found in folder structure.")
+# Run check
+verify_combined_dataset_structure(combo_path, combined_classes)</code></pre>
+
+  <h4>✅ Output:</h4>
+  <pre><code>Checking split: train/
+├── person: 632 images
+├── badger: 38 images
+├── cat: 38 images
+...
+└── zebra: 37 images
+
+Checking split: valid/
+├── person: 180 images
+├── badger: 11 images
+...
+└── zebra: 10 images
+
+Checking split: test/
+├── person: 90 images
+├── badger: 5 images
+...
+└── zebra: 6 images
+
+No issues.
+</code></pre>
+
+  <blockquote>
+    <strong>🧠 Insight:</strong> This script became a non-negotiable checkpoint before any modeling phase — catching issues like misnamed folders, dropped files, or missing images that would otherwise break training silently.
+  </blockquote>
+    <h3>📊 Class Distribution Visualization</h3>
+  <p>
+    To supplement the verification script, I used a JSON-driven visualization utility to confirm class balance across each split.
+    This pulled from <code>dataset_stats.json</code>, which was generated after saving the combined dataset structure.
+  </p>
+
+  <pre><code class="language-python">def visualize_dataset_stats(stats_path, save_plots=False, show_pie=False):
+    with open(stats_path, 'r') as f:
+        stats = json.load(f)
+
+    print(f"Total images: {stats['total_images']}")
+    print(f"Split percentages: {stats['splits_percentage']}")
+    print(f"Label offset applied to: {stats['offset_applied_to']} (Offset: {stats['offset_value']})\\n")
+
+    for split_name, split_stats in stats["class_distribution"].items():
+        class_names = list(split_stats.keys())
+        class_counts = list(split_stats.values())
+
+        total_images = np.sum(class_counts)
+        percentages = (class_counts / total_images) * 100
+
+        # Warn if any class exceeds 50% or is less than 5%
+        for i, pct in enumerate(percentages):
+            if pct > 50:
+                print(f"⚠️ '{class_names[i]}' is over 50% of {split_name} set ({pct:.1f}%)")
+            elif pct < 5:
+                print(f"⚠️ '{class_names[i]}' is under 5% of {split_name} set ({pct:.1f}%)")
+
+        # Create bar chart per split
+        plt.figure(figsize=(10, 4))
+        bars = plt.bar(class_names, class_counts, color='skyblue')
+        plt.axhline(np.mean(class_counts), color='green', linestyle='--', label='Mean')
+        plt.axhline(np.median(class_counts), color='orange', linestyle='--', label='Median')
+        plt.title(f"Class Distribution in {split_name.upper()} Set")
+        plt.xticks(rotation=45, ha='right')
+        plt.legend()
+
+        for bar, pct in zip(bars, percentages):
+            height = bar.get_height()
+            plt.text(bar.get_x() + bar.get_width()/2, height + 1, f"{pct:.1f}%", ha='center', fontsize=8)
+
+        plt.tight_layout()
+        plt.grid(True, axis='y', linestyle='--', alpha=0.5)
+        if save_plots:
+            plt.savefig(f"{split_name}_distribution.png")
+        plt.show()</code></pre>
+
+  <h4>📌 Example Output:</h4>
+  <pre><code>🚨 Class imbalance detected in TRAIN set:
+⚠️ 'person' is over 50% of train set (50.1%)
+⚠️ 'zebra' is under 5% of train set (2.9%)
+...
+</code></pre>
+	<h4>🧠 Why This Matters</h4>
+  <blockquote>
+    <strong>🧠 Insight:</strong> I overlooked serious structural issues in my capstone and didn’t realize them until after training. This time, I combined folder validation with visual distribution feedback — making sure every class was present, populated, and realistically proportioned before training began.
+  </blockquote>
+</section>
+  <hr style="margin: 40px 0; border: none; border-top: 2px inset black;">
+  <section id="mean-std-normalization">
+  <h2>╰╴ 5. 🧮 Mean & Std Normalization: Precision, Consistency, and Caching</h2>
+  <p>
+    Normalizing image datasets using channel-wise mean and standard deviation is a critical step for stable and efficient training — especially for CNNs. In my original capstone, I implemented a simple <code>calculate_mean_std()</code> function, but it had some rough edges. By the time I reached the final iteration, I had reworked it entirely for both accuracy and reusability.
+  </p>
+
+<div class="meanstd-comparison">
+  <div class="window meanstd-box">
+    <div class="title-bar">
+      <div class="title-bar-text">Capstone Version: Single-Pass, Underestimated Variance</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button>
+        <button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body">
+      <pre><code class="language-python">def calculate_mean_std(loader):
+    mean = 0.
+    std = 0.
+    total_images = 0
+
+    for data, _ in loader:
+        batch_samples = data.size(0)
+        total_images += batch_samples
+        data = data.view(batch_samples, data.size(1), -1)
+        mean += data.mean(2).sum(0)
+        std += data.std(2).sum(0)
+
+    mean /= total_images
+    std /= total_images
+    return mean, std
+    </code></pre>
+      <p>This version loops once, but underestimates variance due to image-based averaging.</p>
+      <pre><code>
+Calculated Mean: tensor([0.4713, 0.4595, 0.4212])
+Calculated Std:  tensor([0.2065, 0.2032, 0.2050])
+</code></pre>
+    </div>
+  </div>
+
+  <div class="window meanstd-box">
+    <div class="title-bar">
+      <div class="title-bar-text">Final Version: Double-Pass for True Pixel-Wise Accuracy</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button>
+        <button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body">
+      <pre><code class="language-python">def compute_mean_std(loader):
+    n_channels = 3
+    mean = torch.zeros(n_channels)
+    std = torch.zeros(n_channels)
+    n_pixels = 0
+
+    for data, _ in loader:
+        batch_samples = data.size(0)
+        data = data.view(batch_samples, data.size(1), -1)
+        mean += data.sum(2).sum(0)
+        n_pixels += data.size(2) * batch_samples
+
+    mean /= n_pixels
+
+    for data, _ in loader:
+        batch_samples = data.size(0)
+        data = data.view(batch_samples, data.size(1), -1)
+        std += ((data - mean.view(1, -1, 1)) ** 2).sum(2).sum(0)
+
+    std = torch.sqrt(std / n_pixels)
+    return mean, std
+    </code></pre>
+      <p>This version does a full two-pass mean & std with pixel-based precision.</p>
+      <pre><code>
+Computed Mean: tensor([0.4712, 0.4595, 0.4211])
+Computed Std:  tensor([0.2522, 0.2475, 0.2572])
+</code></pre>
+    </div>
+  </div>
+</div>
+
+<div class="window meanstd-box">
+  <div class="title-bar">
+    <div class="title-bar-text">💾 Added Caching</div>
+    <div class="title-bar-controls">
+      <button aria-label="Minimize"></button>
+      <button aria-label="Close"></button>
+    </div>
+  </div>
+  <div class="window-body">
+    <pre><code class="language-python">def get_or_compute_mean_std(loader, save_path='mean_std.pt'):
+    if os.path.exists(save_path):
+        stats = torch.load(save_path)
+        print("Load mean/std via file.")
+        return stats['mean'], stats['std'], "loaded"
+    else:
+        mean, std = compute_mean_std(loader)
+        torch.save({'mean': mean, 'std': std}, save_path)
+        print("Computed & saved mean/std.")
+        return mean, std, "computed"
+</code></pre>
+  </div>
+</div>
+
+  <p>This function automatically loads <code>mean_std.pt</code> if available — or computes it and caches the result. This caching logic reduces runtime and prevents redundant computation during repeated training sessions.</p>
+
+  <blockquote>
+    📌 <strong>Used later in:</strong> <code>Transforms & Loaders</code> cell — ensuring that the normalization applied to the dataset matches across training, validation, and testing every time.
+  </blockquote>
+
+  <h3>🧠 Summary: Why This Change Mattered</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Version</th>
+        <th>Passes</th>
+        <th>Accuracy</th>
+        <th>Pixel-Based</th>
+        <th>Caches Results</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Capstone</td>
+        <td>1</td>
+        <td>Approximate</td>
+        <td>❌</td>
+        <td>❌</td>
+        <td>Underestimates std; fast but biased</td>
+      </tr>
+      <tr>
+        <td>Final</td>
+        <td>2</td>
+        <td>Precise</td>
+        <td>✅</td>
+        <td>✅</td>
+        <td>Used total pixel count + caching</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    The capstone version underestimated variance, which led to unstable learning and poorer generalization. The improved version produced better-normalized data, faster convergence, and more consistent results — with the bonus of avoiding unnecessary recomputation.
+  </p>
+</section>
+  <hr style="margin: 40px 0; border: none; border-top: 2px inset black;">
+  <section id="transforms-loaders">
+  <h2>╰╴ 6. 🌀 Transforms & Loaders: From Augmentation to Augmented Intelligence</h2>
+  <p>
+    This section of the pipeline is where I cleaned up some of the most impactful mistakes from the capstone version.
+    That included removing duplicate logic, fixing bugs in the data loading flow, and introducing upgrades like
+    MixUp augmentation and smarter sampling. These changes made training more stable, and the code easier to maintain and debug.
+  </p>
+
+  <p>
+    One of the most meaningful upgrades was implementing <strong>synthetic augmentation</strong> using the
+    <code>MixUp</code> technique, which blends image pairs and interpolates their labels.
+    This technique helps improve generalization and reduces the likelihood of overfitting —
+    particularly important in scenarios with long-tail class imbalance.
+  </p>
+
+  <h3>🔁 Key Upgrades Made:</h3>
+  <ul>
+    <li><strong>🧼 Cleaned Redundancies & Logical Errors:</strong>
+      <ul>
+        <li>Removed duplicated or unused transform blocks like <code>combo_transformation</code></li>
+        <li>Eliminated conflicting variables like <code>val_loader</code> vs <code>valid_loader</code></li>
+        <li>Reorganized transform usage to avoid misalignment in training vs evaluation</li>
+      </ul>
+    </li>
+    <li><strong>🧪 Introduced <code>MixUpDataset</code> Wrapper:</strong>
+      <ul>
+        <li>Replaces raw samples with convex combinations of two samples</li>
+        <li>Outputs soft labels using <code>F.one_hot()</code> interpolation</li>
+      </ul>
+    </li>
+    <li><strong>🧲 Added <code>WeightedRandomSampler</code>:</strong>
+      <ul>
+        <li>Balances class representation by adjusting sampling probabilities</li>
+        <li>Ensures minority classes appear more frequently in each epoch</li>
+      </ul>
+    </li>
+    <li><strong>🧮 Smarter Batching & Output Management:</strong>
+      <ul>
+        <li>Dynamically counted class instances from <code>train_dataset.imgs</code></li>
+        <li>Calculated output class size automatically</li>
+        <li>Batch shape inspection added for sanity checks</li>
+      </ul>
+    </li>
+  </ul>
+</section>
+
+  <hr style="margin: 40px 0; border: none; border-top: 2px inset black;">
+  <section id="class-weighting">
+
+  <h2>╰╴ 7. 🧮 Comparing Class Weighting Strategies</h2>
+<p>
+  Another huge improvement I made to the pipeline was changing how I calculated class weights. I considered testing an approach called 
+  <a href="https://arxiv.org/abs/1901.05555" target="_blank" style="color: blue;">
+    Class-Balanced Loss Based on Effective Number of Samples
+  </a>, 
+  introduced in a research paper by <strong>Yin Cui, Menglin Jia, Tsung-Yi Lin, Yang Song, and Serge Belongie</strong>. It was specifically developed to address dataset imbalance challenges.
+  However, I ultimately opted for the more straightforward <strong>Log-Scaled Inverse Frequency</strong> method, replacing my original use of sklearn’s Balanced Class Weights.
+  The difference in the resulting class weights (see below) was substantial.
+</p>
+
+  <h3>📦 Reminde - Here’s what the data looked like after merging:</h3>
+  <ul>
+    <li><strong>train/</strong> → <code>person</code>: <strong>632</strong> images | each animal class: <strong>~37–38</strong></li>
+    <li><strong>valid/</strong> → <code>person</code>: <strong>180</strong> images | each animal class: <strong>~10–11</strong></li>
+    <li><strong>test/ </strong>  → <code>person</code>: <strong>90</strong> images  | each animal class: <strong>~5–6</strong></li>
+  </ul>
+  <p>
+    This created a <strong>severely imbalanced dataset</strong> where <code>person</code> made up ~50% of the total images. This imbalance was intentional to simulate realism but required careful loss weighting to prevent the model from ignoring minority classes.
+  </p>
+  <p>
+    In my capstone, I used sklearn’s <code>compute_class_weight('balanced')</code>. In practice, this method overcompensated:
+  </p>
+<div class="meanstd-comparison">
+  <div class="window meanstd-box">
+    <div class="title-bar">
+      <div class="title-bar-text">🧪 Capstone Strategy: Balanced Weights</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button>
+        <button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body">
+      <p><strong>Formula:</strong></p>
+      <pre><code>w_c = (N) / (C × n_c)</code></pre>
+      <ul>
+        <li><code>w_c</code>: weight for class c</li>
+        <li><code>N</code>: total number of samples</li>
+        <li><code>C</code>: number of classes</li>
+        <li><code>n_c</code>: samples in class c</li>
+      </ul>
+      <p>Used <code>compute_class_weight('balanced')</code> — but it overcompensated:</p>
+      <pre><code>
+# Capstone Weights
+tensor([
+  1.8480, 1.8480, 1.8480, 1.8979, 1.8979, 1.8979,
+  1.8979, 1.8979, 1.8979, 0.1111, 1.8979, 1.8979,
+  1.8979, 1.8979, 1.8979, 1.8979, 1.8979, 1.8979
+], device='cuda:0')</code></pre>
+      <p>🛑 <code>person</code> got 0.1111 vs. ~1.89 for animals → 17× imbalance caused poor generalization.</p>
+    </div>
+  </div>
+
+  <div class="window meanstd-box">
+    <div class="title-bar">
+      <div class="title-bar-text">🧠 Final Strategy: Log-Scaled Weights</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button>
+        <button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body">
+      <p><strong>Formula:</strong></p>
+      <pre><code>w_c = log(1 + N / n_c)</code></pre>
+      <ul>
+        <li><code>w_c</code>: weight for class c</li>
+        <li><code>N</code>: total samples</li>
+        <li><code>n_c</code>: samples in class c</li>
+      </ul>
+      <p>Later replaced with smoother <code>log(1 + N / n_c)</code> weights:</p>
+      <pre><code>
+# Final Weights:
+tensor([
+  0.0574, 0.0574, 0.0574, 0.0578, 0.0578, 0.0578,
+  0.0578, 0.0578, 0.0578, 0.0179, 0.0578, 0.0578,
+  0.0578, 0.0578, 0.0578, 0.0578, 0.0578, 0.0578
+], device='cuda:0')</code></pre>
+      <p>✅ Reduced extremes → more stable gradients, better macro F1, fewer overfits.</p>
+    </div>
+  </div>
+</div>
+
+  <h3>📊 Comparison Snapshot</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Class</th>
+        <th># Train Images</th>
+        <th>Sklearn Weight</th>
+        <th>Log-Scaled Weight</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>person</td><td>632</td><td>0.1111</td><td>0.0179</td></tr>
+      <tr><td>badger</td><td>38</td><td>1.8480</td><td>0.0574</td></tr>
+      <tr><td>penguin</td><td>37</td><td>1.8979</td><td>0.0578</td></tr>
+      <tr><td>wombat</td><td>37</td><td>1.8979</td><td>0.0578</td></tr>
+      <tr><td>...</td><td>...</td><td>...</td><td>...</td></tr>
+    </tbody>
+  </table>
+
+  <h3>🧠 Why This Worked</h3>
+  <p>
+    Log-scaling introduced smoother gradient behavior. It:
+    <ul>
+      <li>Softened the penalty for <code>person</code> while still acknowledging its dominance</li>
+      <li>Balanced minority class contributions without over-amplifying noise</li>
+      <li>Eliminated overfitting seen in the earlier weighted loss formulation</li>
+      <li>Improved macro-F1 and rare class recall</li>
+    </ul>
+    <blockquote>
+      <strong>Lesson Learned:</strong> Just because a method says “balanced” doesn’t mean it actually balances well. Log-scaled class weights helped my model fairly see the long tail of my dataset — not just the majority class.
+    </blockquote>
+  </p>
+</section>
+  <hr style="margin: 40px 0; border: none; border-top: 2px inset black;">
+  <section id="cnn-architecture">
+  <h2>╰╴ 8. 🧱 CNN Architecture Evolution & Mixed Precision Fixes</h2>
+  <p>
+    When it came time to define the actual model architecture, I iterated on a custom convolutional neural network built entirely from scratch using PyTorch’s <code>nn.Sequential</code>. Both the capstone and final versions followed a traditional <span class="code-highlight">Conv → BatchNorm → Activation → Pooling</span>
+ stack, but the final iteration introduced a number of upgrades to improve training stability, generalization, and compatibility with mixed precision training.
+  </p>
+
+<div class="meanstd-comparison">
+  <!-- Capstone Version -->
+  <div class="window meanstd-box">
+    <div class="title-bar">
+      <div class="title-bar-text">🔧 Capstone Version: Basic But Brittle</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button>
+        <button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body">
+      <p>The original model got the job done but left room for improvement. Notable limitations included:</p>
+      <ul>
+        <li>❌ <code>ReLU</code> used in all layers, including fully connected layers (less forgiving with dead gradients)</li>
+        <li>❌ No <code>BatchNorm1d</code> layers after fully connected layers</li>
+        <li>❌ Static assignment of <code>out_classes</code></li>
+        <li>❌ Only one <code>Dropout(p=0.2)</code> layer — not enough regularization</li>
+        <li>❌ Vulnerable to mixed precision errors (e.g., <code>float16</code> tensors passed directly to <code>nn.Linear</code>)</li>
+        <li>✅ Did correctly use <code>AdaptiveAvgPool2d((1,1))</code> for flexible spatial size reduction</li>
+      </ul>
+      <p><strong>Total Parameters:</strong> 1,688,850<br>
+         <strong>Trainable Parameters:</strong> 1,688,850</p>
+    </div>
+  </div>
+
+  <!-- Final Version -->
+  <div class="window meanstd-box">
+    <div class="title-bar">
+      <div class="title-bar-text">✅ Final Version: Refined, Regularized, AMP-Compatible</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button>
+        <button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body">
+      <p>The final model retained the same convolutional backbone but introduced a cleaner, more stable classifier head and better overall structure.</p>
+      <ul>
+        <li>✅ Replaced <code>ReLU</code> with <code>GELU</code> in conv layers, and <code>LeakyReLU</code> in FC layers</li>
+        <li>✅ Reordered <code>BatchNorm1d</code> to come after activation in FC layers</li>
+        <li>✅ Added multiple <code>Dropout(p=0.3)</code> layers</li>
+        <li>✅ Introduced an intermediate bottleneck layer (512 → 256)</li>
+        <li>✅ Dynamically calculated <code>out_classes</code></li>
+        <li>✅ Inserted custom <code>ToFloat32()</code> layer after flattening</li>
+        <li>✅ Tried <code>torch.compile()</code> for acceleration (left disabled)</li>
+      </ul>
+      <p><strong>Total Parameters:</strong> 1,953,042<br>
+         <strong>Trainable Parameters:</strong> 1,953,042</p>
+    </div>
+  </div>
+</div>
+
+
+  <h3>🐛 Bug: <code>CUBLAS_STATUS_NOT_SUPPORTED</code></h3>
+  <p>While enabling mixed precision (<code>autocast()</code>), the model initially crashed with a low-level CUDA error:</p>
+  <pre><code>RuntimeError: CUDA error: CUBLAS_STATUS_NOT_SUPPORTED when calling cublasLtMatmulAlgoGetHeuristic</code></pre>
+  <p><strong>Root cause:</strong><br>
+  Passing a <code>float16</code> tensor into an <code>nn.Linear</code> layer without manually restoring it to <code>float32</code> precision — a common issue on consumer GPUs or certain CUDA driver versions.</p>
+
+  <h3>💡 The Fix: Insert a Lightweight Float32 Patch</h3>
+  <p>Since my model used <code>nn.Sequential</code> (no manual <code>forward()</code> method), I couldn't just write <code>x = x.float()</code> inline.</p>
+  <p>Instead, I created a simple layer:</p>
+  <pre><code class="language-python">class ToFloat32(nn.Module):
+    def forward(self, x):
+        return x.float()</code></pre>
+  <p>Inserted just after flattening:</p>
+  <pre><code class="language-python">nn.Flatten(),
+ToFloat32(),  # 🔥 Converts float16 → float32
+nn.Linear(512, 512),</code></pre>
+  <p>✅ This preserved mixed precision elsewhere (e.g., convolutional layers) while preventing catastrophic crashes during fully connected passes.</p>
+
+  <h3>📊 Architecture Summary</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>Capstone Version</th>
+        <th>Final Version</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Activation (Conv)</td>
+        <td>ReLU</td>
+        <td>GELU</td>
+      </tr>
+      <tr>
+        <td>Activation (FC)</td>
+        <td>ReLU</td>
+        <td>LeakyReLU</td>
+      </tr>
+      <tr>
+        <td>BatchNorm (FC)</td>
+        <td>❌</td>
+        <td>✅ After Activation</td>
+      </tr>
+      <tr>
+        <td>Dropout Layers</td>
+        <td>1 × p=0.2</td>
+        <td>2 × p=0.3</td>
+      </tr>
+      <tr>
+        <td>Output Classes</td>
+        <td>Hardcoded</td>
+        <td>Dynamically computed</td>
+      </tr>
+      <tr>
+        <td>Mixed Precision Safe</td>
+        <td>❌</td>
+        <td>✅ via <code>ToFloat32()</code></td>
+      </tr>
+      <tr>
+        <td>Total Parameters</td>
+        <td>1,688,850</td>
+        <td>1,953,042</td>
+      </tr>
+      <tr>
+        <td>Trainable Parameters</td>
+        <td>1,688,850</td>
+        <td>1,953,042</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <blockquote>
+    <strong>💭 Why This Matters:</strong>
+    This architectural refactor wasn’t just about stacking more layers. It was about fixing subtle bugs, improving model generalization, and enabling compatibility with hardware-level acceleration via mixed precision. The final model is performant, stable, and ready for real-world experimentation — all while being custom-built and lightweight enough to run on a laptop GPU.
+  </blockquote>
+</section>
+  <hr style="margin: 40px 0; border: none; border-top: 2px inset black;">
+  <section id="weight-init">
+  <h2>╰╴ 9. 🧠 Weight Initialization: Same Foundation, Still Solid</h2>
+  <p>
+    While many parts of the architecture evolved in the final version, my approach to weight initialization stayed consistent. I used a hybrid strategy tailored to the type of layer:
+  </p>
+
+  <ul>
+    <li>✅ <strong>Xavier Initialization</strong> for all fully connected (<code>nn.Linear</code>) layers — balances variance across layers and supports stable convergence.</li>
+    <li>✅ <strong>Kaiming (He) Initialization</strong> for convolutional layers (<code>nn.Conv2d</code>) — optimized for ReLU-like activations and preserves forward signal strength.</li>
+  </ul>
+
+  <details>
+    <summary><strong>Code: Custom Weight Initialization Function</strong></summary>
+    <pre><code class="language-python">def weights_init(m):
+    if isinstance(m, nn.Linear):
+        nn.init.xavier_uniform_(m.weight)
+        if m.bias is not None:
+            nn.init.zeros_(m.bias)
+    elif isinstance(m, nn.Conv2d):
+        nn.init.kaiming_normal_(m.weight, nonlinearity='relu')
+        if m.bias is not None:
+            nn.init.zeros_(m.bias)</code></pre>
+  </details>
+
+  <p>
+    Although I experimented with alternate activation functions like <code>GELU</code>, I kept <code>nonlinearity='relu'</code> for Kaiming as a safe and compatible default.
+  </p>
+
+  <blockquote>
+    <strong>🧠 Insight:</strong> This function was called right after the model was defined using <code>net.apply(weights_init)</code> — ensuring reproducible and properly scaled initialization for each run.
+  </blockquote>
+
+  <p>
+    ✅ This section didn’t change between the capstone and final versions — and sometimes, that’s exactly what you want. If your foundation is solid, no need to fix what already works.
+  </p>
+</section>
+  <hr style="margin: 40px 0; border: none; border-top: 2px inset black;">
+  <section id="hyperparameters">
+  <h2>╰╴ 10. 🧪 Hyperparameters, Custom Loss, and Optimizer Refinement</h2>
+
+  <h3>🎛️ Core Hyperparameters (Capstone & Final)</h3>
+  <p>
+    I kept the training loop stable with a consistent base:
+  </p>
+  <pre><code class="language-python">epochs = 200
+learning_rate = 0.001
+weight_decay = 1e-5
+accumulation_steps = 2</code></pre>
+
+  <h3>🎯 From CrossEntropy to Custom SoftTarget Focal Loss</h3>
+  <div class="loss-comparison">
+  <div class="window loss-box">
+    <div class="title-bar">
+      <div class="title-bar-text">🔧 Capstone Version: Simple but Limited</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button>
+        <button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body">
+      <p>Used standard <code>CrossEntropyLoss</code> with per-class weights:</p>
+      <pre><code class="language-python">criterion = nn.CrossEntropyLoss(weight=class_weights_tensor.to(device))</code></pre>
+      <ul>
+        <li>✅ Useful for class imbalance</li>
+        <li>❌ Didn’t support soft labels from MixUp</li>
+        <li>❌ No modulation for hard/easy samples</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="window loss-box">
+    <div class="title-bar">
+      <div class="title-bar-text">🚀 Final Version: SoftTargetFocalLoss</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button>
+        <button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body">
+      <p>Custom-built loss function with full MixUp and class imbalance support:</p>
+      <ul>
+        <li>✅ Class-specific weights (<code>alpha</code>)</li>
+        <li>✅ Soft label support</li>
+        <li>✅ Focal focusing (<code>gamma</code>)</li>
+        <li>✅ Optional label smoothing</li>
+      </ul>
+      <pre><code class="language-python">criterion = SoftTargetFocalLoss(
+    alpha=class_weights_tensor.to(device),
+    gamma=2.0,
+    reduction='mean',
+    label_smoothing=0.1,
+    num_classes=out_classes
+)</code></pre>
+    </div>
+  </div>
+</div>
+
+
+  <h3>⚙️ Optimizer Upgrades: Smarter Weight Decay</h3>
+  <h4>🔧 Capstone Version</h4>
+  <pre><code class="language-python">optimizer = torch.optim.AdamW(net.parameters(), lr=0.001, weight_decay=1e-4)</code></pre>
+  <p>Applied weight decay to all parameters — including bias and batchnorm layers (suboptimal).</p>
+
+  <h4>✅ Final Version</h4>
+  <p>Grouped parameters with and without decay, to better support <code>AdamW</code> best practices:</p>
+  <pre><code class="language-python">def get_optimizer(model, lr, weight_decay):
+    decay, no_decay = [], []
+    for name, param in model.named_parameters():
+        if "bias" in name or "bn" in name or "BatchNorm" in name:
+            no_decay.append(param)
+        else:
+            decay.append(param)
+    return torch.optim.AdamW([
+        {'params': decay, 'weight_decay': weight_decay},
+        {'params': no_decay, 'weight_decay': 0.0}
+    ], lr=lr)</code></pre>
+
+  <p>✅ Excludes BatchNorm and bias terms from regularization — improving convergence and reducing over-penalization of critical parameters.</p>
+
+  <h3>📉 Scheduler & Precision: More Targeted and Stable</h3>
+
+  <h4>🧪 Capstone Version</h4>
+  <pre><code class="language-python">scaler = torch.cuda.amp.GradScaler()
+scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
+    optimizer, mode='min', patience=2, factor=0.5, verbose=True)</code></pre>
+
+  <h4>✅ Final Version</h4>
+  <pre><code class="language-python">scaler = torch.cuda.amp.GradScaler()
+scheduler = ReduceLROnPlateau(
+    optimizer, mode='max', factor=0.5, patience=5, verbose=True)</code></pre>
+
+  <ul>
+    <li>✅ Switched from <code>mode='min'</code> to <code>mode='max'</code> to track validation accuracy instead of loss</li>
+    <li>✅ AMP scaler unchanged — crucial for efficient mixed precision training</li>
+    <li>✅ Tried other schedulers (like OneCycleLR), but this yielded more stable convergence</li>
+  </ul>
+
+  <h3>🔁 Learning Rate Scheduling: Tried Others, Stuck with the Winner</h3>
+  <p>
+    While tuning the final version of the training loop, I experimented with a few popular learning rate schedulers commonly suggested for imbalanced datasets, including:
+  </p>
+  <ul>
+    <li><code>OneCycleLR</code></li>
+    <li><code>CosineAnnealingLR</code></li>
+    <li><code>CosineAnnealingWarmRestarts</code></li>
+  </ul>
+  <p>
+    📉 <strong>OneCycleLR</strong> in particular is often favored for helping models navigate tough class imbalance scenarios. But in my case, it led to unstable training behavior — the <strong>macro F1 score</strong> would teeter and often stagnate, which isn’t unusual for heavily imbalanced data like mine.
+  </p>
+  <p>
+    🔍 Instead, I prioritized <strong>validation accuracy</strong> as my main performance indicator — which proved to be a more stable and meaningful signal throughout training. Based on that, I found that sticking with <code>ReduceLROnPlateau(mode='max')</code> delivered more reliable results and smoother convergence.
+  </p>
+  <p>
+    ✅ <strong>Final Choice:</strong> <code>ReduceLROnPlateau</code> monitoring validation accuracy, with <code>patience=5</code> and <code>factor=0.5</code>.
+  </p>
+
+  <h3>📏 Metric: Macro F1 vs Accuracy</h3>
+  <p>
+    While macro F1 was tracked for completeness, I observed that F1 scores didn't always climb linearly — which is common with long-tailed class distributions. As a result, I leaned more on validation accuracy to drive scheduler behavior.
+  </p>
+
+  <blockquote>
+    <strong>🧠 Why This Matters:</strong> This phase of the pipeline wasn’t just about picking numbers. It was about adapting your loss function, metric tracking, and optimization behavior to match the data and training style (MixUp, imbalance, class weights, soft labels). These changes led to smoother convergence and improved real-world performance.
+  </blockquote>
+</section>
+  <hr style="margin: 40px 0; border: none; border-top: 2px inset black;">
+  <section id="training-loop">
+  <h2>╰╴ 11. 🧠 Training the CNN: From “It Works” to “It Scales”</h2>
+  <p>
+    While the capstone version was adequate and handled forward propagation, loss calculation, backward propagation and weight update well enough, the final version introduced a number of practical improvements that made training more stable, efficient, and easier to monitor.
+  </p>
+
+<div class="meanstd-comparison">
+  <div class="window meanstd-box">
+    <div class="title-bar">
+      <div class="title-bar-text">🔧 Capstone Version: Functional, But Fragile</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button>
+        <button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body">
+      <p>The original training loop did cover the essentials:</p>
+      <ul>
+        <li>✅ Forward pass + loss computation</li>
+        <li>✅ Mixed precision with <code>autocast()</code> and <code>GradScaler()</code></li>
+        <li>✅ Accuracy, loss, and macro F1 logged per epoch</li>
+        <li>✅ Learning rate scheduling via <code>ReduceLROnPlateau(mode='min')</code></li>
+      </ul>
+      <p>But it missed important features that help with training longevity and reproducibility:</p>
+      <ul>
+        <li>❌ No early stopping or checkpointing for best models</li>
+        <li>❌ No gradient accumulation to simulate larger batch sizes</li>
+        <li>❌ No protections for NaNs/Infs in the loss</li>
+        <li>❌ Memory wasn’t explicitly cleared, which made crashes more likely</li>
+        <li>❌ Used hard labels only — not compatible with MixUp or soft-label loss functions</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="window meanstd-box">
+    <div class="title-bar">
+      <div class="title-bar-text">✅ Final Version: Resilient, Efficient, and Metric-Savvy</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button>
+        <button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body">
+      <p>The final loop received a full overhaul — tuned to support soft targets, protect training from edge cases, and gracefully handle GPU memory constraints.</p>
+      <ul>
+        <li>✅ <strong>Gradient Accumulation</strong> to handle small batch sizes efficiently</li>
+        <li>✅ <strong>Gradient Clipping</strong> after <code>unscale()</code> to prevent exploding gradients</li>
+        <li>✅ <strong>NaN/Inf skip logic</strong> to prevent training from crashing</li>
+        <li>✅ <strong>Early Stopping</strong> with <code>patience=20</code> based on both validation accuracy and F1</li>
+        <li>✅ <strong>Dual Checkpointing</strong> — saves best model by val accuracy <em>and</em> best model by F1</li>
+        <li>✅ <strong>Soft Label Support</strong>: Converts to hard labels for accuracy metric</li>
+        <li>✅ <strong>Aggressive CUDA Memory Cleanup</strong> via <code>gc.collect()</code> and <code>torch.cuda.empty_cache()</code></li>
+        <li>✅ <strong>Learning Rate Logging</strong> per epoch for transparency</li>
+        <li>✅ <strong>Scheduler</strong> switched to <code>ReduceLROnPlateau(mode='max')</code></li>
+        <li>✅ <strong>Batch-level memory cleanup</strong> to prevent OOM</li>
+        <li>✅ <strong>Logs macro F1, precision, and recall</strong> every epoch</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+  <div class="window" style="margin-top: 20px;">
+  <div class="title-bar">
+    <div class="title-bar-text">🧪 Example Enhancements Worth Highlighting</div>
+    <div class="title-bar-controls">
+      <button aria-label="Minimize"></button>
+      <button aria-label="Close"></button>
+    </div>
+  </div>
+  <div class="window-body">
+  <h4>🔁 Gradient Accumulation + AMP</h4>
+    <pre><code class="language-python"># Mixed precision and gradient accumulation
+with autocast():  # AMP forward pass
+    output = net(data)
+    loss = criterion(output, label)
+
+scaler.scale(loss).backward()
+if (i + 1) % accumulation_steps == 0 or (i + 1) == len(train_loader):
+    scaler.unscale_(optimizer)
+    torch.nn.utils.clip_grad_norm_(net.parameters(), max_norm=1.0)
+    scaler.step(optimizer)
+    scaler.update()
+    optimizer.zero_grad()
+    </code></pre>
+	 <h4>📌 Checkpointing Logic</h4>
+    <pre><code class="language-python"># Save best-performing model by F1 and accuracy
+if valid_acc > best_val_acc + 1e-4:
+    torch.save(net.state_dict(), "cap_model_weights_best.pth")
+if f1 > best_val_f1 + 1e-4:
+    torch.save(net.state_dict(), "best_model_by_f1.pth")
+    </code></pre>
+	<h4>⏹️ Early Stopping</h4>
+    <pre><code class="language-python"># Early stopping
+if epoch_noimprove >= patience:
+    print("Early stop no improvement in %d epochs." % patience)
+    break
+    </code></pre>
+  </div>
+</div>
+
+
+  <h3>📊 Why This Matters</h3>
+  <p>
+    The changes implemented allowed for better logging, improved memory handling on my limited hardware, and the ability to stop early once validation accuracy or F1 stopped improving. Saving checkpoints for both metrics gave me options for which version of the model best served my goals.
+  </p>
+  <p>
+    This loop was designed to support real-world constraints: limited GPU memory, imbalanced classes, soft-label augmentation, and fluctuating validation metrics. It was built not just to run — but to be resilient, tunable, and production-conscious.
+  </p>
+</section>
+  <hr style="margin: 40px 0; border: none; border-top: 2px inset black;">
+  
+  <hr style="margin: 40px 0; border: none; border-top: 2px inset black;">
+  
+  <hr style="margin: 40px 0; border: none; border-top: 2px inset black;">
+  
+  <hr style="margin: 40px 0; border: none; border-top: 2px inset black;">
+  
+</div>
+
