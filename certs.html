@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Certificates - Ian H. Ryan</title>
+  <link rel="stylesheet" href="https://unpkg.com/98.css">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+	  html, body {
+	    margin: 0;
+	    padding: 0;
+	    height: 100%;
+	    background-color: #008080;
+	    font-family: "MS Sans Serif", Tahoma, sans-serif;
+	  }
+
+	  body {
+	    display: flex;
+	    align-items: flex-start;
+	  }
+
+	  .sidebar {
+	    width: 220px;
+	    padding: 10px 0 10px 10px;
+	    margin-right: 10px;
+	    box-sizing: border-box;
+	    position: fixed;
+	    top: 0;
+	    left: 0;
+	  }
+
+	  .sidebar .window {
+	    display: flex;
+	    flex-direction: column;
+	  }
+
+	  .sidebar .window-body {
+	    padding: 10px;
+	  }
+
+	  .sidebar ul {
+	    list-style-type: disc;
+	    padding-left: 25px;
+	    margin: 0;
+	  }
+
+	  .sidebar li {
+	    margin-bottom: 5px;
+	  }
+
+	  .content {
+	    margin-left: 240px;
+	    padding: 10px 20px 10px 0;
+	    width: calc(100% - 240px);
+	    box-sizing: border-box;
+	  }
+
+	  .content .window {
+	    display: flex;
+	    flex-direction: column;
+	    width: 100%;
+	    overflow-x: hidden;
+	  }
+
+	  .window-body {
+	    padding: 0;
+	    background-color: transparent;
+	    overflow-x: hidden; /* ✅ Prevent gray background from stretching */
+	    width: 100%;
+	    max-width: 100%;
+	    box-sizing: border-box;
+	  }
+
+	  .blog-wrapper {
+	    background-color: #c0c0c0;
+	    padding: 20px;
+	    width: 100%;
+	    display: flex;
+	    flex-direction: column;
+	    align-items: stretch;
+	    box-sizing: border-box;
+	  }
+
+	  .blog-post {
+	    margin-bottom: 20px;
+	    padding: 20px;
+	    border: 2px solid black;
+	    background-color: white;
+	    width: 100%;
+	    box-sizing: border-box;
+	    font-family: Verdana, Tahoma, sans-serif;
+	    font-size: 14px;
+	    line-height: 1.6;
+	  }
+
+	  .blog-post h2 {
+	    margin-top: 0;
+	    font-size: 18px;
+	  }
+	  
+	  .blog-post h2.title {
+	    font-size: 22px;
+	    font-weight: bold;
+	    margin-bottom: 20px;
+	  }
+
+	  .blog-post p {
+	    font-size: 14px;
+	    line-height: 1.6;
+	  }
+
+	  a {
+	    text-decoration: none;
+	    color: blue;
+	  }
+
+	  a:hover {
+	    text-decoration: underline;
+	  }
+	  
+	  .env-comparison {
+	    display: flex;
+	    flex-wrap: wrap;
+	    gap: 20px;
+	    justify-content: space-between;
+	    margin-top: 20px;
+	  }
+
+	  .env-box {
+	    background-color: #f0f0f0;
+	    border: 1px solid black;
+	    padding: 15px;
+	    flex: 1 1 45%;
+	    min-width: 300px;
+	    box-sizing: border-box;
+	  }
+
+	  .env-box h3 {
+	    margin-top: 0;
+	  }
+
+	  .env-box ul {
+	    padding-left: 20px;
+	  }
+
+	  .env-box li {
+	    margin-bottom: 6px;
+	  }
+	  
+	  .meanstd-comparison {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin: 40px 0;
+}
+
+.meanstd-box {
+  flex: 1 1 48%;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.window pre {
+  background-color: #f4f4f4;
+  padding: 10px;
+  overflow-x: auto;
+  font-size: 13px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+.table-compare {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 20px 0;
+  font-size: 13px;
+}
+
+.table-compare th,
+.table-compare td {
+  border: 2px solid #000;
+  padding: 8px 10px;
+  text-align: center;
+}
+
+.table-compare th {
+  background-color: #e0e0e0;
+  font-weight: bold;
+}
+
+.table-compare tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.code-highlight {
+  background-color: #e0e0e0;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: monospace;
+}
+
+    .cert-entry {
+      margin-bottom: 20px;
+    }
+
+    .cert-entry h3 {
+      margin: 0 0 5px 0;
+    }
+
+    .cert-entry a {
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar (copied from blog.html) -->
+  <div class="sidebar">
+    <div class="window">
+      <div class="title-bar">
+        <div class="title-bar-text">navigation</div>
+        <div class="title-bar-controls">
+          <button aria-label="Help"></button>
+          <button aria-label="Minimize"></button>
+          <button aria-label="Close"></button>
+        </div>
+      </div>
+      <div class="window-body">
+        <ul>
+          <li><a href="index.html"><img src="pictures/homepage-0.png" width="16" height="16"> home</a></li>
+          <li><a href="blog.html"><img src="pictures/notepad-1.png" alt="Blog Icon" width="16" height="16"> blog</a></li>
+          <li><a href="projects.html"><img src="pictures/floppy_drive_3_5_cool-2.png" width="16" height="16"> projects</a></li>
+          <li><a href="about.html"><img src="pictures/help_sheet-0.png" width="16" height="16"> about me</a></li>
+          <li><a href="IanRyan_Resume_2025.pdf"><img src="pictures/certificate_2-0.png" width="16" height="16"> resume</a></li>
+          <li><a href="certs.html"><img src="pictures/world_network_directories-2.png" width="16" height="16"> certificates</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="content">
+    <div class="window">
+      <div class="title-bar">
+        <div class="title-bar-text">certificates - ianhryan.com</div>
+        <div class="title-bar-controls">
+          <button aria-label="Help"></button>
+          <button aria-label="Minimize"></button>
+          <button aria-label="Close"></button>
+        </div>
+      </div>
+      <div class="window-body">
+
+        <div class="cert-entry">
+  <h3>AWS Academy MLU - Application of Deep Learning to Text and Images</h3>
+  <p>
+    <a href="certs/AWS_Academy_Graduate___AWS_Academy_MLU_Application_of_Deep_Learning_to_Text_and_Images_Badge20241205-26-mil7pi.pdf" target="_blank">
+      <img src="pictures/world_network_directories-2.png" width="16" height="16">
+      PDF Certificate
+    </a>
+    &nbsp;|&nbsp;
+    <a href="https://www.credly.com/badges/a3a3f359-b76d-4982-b887-b6969d943178" target="_blank">
+      <img src="pictures/certificate_2-0.png" width="16" height="16">
+      Verify on Credly
+    </a>
+  </p>
+</div>
+
+<div class="cert-entry">
+  <h3>AWS Academy MLU - Machine Learning through Application</h3>
+  <p>
+    <a href="certs/AWS_Academy_Graduate___AWS_Academy_MLU_Machine_Learning_through_Application_Badge20241030-27-f7fwo8.pdf" target="_blank">
+      <img src="pictures/world_network_directories-2.png" width="16" height="16">
+      PDF Certificate
+    </a>
+    &nbsp;|&nbsp;
+    <a href="https://www.credly.com/badges/d05da98d-9671-4674-a710-e922009d841f" target="_blank">
+      <img src="pictures/certificate_2-0.png" width="16" height="16">
+      Verify on Credly
+    </a>
+  </p>
+</div>
+
+
+        <div class="cert-entry">
+          <h3>Other Certificates (link to zip: 3 iOS/Swift certs)</h3>
+          <a href="iOS.zip" target="_blank">Download zip</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
+

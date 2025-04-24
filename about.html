@@ -1,17 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/styles.css">
-  <title>IAN</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Ian H. Ryan - About Me</title>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="https://unpkg.com/98.css" />
+  <link rel="stylesheet" href="css/normalize.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #008080;
+  font-family: "MS Sans Serif", Tahoma, sans-serif;
+  color: black;
+}
+
+/* Sidebar Scrolls with Page */
+.sidebar-window {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  width: 220px;
+  z-index: 1000;
+}
+
+.sidebar-window .window {
+  width: 100%;
+}
+
+.sidebar-window .window-body ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin: 0;
+}
+
+.sidebar-window .window-body li {
+  margin-bottom: 5px;
+}
+
+.sidebar-window img {
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+/* Layout */
+.layout-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-left: 240px;
+}
+
+.master-container {
+  width: 100%;
+  max-width: 1000px;
+  background-color: white;
+  padding: 0 10px;
+}
+
+.profile-sidebar section {
+  margin-bottom: 15px;
+}
+
+/* Responsive Sidebar */
+@media (max-width: 800px) {
+  .sidebar-window {
+    display: none;
+  }
+  .layout-wrapper {
+    margin-left: 0;
+  }
+}
+
+/* Table Styling */
+.sidebar-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-family: "MS Sans Serif", Tahoma, sans-serif;
+  font-size: 11px;
+  line-height: 1.4;
+  background-color: white;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.sidebar-table caption {
+  caption-side: top;
+  text-align: left;
+  font-weight: bold;
+  background-color: #3366cc;
+  color: white;
+  padding: 4px 8px;
+}
+
+.sidebar-table th {
+  width: 30%;
+  background-color: #d6e6ff;
+  color: #003399;
+  text-align: left;
+  font-weight: bold;
+  vertical-align: top;
+  padding: 6px 8px;
+  border: 1px solid #a6c8ff;
+}
+
+.sidebar-table td {
+  background-color: #f5faff;
+  color: black;
+  padding: 6px 8px;
+  vertical-align: top;
+  border: 1px solid #a6c8ff;
+}
+
+.sidebar-table ul {
+  padding-left: 18px;
+  margin: 0;
+  list-style-type: disc;
+}
+
+.sidebar-table p {
+  margin: 0 0 8px;
+  line-height: 1.4;
+  font-family: "MS Sans Serif", Tahoma, sans-serif;
+  font-size: 11px;
+  color: black;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  white-space: normal;
+}
+.schools .sidebar-table-header {
+  background-color: #d6e6ff;
+  color: #003399;
+  text-align: left;
+  vertical-align: top;
+  padding: 6px 8px;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+.schools .sidebar-table-header div {
+  font-weight: normal;
+  color: black;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.schools .sidebar-table-data {
+  background-color: #f5faff;
+  font-size: 11px;
+  padding: 6px 8px;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+</style>
+
 </head>
 
 <body>
 
+  <!-- Win98 Sidebar -->
+  <div class="sidebar-window">
+    <div class="window">
+      <div class="title-bar">
+        <div class="title-bar-text">navigation</div>
+        <div class="title-bar-controls">
+          <button aria-label="Help"></button>
+          <button aria-label="Minimize"></button>
+          <button aria-label="Close"></button>
+        </div>
+      </div>
+      <div class="window-body">
+        <ul>
+          <li><a href="index.html"><img src="pictures/homepage-0.png" width="16" /> home</a></li>
+          <li><a href="blog.html"><img src="pictures/notepad-1.png" width="16" /> blog</a></li>
+          <li><a href="projects.html"><img src="pictures/floppy_drive_3_5_cool-2.png" width="16" /> projects</a></li>
+          <li><a href="about.html"><img src="pictures/help_sheet-0.png" width="16" /> about me</a></li>
+          <li><a href="IanRyan_Resume_2025.pdf"><img src="pictures/certificate_2-0.png" width="16" /> resume</a></li>
+          <li><a href="Certifications_IanRyan.zip"><img src="pictures/world_network_directories-2.png" width="16" /> certificates</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+<div class="layout-wrapper">
   <div class="master-container">
 
     <!-- Main Header Begins -->
@@ -215,48 +392,43 @@
         </section>
 
         <!-- Ian's Schools Section -->
-        <section class="schools">
-          <table class="sidebar-table">
-
-            <caption>
-              <h2 class="sidebar-table-h2">ian's schools</h2>
-            </caption>
-
-            <tbody>
-              <tr>
-                <th class="sidebar-table-header" scope="row">
-                  <ul>
-                    <li><a href="#">moorpark community college</a></li>
-                    <li>moorpark, CALIFORNIA</li>
-                    <li>graduated: <a href="#">2022</a></li>
-                    <li>degree: bachelor's degrees</li>
-                    <li>major: computer science</li>
-                    <li>awards: dean's list</li>
-                    <li>associates degrees: computer science, natural sciences & mathematics, liberal studies</li>
-                  </ul>
-                </th>
-                <td class="sidebar-table-data">2015 to 2022</td>
-              </tr>
-
-              <tr>
-                <th class="sidebar-table-header" scope="row">
-                  <ul>
-                    <li><a href="#">california state university channel islands</a></li>
-                    <li>camarillo, CALIFORNIA</li>
-                    <li>graduated: <a href="#">december 2024</a></li>
-                    <li>student status: alumni</li>
-                    <li>degree: bachelor's degree</li>
-                    <li>major: computer science</li>
-                    <li>clubs: artificial intelligence club, network security club</li>
-                  </ul>
-                </th>
-                <td class="sidebar-table-data">2023 to 2024</td>
-              </tr>
-
-            </tbody>
-          </table>
-
-        </section>
+<section class="schools">
+  <table class="sidebar-table">
+    <caption>
+      <h2 class="sidebar-table-h2">ian's schools</h2>
+    </caption>
+    <tbody>
+      <tr>
+        <th class="sidebar-table-header" scope="row">
+          <div>
+            <strong>moorpark community college</strong><br>
+            moorpark, CALIFORNIA<br>
+            graduated: 2022<br>
+            degree: bachelor's degrees<br>
+            major: computer science<br>
+            awards: dean's list<br>
+            <strong>associates degrees</strong>: computer science, <br>natural sciences & mathematics, <br>liberal studies
+          </div>
+        </th>
+        <td class="sidebar-table-data">2015 to 2022</td>
+      </tr>
+      <tr>
+        <th class="sidebar-table-header" scope="row">
+          <div>
+            <strong>california state university channel islands</strong><br>
+            camarillo, CALIFORNIA<br>
+            graduated: december 2024<br>
+            student status: alumni<br>
+            degree: bachelor's degree<br>
+            major: computer science<br>
+            clubs: artificial intelligence club,<br> network security club
+          </div>
+        </th>
+        <td class="sidebar-table-data">2023 to 2024</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
       </aside>
       <!-- Profile Side Bar Ends -->
 
@@ -397,6 +569,7 @@
 
       <small>©100bce-2025 ianhryan.com</small>
     </footer>
+  </div>
   </div>
 
 </body>
