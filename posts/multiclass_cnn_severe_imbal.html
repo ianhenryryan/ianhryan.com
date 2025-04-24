@@ -1,5 +1,34 @@
 <div class="blog-post">
   <h2 class="title">Project: Multi-Class CNN with Severe Class Imbalance from Combined Datasets</h2>
+  <p>Posted April 20, 2025 by Ian Ryan</p>
+  <hr style="margin: 40px 0; border: none; border-top: 2px inset black;">
+  <section id="intro">
+  <h2>✨ Introduction / TL;DR</h2>
+  <p>
+    I took on the challenge of building a multi-class Convolutional Neural Network from scratch using PyTorch — with a twist. Instead of using balanced or curated datasets, I intentionally created an extreme case of class imbalance by merging two different datasets. One of the 18 classes makes up 50% of the images, while the remaining 17 classes split the other half.
+  </p>
+  <p>
+    Since graduating, I’ve been refining this project and correcting mistakes that were present in the original capstone version. One major issue I uncovered was that I had incorrectly combined the datasets, which resulted in misclassified images and even some completely empty classes — making all the original training results invalid. I committed to debugging everything: redundant code, mismatched variable names, inconsistent transforms, and broken visualizations. Once the pipeline was stable and fully functional, I moved on to implementing upgrades across the board — from dataset engineering and augmentation to better loss strategies and metrics.
+  </p>
+  <p>
+    <strong>The combined dataset includes:</strong><br>
+    - <strong><a href="https://universe.roboflow.com/pascal-to-yolo-8yygq/inria-person-detection-dataset" target="_blank">INRIA Person Detection Dataset</a></strong> (Roboflow Universe) by user <strong>Pascal to Yolo</strong>: 902 images of class <code>person</code>, manually split 70/20/10 for train/val/test.<br>
+    - <strong><a href="https://www.kaggle.com/datasets/iamsouravbanerjee/animal-image-dataset-90-different-animals/data" target="_blank">Animal Image Dataset</a></strong> (Kaggle) by user <strong>iamsouravbanerjee</strong>: 17 cherry-picked animal classes from their 90 total, totaling 902 images, also split 70/20/10.
+  </p>
+  <p>
+    Merged, this totals <strong>1,804 images</strong> across 18 classes with heavy imbalance: 1 class dominates half the dataset. Everything is now preprocessed locally and trained fully from scratch.
+  </p>
+  <p>
+    <strong>After tuning and implementing synthetic augmentation, I was able to achieve:</strong><br>
+    - <strong>70%+</strong> accuracy on training, validation, and test sets<br>
+    - <strong>Macro F1-Score</strong> ranging from <strong>0.40 to 0.60</strong><br>
+    - All without using any pretrained models
+  </p>
+  <p>
+    It became a personal challenge — one I used to reinforce core deep learning concepts under tougher, more realistic conditions. It’s been a fun dissection that’s helped me grow—improving my skills, decision making, and overall approach to building machine learning pipelines, while continuing my journey of finding employment after graduating in December.
+  </p>
+</section>
+
   
   <hr style="margin: 40px 0; border: none; border-top: 2px inset black;">
 
@@ -377,6 +406,23 @@ No issues.
 ⚠️ 'zebra' is under 5% of train set (2.9%)
 ...
 </code></pre>
+
+  <h4>Class Distribution Graphs:</h4>
+  <div style="text-align: center; margin-top: 30px;">
+    <h4>📊 Class Distribution: Train Set</h4>
+    <img src="pictures/train_class_dist.png" alt="Class Distribution in Train Set" style="max-width: 100%; height: auto;">
+  </div>
+
+  <div style="text-align: center; margin-top: 30px;">
+    <h4>📊 Class Distribution: Validation Set</h4>
+    <img src="pictures/val_class_dist.png" alt="Class Distribution in Validation Set" style="max-width: 100%; height: auto;">
+  </div>
+
+  <div style="text-align: center; margin-top: 30px;">
+    <h4>📊 Class Distribution: Test Set</h4>
+    <img src="pictures/test_class_dist.png" alt="Class Distribution in Test Set" style="max-width: 100%; height: auto;">
+  </div>
+
 	<h4>🧠 Why This Matters</h4>
   <blockquote>
     <strong>🧠 Insight:</strong> I overlooked serious structural issues in my capstone and didn’t realize them until after training. This time, I combined folder validation with visual distribution feedback — making sure every class was present, populated, and realistically proportioned before training began.
@@ -678,6 +724,11 @@ tensor([
       <tr><td>...</td><td>...</td><td>...</td><td>...</td></tr>
     </tbody>
   </table>
+
+  <h4>Log Scaled Inverse Frequency Class Weights Diagram:</h4>
+  <div style="text-align: center; margin-top: 30px;">
+    <img src="pictures/logscaledinvfreqclassweights.png" alt="Class Distribution weights" style="max-width: 100%; height: auto;">
+  </div>
 
   <h3>🧠 Why This Worked</h3>
   <p>
@@ -1102,15 +1153,400 @@ if epoch_noimprove >= patience:
     The changes implemented allowed for better logging, improved memory handling on my limited hardware, and the ability to stop early once validation accuracy or F1 stopped improving. Saving checkpoints for both metrics gave me options for which version of the model best served my goals.
   </p>
   <p>
-    This loop was designed to support real-world constraints: limited GPU memory, imbalanced classes, soft-label augmentation, and fluctuating validation metrics. It was built not just to run — but to be resilient, tunable, and production-conscious.
+    This loop was designed to support real-world constraints: limited GPU memory, imbalanced classes, soft-label augmentation, and fluctuating validation metrics.
   </p>
 </section>
+
   <hr style="margin: 40px 0; border: none; border-top: 2px inset black;">
+  <section id="model-epochs-results">
+  <h2>╰╴ 12. 📊 Capstone vs Final Model: Results</h2>
+<p>
+  Despite using the same image sources, the <strong>capstone model</strong> trained on a flawed version of the dataset due to an earlier bug in the
+  dataset merging logic. As a result, the validation set was imbalanced and not representative — leading to poor generalization, low precision and recall,
+  and heavy reliance on the <strong>"person"</strong> class. The <strong>final model</strong> corrected this issue by using a properly combined and balanced dataset,
+  along with key enhancements like log-scaled inverse frequency class weighting, MixUp augmentation, and softmax threshold tuning.
+  These changes led to more stable learning dynamics and significantly improved performance across all classes.
+</p>
+
+  <div class="meanstd-comparison" style="display: flex; gap: 20px;">
+  <!-- Capstone Epoch Summary -->
+  <div class="window meanstd-box" style="flex: 1;">
+    <div class="title-bar">
+      <div class="title-bar-text">🟡 Capstone: Epoch Summary</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button>
+        <button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body" style="max-height: 400px; overflow-y: auto; font-size: 13px;">
+      <pre>
+Epoch 1:  train loss 2.739, train acc 0.155, val loss 2.943, val acc 0.124
+          precision 0.309, recall 0.142, F1-score 0.246
+Epoch 10: train loss 2.047, train acc 0.351, val loss 2.694, val acc 0.321
+          precision 0.217, recall 0.277, F1-score 0.264
+Epoch 20: train loss 1.827, train acc 0.402, val loss 2.507, val acc 0.394
+          precision 0.255, recall 0.318, F1-score 0.259
+Epoch 30: train loss 1.691, train acc 0.467, val loss 2.481, val acc 0.417
+          precision 0.278, recall 0.337, F1-score 0.278
+Epoch 40: train loss 1.627, train acc 0.476, val loss 2.465, val acc 0.434
+          precision 0.290, recall 0.343, F1-score 0.286
+Epoch 50: train loss 1.709, train acc 0.457, val loss 2.458, val acc 0.434
+          precision 0.291, recall 0.339, F1-score 0.282
+Epoch 60: train loss 1.716, train acc 0.458, val loss 2.473, val acc 0.425
+          precision 0.287, recall 0.340, F1-score 0.283
+Epoch 70: train loss 1.681, train acc 0.469, val loss 2.457, val acc 0.428
+          precision 0.279, recall 0.336, F1-score 0.278
+Epoch 75: train loss 1.699, train acc 0.455, val loss 2.484, val acc 0.423
+          precision 0.281, recall 0.335, F1-score 0.277
+
+→ Final F1-score (Val): 0.277
+      </pre>
+    </div>
+  </div>
+
+  <!-- Final Model Epoch Summary -->
+  <div class="window meanstd-box" style="flex: 1;">
+    <div class="title-bar">
+      <div class="title-bar-text">🟠 Final Model: Epoch Summary</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button>
+        <button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body" style="max-height: 400px; overflow-y: auto; font-size: 13px;">
+      <pre>
+Epoch 1:  train loss 0.148, train acc 0.114, val loss 0.147, val acc 0.141
+          precision 0.409, recall 0.108, F1-score 0.335
+Epoch 10: train loss 0.105, train acc 0.334, val loss 0.080, val acc 0.398
+          precision 0.244, recall 0.300, F1-score 0.349
+Epoch 20: train loss 0.091, train acc 0.441, val loss 0.076, val acc 0.505
+          precision 0.299, recall 0.344, F1-score 0.448
+Epoch 30: train loss 0.085, train acc 0.502, val loss 0.062, val acc 0.617
+          precision 0.357, recall 0.437, F1-score 0.437
+Epoch 40: train loss 0.074, train acc 0.605, val loss 0.059, val acc 0.659
+          precision 0.448, recall 0.492, F1-score 0.507
+Epoch 50: train loss 0.069, train acc 0.652, val loss 0.059, val acc 0.669
+          precision 0.438, recall 0.494, F1-score 0.501
+Epoch 60: train loss 0.067, train acc 0.691, val loss 0.057, val acc 0.698
+          precision 0.482, recall 0.515, F1-score 0.486
+Epoch 70: train loss 0.066, train acc 0.716, val loss 0.056, val acc 0.734
+          precision 0.526, recall 0.555, F1-score 0.524
+Epoch 75: train loss 0.064, train acc 0.695, val loss 0.056, val acc 0.732
+          precision 0.516, recall 0.553, F1-score 0.523
+
+→ Final F1-score (Val): 0.523
+      </pre>
+    </div>
+  </div>
+</div>
+	<hr style="width: 60%; margin: 40px auto; border: none; border-top: 1px solid #c0c0c0;">
+  <h3>📋 Model Performance: Test Set Results</h3>
+
+  <div class="meanstd-comparison" style="margin-top: 20px;">
+    <div class="window meanstd-box" style="flex: 1;">
+      <div class="title-bar">
+        <div class="title-bar-text">🧪 Capstone Model - Test Set</div>
+        <div class="title-bar-controls">
+          <button aria-label="Minimize"></button>
+          <button aria-label="Close"></button>
+        </div>
+      </div>
+      <div class="window-body" style="font-size: 13px;">
+        <ul>
+          <li>📉 Accuracy: <strong>39.6%</strong></li>
+          <li>🔧 Avg Loss: <code>2.6282</code></li>
+          <li>📊 Weighted F1: <strong>0.45</strong></li>
+          <li>📊 Macro F1: <strong>0.23</strong></li>
+          <li>🤖 Dominant Class: <code>"person"</code></li>
+        </ul>
+        <p><strong>Confusion Matrix:</strong> <em>See below</em></p>
+        <p><strong>Classification Report:</strong> Imbalanced, underperforming on most minority classes.</p>
+      </div>
+    </div>
+
+    <div class="window meanstd-box" style="flex: 1;">
+      <div class="title-bar">
+        <div class="title-bar-text">✅ Final Model - Test Set</div>
+        <div class="title-bar-controls">
+          <button aria-label="Minimize"></button>
+          <button aria-label="Close"></button>
+        </div>
+      </div>
+      <div class="window-body" style="font-size: 13px;">
+        <ul>
+          <li>📈 Accuracy: <strong>71.7%</strong></li>
+          <li>🔧 Avg Loss: <code>0.0561</code></li>
+          <li>📊 Weighted F1: <strong>0.73</strong></li>
+          <li>📊 Macro F1: <strong>0.54</strong></li>
+          <li>🧠 Balanced across all 18 classes</li>
+        </ul>
+        <p><strong>Confusion Matrix:</strong> <em>See below</em></p>
+        <p><strong>Classification Report:</strong> Stronger precision and recall for all classes.</p>
+      </div>
+    </div>
+  </div>
   
+  <hr style="width: 60%; margin: 40px auto; border: none; border-top: 1px solid #c0c0c0;">
+  <h4>📊 Confusion Matrices: Visual Comparison – Capstone vs Final Model</h4>
+<!-- 📊 Confusion Matrices: Side-by-Side Comparison -->
+<div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 20px;">
+
+  <!-- Capstone Confusion Matrix Box -->
+  <div class="window" style="width: 48%;">
+    <div class="title-bar">
+      <div class="title-bar-text">📊 Capstone Model — Confusion Matrix</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button>
+        <button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body">
+      <p style="text-align: center; font-weight: bold;">🟡 Raw Confusion Matrix</p>
+      <img src="pictures/cap_conf_matrix.png" alt="Capstone Confusion Matrix" style="width: 90%; display: block; margin: 0 auto;">
+      <p style="text-align: center; font-weight: bold;">🟡 Normalized Confusion Matrix</p>
+      <img src="pictures/cap_confnorm_matrix.png" alt="Capstone Normalized Confusion Matrix" style="width: 90%; display: block; margin: 0 auto;">
+    </div>
+  </div>
+
+  <!-- Final Confusion Matrix Box -->
+  <div class="window" style="width: 48%;">
+    <div class="title-bar">
+      <div class="title-bar-text">📊 Final Model — Confusion Matrix</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button>
+        <button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body">
+      <p style="text-align: center; font-weight: bold;">🟠 Raw Confusion Matrix</p>
+      <img src="pictures/final_conf_matrix.png" alt="Final Confusion Matrix" style="width: 90%; display: block; margin: 0 auto;">
+      <p style="text-align: center; font-weight: bold;">🟠 Normalized Confusion Matrix</p>
+      <img src="pictures/final_confnorm_matrix.png" alt="Final Normalized Confusion Matrix" style="width: 90%; display: block; margin: 0 auto;">
+    </div>
+  </div>
+
+</div>
+  <hr style="width: 60%; margin: 40px auto; border: none; border-top: 1px solid #c0c0c0;">
+<!-- F1 Score Comparison Container -->
+<h4>🧠 Deep Dive: F1-Score Comparison – Capstone vs Final Model</h4>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 20px; margin-top: 20px;">
+
+  <!-- 📈 F1-Score Evolution (Early Epochs) -->
+  <div class="window" style="max-width: 700px;">
+    <div class="title-bar">
+      <div class="title-bar-text">📈 F1-Score Evolution (Early Epochs)</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button>
+        <button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body" style="text-align: center;">
+      <img src="pictures/capvsfinalmodel.png" alt="F1 Score Comparison Early" style="width: 650px; height: auto; margin-bottom: 10px;">
+      <ul style="text-align: left; font-size: 13px; margin-top: 5px;">
+        <li><strong>Capstone Model (Dashed Yellow):</strong> Starts low, peaks under 0.30, plateaus quickly.</li>
+        <li><strong>Final Model (Solid Orange):</strong> Starts stronger, climbs to 0.42+ with more stable training.</li>
+      </ul>
+    </div>
+  </div>
+</dev>
+<!-- 🧠 F1 Explanation + Interpretation + Why It Matters -->
+<div style="max-width: 800px; margin: 40px auto; text-align: left;">
+  <h4>⚖️ What is F1-Score and Why It Matters?</h4>
+  <ul>
+    <li><strong>F1-score</strong> is the harmonic mean of <em>precision</em> & <em>recall</em>.</li>
+    <li>It's especially crucial in <strong>imbalanced classification problems</strong>, like yours, where some classes (“<code>person</code>”) vastly outnumber others (animals).</li>
+    <li><strong>F1</strong> ensures a balanced view: A model must correctly identify positive examples and avoid false positives to do well.</li>
+  </ul>
+
+  <hr style="border-top: 1px solid #c0c0c0;">
+  <h4>📉 Interpretation / Changes</h4>
+  <ul>
+    <li><strong>Capstone Model:</strong><br>
+      This curve reflects slow, unstable learning, likely because the model is overfitting to the majority class (“<code>person</code>”) and struggling to generalize to the underrepresented animal classes.</li>
+    <li><strong>Final Model:</strong><br>
+      Slight dip at epochs 4–5, but performance stays consistently high (above 0.38), indicating a resilient learning process.</li>
+  </ul>
+
+  <hr style="border-top: 1px solid #c0c0c0;">
+  <h4>✨ Why This Matters</h4>
+  <ul>
+    <li><strong>This early F1-score boost is critical.</strong> In real-world training:</li>
+    <li>Models that learn faster with better generalization early on are typically more stable and performant overall.</li>
+    <li>The Final model’s trajectory indicates it has learned to recognize <strong>all 18 classes</strong> early — not just the dominant one.</li>
+  </ul>
+</div>
+
+  <!-- 📊 F1-Score Evolution (30 Epochs) -->
+  <div class="window" style="max-width: 700px;">
+    <div class="title-bar">
+      <div class="title-bar-text">📊 F1-Score Evolution (30 Epochs)</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button>
+        <button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body" style="text-align: center;">
+      <img src="pictures/f1evolutioncapfinalmodel.png" alt="F1 Score Comparison Full Epochs" style="width: 650px; height: auto; margin-bottom: 10px;">
+      <ul style="text-align: left; font-size: 13px; margin-top: 5px;">
+        <li><strong>Capstone:</strong> Low and choppy growth. Peaks early, plateaus fast.</li>
+        <li><strong>Final:</strong> Steady climb from ~0.33 to ~0.51. Less fluctuation, more learning stability.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div style="max-width: 800px; margin: 40px auto; text-align: left;">
+  <h4>🧠 Key Observations:</h4>
+  <ul>
+  <li><strong>Capstone Model:</strong>
+    <ul>
+      <li>Starts around 0.25, creeps slowly upwards.</li>
+      <li>Mostly fluctuates in the 0.26–0.30 range for 30 epochs.</li>
+      <li>Peaks early (Epoch 4) and plateaus quickly, reflecting:</li>
+      <li>Inability to improve generalization.</li>
+      <li>Over-reliance on the “<code>person</code>” class.</li>
+      <li>Vanishing gradient effects possibly due to poor class representation.</li>
+    </ul>
+  </li>
+</ul>
+<ul>
+  <li><strong>Final Model:</strong>
+    <ul>
+      <li>Starts at 0.335, grows steadily and crosses 0.50 by Epoch 15.</li>
+      <li>Maintains stable high performance above 0.48 from Epoch 20 onward.</li>
+      <li>Indicates:</li>
+      <ul>
+      <li>Robust learning from underrepresented classes.</li>
+      <li>Clear benefit from weighting and possibly augmentation.</li>
+      <li>Balanced gradient propagation even in later stages of training.</li>
+      </ul>
+    </ul>
+  </li>
+</ul>
+
+<p>This suggests that the Final model not only learned faster, but sustained meaningful learning across all classes — a direct result of balancing strategies and refined architecture choices. This long-term improvement is what makes the Final model truly production-ready.</p>
+</div>
+
+  <hr style="width: 60%; margin: 40px auto; border: none; border-top: 1px solid #c0c0c0;">
+  <h4>🔍 Metric Comparison + Summary</h4>
+<!-- 🔍 Metric Comparison + Summary Side-by-Side -->
+<div class="meanstd-comparison" style="display: flex; gap: 20px; margin-top: 20px;">
+  <!-- Metric Comparison -->
+  <div class="window meanstd-box" style="flex: 1;">
+    <div class="title-bar">
+      <div class="title-bar-text">🔍 Metric Comparison</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button>
+        <button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body" style="font-size: 13px;">
+      <table style="width: 100%; border-collapse: collapse;" border="1">
+        <thead style="background-color: #dcdcdc;">
+          <tr>
+            <th>Metric</th>
+            <th>Capstone Model</th>
+            <th>Final Model</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Test Accuracy</td><td>0.396</td><td><strong>0.717 ✅</strong></td></tr>
+          <tr><td>Weighted F1</td><td>0.45</td><td><strong>0.730 ✅</strong></td></tr>
+          <tr><td>Macro F1</td><td>0.23</td><td><strong>0.540 ✅</strong></td></tr>
+          <tr><td>Recall (avg)</td><td>0.29</td><td><strong>0.570 ✅</strong></td></tr>
+          <tr><td>Precision (avg)</td><td>0.22</td><td><strong>0.580 ✅</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="window meanstd-box" style="flex: 1;">
+    <div class="title-bar">
+      <div class="title-bar-text">✅ Summary</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button>
+        <button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body" style="font-size: 13px;">
+      <ul>
+        <li><strong>+33%</strong> boost in test accuracy</li>
+        <li><strong>+30%</strong> improvement in macro F1</li>
+        <li>Balanced representation across all 18 classes</li>
+        <li>“Person” class no longer dominates model behavior</li>
+      </ul>
+    </div>
+  </div>
+  </div>
+</section>  
   <hr style="margin: 40px 0; border: none; border-top: 2px inset black;">
-  
-  <hr style="margin: 40px 0; border: none; border-top: 2px inset black;">
-  
+<section id="cnn-imbalance-summary" style="margin-top: 60px;">
+  <h2>╰╴ 13. 🧠 Blog Summary: Building a Multi-Class CNN from Scratch with Severe Class Imbalance</h2>
+      <p>In this project, I engineered an adequate convolutional neural network (CNN) entirely from scratch using PyTorch, embracing the unique challenge of a severely imbalanced, multi-class classification problem. It was a lot of fun disecting my original problem line by line and debugging it in its entirety. I was able to learn and apply a myriad of techniques, seeing what impact each one had. All in all it gave me a better understanding of creating an ML pipeline and reiterated to me the importance of making sure the data is properly preprocessed before starting.</p>
+
+  <h3>🛠️ Project Evolution: From Capstone to Final Version</h3>
+  <p>
+    The journey began with a capstone project built on AWS SageMaker, but later migrated to my local laptop (Alienware m15 R7) due to cost and practicality. This shift demanded better memory management and smarter computation strategies, including frequent CUDA cache clearing and modular notebook restructuring.
+  </p>
+
+  <h3>🧹 Dataset Debugging & Cleanup</h3>
+  <p>The original capstone had major flaws:</p>
+  <ul>
+    <li>Misaligned class indices during merging caused misclassification.</li>
+    <li>Empty folders and inconsistent labels led to poor training quality.</li>
+    <li>Redundant transforms and loader bugs hampered performance.</li>
+  </ul>
+  <p>The final version fixed all of this by:</p>
+  <ul>
+    <li>Applying label offsets during merging,</li>
+    <li>Verifying dataset structure programmatically,</li>
+    <li>Saving cleaned, reproducible datasets with JSON summaries and stats.</li>
+  </ul>
+
+  <h3>🧮 Key Technical Improvements</h3>
+  <ul>
+    <li>Custom class weighting using a log-scaled inverse frequency approach to better handle imbalance, replacing overcompensating sklearn weights.</li>
+    <li>Advanced normalization using double-pass mean & std computations with caching.</li>
+    <li>MixUp augmentation to introduce soft-label training and combat overfitting.</li>
+    <li>A more stable, AMP-compatible architecture with GELU/LeakyReLU activations, multiple Dropout layers, and custom layers for float32 conversion.</li>
+  </ul>
+
+  <h3>📉 From “Functional” to “Efficient”: Training Loop Refinement</h3>
+  <p>The training pipeline now includes:</p>
+  <ul>
+    <li>Gradient accumulation for batch efficiency,</li>
+    <li>Early stopping and dual checkpointing for val accuracy and F1,</li>
+    <li>Focal loss with soft labels and class weighting,</li>
+    <li>Memory safety mechanisms to prevent CUDA crashes.</li>
+  </ul>
+
+  <h3>📊 Model Comparison: Capstone vs Final</h3>
+  <table border="1" style="width: 100%; border-collapse: collapse; margin-bottom: 10px;">
+    <thead style="background-color: #dcdcdc;">
+      <tr>
+        <th>Metric</th>
+        <th>Capstone Model</th>
+        <th>Final Model</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Validation F1</td><td>0.277</td><td>0.523</td></tr>
+      <tr><td>Test Accuracy</td><td>39.6%</td><td>71.7%</td></tr>
+      <tr><td>Macro F1 (Test)</td><td>0.23</td><td>0.54</td></tr>
+      <tr><td>Weighted F1 (Test)</td><td>0.45</td><td>0.73</td></tr>
+      <tr><td>Dominant Class Bias</td><td>High ("person")</td><td>Balanced</td></tr>
+    </tbody>
+  </table>
+  <p>
+    The final model exhibited drastically improved precision, recall, and generalization, especially on minority classes, due to smarter loss formulation, augmentation, and architectural tweaks.
+  </p>
+
+  <h3>🚀 Why It Matters</h3>
+  <p>
+    This wasn’t just about getting high scores. It was about demonstrating deep ML engineering under resource constraints, with dirty, real-world data, and pushing custom solutions from scratch instead of relying on pretrained shortcuts.
+  </p>
+</section>
+
   <hr style="margin: 40px 0; border: none; border-top: 2px inset black;">
   
 </div>
