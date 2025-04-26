@@ -251,21 +251,43 @@
 
   <!-- Dynamic Loader Script -->
   <script>
-    const blogContainer = document.getElementById("blog-container");
-    const posts = [
-      "multiclass_cnn_severe_imbal.html",
-    ];
+  const blogContainer = document.getElementById("blog-container");
+  const posts = [
+    {
+      file: "multiclass_cnn_severe_imbal.html",
+      title: "📊 Multi-Class CNN from Scratch: Imbalanced Data"
+    },
+    // Add more blog posts like this:
+    // { file: "new_blog_post.html", title: "🆕 New Blog Post Title" }
+  ];
 
-    posts.forEach(file => {
-      fetch(`posts/${file}`)
-        .then(res => res.text())
-        .then(html => {
-          const wrapper = document.createElement("div");
-          wrapper.innerHTML = html;
-          blogContainer.appendChild(wrapper);
-        })
-        .catch(err => console.error("Failed to load", file, err));
-    });
+  posts.forEach(({ file, title }) => {
+    fetch(`posts/${file}`)
+      .then(res => res.text())
+      .then(html => {
+        const details = document.createElement("details");
+        const summary = document.createElement("summary");
+        summary.innerHTML = `<strong>${title}</strong>`;
+        summary.style.cursor = "pointer";
+        summary.style.fontSize = "16px";
+        summary.style.marginBottom = "10px";
+        summary.style.padding = "5px";
+
+        const contentWrapper = document.createElement("div");
+        contentWrapper.innerHTML = html;
+        contentWrapper.style.padding = "10px";
+        contentWrapper.style.borderTop = "1px solid #999";
+
+        details.appendChild(summary);
+        details.appendChild(contentWrapper);
+        details.open = true; // Optional: default open
+
+        blogContainer.appendChild(details);
+      })
+      .catch(err => console.error("Failed to load", file, err));
+  });
+</script>
+
   </script>
 </body>
 </html>
