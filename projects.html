@@ -420,6 +420,717 @@ vbphrase['ncode_imageresizer_warning_fullsize'] = 'Click this bar to view the sm
 			
 			<div class="smallfont">forum dweller</div>
 			
+					<br><a href="member.php?u=5355375"><img src="pictures/Vivi2.gif" width="100" height="71" alt="ian ryan's Avatar" border="0"></a>
+				</div>		
+			
+			
+			<div class="smallfont">
+				<br>
+				<div>join date: Apr 2007</div>
+				
+				
+				<div>
+					Posts: 9,000
+				</div>
+				
+				<div><span id="repdisplay_28107194_1213278"><img class="inlineimg" src="images/reputation_pos.png" alt="ian ryan is on a distinguished road" border="0"></span></div>
+				
+				<div>    </div>
+			</div>					
+		
+	</td>
+	
+	<td class="alt1" id="td_post_28107194" style="border-right: 0px solid #D1D1E1">
+	
+	
+		
+			<!-- icon and title -->
+			<div class="smallfont">
+				
+				<h2>Watermark Removal Deep Learning CNN (Self-Supervised) via PyTorch</h2>
+			</div>
+			<hr size="1" style="color:#D1D1E1">
+			<!-- / icon and title -->
+		
+		
+		<!-- message -->
+		<div id="post_message_28107194" class="forum_post">
+<a href="projects github" target="_blank">https://github.com/ianhenryryan/watermarkcnn</a><br>
+<br>
+Machine Learning Engineer (aspiring): Ian H. Ryan<br>
+Version: 0.1<br>
+Timeline: May 22, 2025 - June 24th, 2025<br>
+<br>
+Upon making a variety of image scrapers for the world wide web, I noticed that a portion of the images I found contained watermarks. This sprung the idea of creating a deep learning model with the use case of removing watermarks from images. I found a research paper on ArXiv called <a href="https://arxiv.org/html/2403.05807v1" target="_blank">
+        A self-supervised CNN for image watermark removal
+    </a>. I used it as a reference for this project. This is a Image Restoration (Regression) Deep Learning Model.</div>
+			<hr size="1" style="color:#D1D1E1">
+			<!-- icon and title -->
+			<div class="smallfont">
+				
+				<h2>Environment</h2>
+				<hr size="1" style="color:#D1D1E1">	
+			<ul>
+    <li>Make & Model: Alienware m15 R7</li>
+    <li>GPU: NVIDIA GeForce RTX 3060 Mobile (6 GB VRAM)</li>
+    <li>Secondary GPU: Integrated AMD Radeon Graphics</li>
+    <li>CPU: AMD Ryzen 7 6800H (16 threads @ 4.78 GHz)</li>
+    <li>RAM: 16 GB DDR5</li>
+    <li>CUDA Version: CUDA Version: 12.8</li>
+    <li>Operating System: Pop!_OS 22.04 LTS</li>
+    <li>Kernel: 6.12.10-76061203-generic</li>
+			</div>			
+			<hr size="1" style="color:#D1D1E1">	
+			<!-- icon and title -->
+			<div class="smallfont">
+				
+				<h2>Notebook Index</h2>
+			</div>				
+			<hr size="1" style="color:#D1D1E1">	
+						<!-- icon and title -->
+<h3>Table of Contents</h3>
+<ul>
+    <li>Libraries & Imports .................................... <a href="#libraries-imports">1</a></li>
+    <ul>
+        <li>Libraries ........................................ <a href="#libraries">2</a></li>
+        <li>Imports ......................................... <a href="#imports">3</a></li>
+    </ul>
+    <li>CUDA ............................... <a href="#cuda">4</a></li>
+    <ul>
+        <li>Check GPU Availability for CUDA .......................... <a href="#first-dataset">5</a></li>
+        <li>CUDA allocation limiting ~64mb ......................... <a href="#second-dataset">6</a></li>
+    </ul>
+    <li>Seed ............................ <a href="#download-datasets">7</a></li>
+    <li>Dataset Description ............................ <a href="#download-datasets">8</a></li>
+    <li>CNN Model ............................ <a href="#download-datasets">9</a></li>
+    <ul>
+        <li>Model Architecture .......................... <a href="#first-dataset">10</a></li>
+        <li>ColorAwareLoss Loss Function ......................... <a href="#second-dataset">11</a></li>
+        <li>Total Parameters ......................... <a href="#second-dataset">12</a></li>
+    </ul>
+    <li>Data Generation (Self-Supervised) .......................................... <a href="#functions">13</a></li>
+    <ul>
+        <li>Dataset Class .................................. <a href="#path-datasets">14</a></li>
+    </ul>
+    <li>Hyperparameters ........................ <a href="#preprocessing">15</a></li>
+    <ul>
+        <li>Batch Size, Epochs, Learning Rate, Weight Decay ............................... <a href="#combine-datasets">16</a></li>
+    </ul>
+    
+    <li>Transform .............................. <a href="#transforms-loaders">17</a></li>
+    <li>Pathing ............................... <a href="#pathing">18</a></li>
+    <li>Data Loader .............................. <a href="#transforms-loaders">19</a></li>
+    <li>Criterion, Optimizer, & Scaler for AMP ......... <a href="#model-type">20</a></li>
+    <li>Training CNN Model ........................................ <a href="#cnn-model">21</a></li>
+    <li>Save Summary for Regression Task Report JSON .............. <a href="#class-confirmation">22</a></li>
+    <li>Log Training History ............................. <a href="#memory-usage">23</a></li>
+    <li>Save Model Weights or Save Model of Training .................................... <a href="#training-prep">31</a></li>
+    <li>Test Accuracy of CNN Training ............................... <a href="#train-cnn">24</a></li>
+    <li>Visualizations .................................. <a href="#visualizations">25</a></li>
+    <ul>
+         <li>Metrics .......................... <a href="#vis">26</a></li>
+         <ul>
+         <li>Summary - Everything .......................... <a href="#summary">27</a></li>
+        <li>Model Performance Function .................... <a href="#model-performance">28</a></li>
+        <li>Training & Validation Loss Plots .............. <a href="#loss-plots">29</a></li>
+        <li>Confusion Matrices ............................ <a href="#confusion-matrices">30</a></li>
+        <li>Feature Maps ................................. <a href="#feature-maps">31</a></li>
+        <li>Kernel Visualizations ........................ <a href="#kernel-visuals">32</a></li>
+        <li>Gradient Visualizations ...................... <a href="#gradient-visuals">33</a></li>
+        <li>CAM / Grad-CAM ............................... <a href="#grad-cam">34</a></li>
+        <li>Training/Validation Curves ................... <a href="#training-curves">35</a></li>
+        <li>Explainability Tools ......................... <a href="#explainability">36</a></li>
+         </ul>
+        <li>Visuals .......................... <a href="#vis">36</a></li>
+        <ul>
+        <li>Residual Histogram .................... <a href="#model-performance">37</a></li>
+        <li>Local PSNR/SSIM Maps .............. <a href="#loss-plots">38</a></li>
+        <li>Side by side Comparison ............................ <a href="#confusion-matrices">39</a></li>
+        <li>Watermark Residual ................................. <a href="#feature-maps">40</a></li>
+        <li>Training Progress ........................ <a href="#kernel-visuals">41</a></li>
+        <li>Watermark Attention ...................... <a href="#gradient-visuals">42</a></li>
+        <li>Batch Processing ............................... <a href="#grad-cam">43</a></li>
+        <li>Learning Rate Visual ................... <a href="#training-curves">44</a></li>
+        <li>Train Loss, Peak Signal-to-Noise Ratio, Structural Similarity Index ......................... <a href="#explainability">45</a></li>
+        <li>Residual Error ................... <a href="#training-curves">46</a></li>
+        <li>Multi-Layer Activation ................... <a href="#training-curves">47</a></li>
+        <li>Feature Activation Maps (Decoder Focus) ................... <a href="#training-curves">48</a></li>
+        <li>Kernel/Visualizations ................... <a href="#training-curves">49</a></li>
+        <li>Gradient Visualization ................... <a href="#training-curves">50</a></li>
+        </ul>
+    </ul>
+    <li>Literature Cited ................................ <a href="#literature">51</a></li>
+    <li>Environment .................................... <a href="#environment">52</a></li>
+    <li>Recommended Resources .......................... <a href="#resources">53</a></li>
+    <li>Permission ............................ <a href="#perm">54</a></li>
+</ul>
+						
+
+			<hr size="1" style="color:#D1D1E1">
+			<!-- icon and title -->
+			<div class="smallfont">
+				
+				<h2>Dataset Description</h2>
+			</div>
+			<hr size="1" style="color:#D1D1E1">
+Utilized self-supervised pairing & watermark synthesis. Thus not being reliant on finding a myriad of paired images with watermark and without watermark.<br><br>
+
+This project is trained from data that I scraped off of the internet from various sources while making image scrapers. With that being said, I will not be providing downloads to the data.<br>
+<ul>
+    <li>1000 Images, 996 jpg, 4 png file types.</li>
+</ul>
+
+Aim to create or find a dataset that is diverse in textures, colors, brightness, edges, and backgrounds.
+
+<p>
+    If you need datasets consider checking out: 
+    <a href="https://www.kaggle.com/datasets/" target="_blank">
+        Kaggle | 
+    </a>
+    <a href="https://public.roboflow.com/" target="_blank">
+        Roboflow | 
+    </a>
+    <a href="https://cocodataset.org/#download" target="_blank">
+        COCO
+    </a>
+</p>		
+			<!-- / icon and title -->									
+			<hr size="1" style="color:#D1D1E1">
+				<h2>Heterogeneous U-Net CNN Architecture</h2>				
+		<!-- / message -->			
+			<hr size="1" style="color:#D1D1E1">
+	<ul>		
+        <li> Encoder-Decoder Backbone - multi-resolution feature extraction.</li>
+        <li> DoubleConv Blocks - ReLU and LeakyReLU to capture diverse activations.</li>
+        <li> Attention Gates - at each skip connection for feature relevance gating.</li>
+        <li> Learnable Upsampling (Transpose Convs) avoid interpolation artifcats from bilinear.</li>
+        <li> Self-Attention Bottleneck - global spatial context.</li>
+        <li> Perceptual Feature Extractor (VGG16) - texture-aware loss.</li>
+	</ul>
+	
+	<h3>Model Diagram</h3>
+	
+			<img src="pictures/Heterogeneous_U-Net_CNN_Arch.png" alt="Seed Class Example" style="max-width:100%; height:auto; margin-top:10px;">
+		<!-- / message -->
+			<hr size="1" style="color:#D1D1E1">
+				<h2>Loss Function</h2>
+			<hr size="1" style="color:#D1D1E1">
+			There are multiple components to the loss function. <br>
+           <br>
+           <h4>1) Masked L1 Loss</h4>
+           Penalizes per pixel differences between predicted & ground truth images, optionally focusing on the masked region (where the watermark is located).<br><br>
+           
+           Formula:<br>
+           L1_masked = (1/N) ∑_(i=1)^(N) ​M_i * ∣P_i − T_i∣<br><br>
+           
+           Where:<br>
+           - P_i: Predicted Pixel<br>
+           - T_i: Target Pixel<br>
+           - M_i: Binary Mask (1=focus, 0=ignore)<br>
+           - N: Sum of Mask Values (non-zero pixels)<br><br>
+           
+           <h4>2) LAB Color Loss</h4>
+           Transforms images to LAB color space & weights L-channel more (70%) to prioritize luminance, which human eyes are more sensitive to.<br><br>
+           
+           Formula:<br>
+           LAB_loss = (0.7) * L1(L_p,L_t) + (0.3) * L1(𝐴𝐵_𝑝, 𝐴𝐵_𝑡)<br><br>
+           
+           Where:<br>
+           - L_p, L_t: Luminance channels (predicted, target) - 𝐴𝐵_𝑝, 𝐴𝐵_𝑡: Chrominance channels<br><br>
+           
+           <h4>3) Perceptual Loss (VGG16)</h4>
+           Uses pre-trained VGG16 to extract deep features from intermediate layers and compares their activations.<br><br>
+           
+           Formula:<br>
+           Perceptual_loss = L1(ϕ(P),ϕ(T))<br><br>
+           
+           Where:<br>
+           - ϕ: Feature extractor from pretrained VGG16<br>
+           - P,T: Predicted and target images<br><br>
+           
+           <h4>4) SSIM (Structural Similarity Index)</h4>
+           Captures structural similarity of images over patches.<br><br>
+           
+           Formula:<br>
+           SSIM_loss = (1 - SSIM(P,T))<br><br>
+           
+           SSIM compares means, variances, and covariances of image patches. It’s luminance-driven and more perceptually aligned than L1.<br><br>
+           
+           
+           <h4>5) Laplacian Edge Loss</h4>
+           Applies a Laplacian kernel to both predicted and target images to extract edges, then uses L1 on the resulting edge maps.<br><br>
+           
+           Formula:<br>
+           Edge_loss = L1((∇^2)P,(∇^2)T)<br><br>
+           
+           Where:<br>
+           - ∇^2 is the Laplacian operator.<br><br>
+           
+           
+           <h4>Total Loss</h4>
+           <br>
+           
+           Formula:<br>
+           Total Loss = L1 + α * Perceptual + β * LAB + γ * SSIM + δ * Laplacian<br><br>
+           
+           Weights:<br>
+           - α=0.3<br>
+           - β=0.3<br>
+           - γ=0.4<br>
+           - δ=0.1<br><br>
+           
+           <h3>Loss Diagram</h3>
+           
+           <img src="pictures/lossfunctiondiagram.png" alt="Seed Class Example" style="max-width:100%; height:auto; margin-top:10px;">
+           
+           <hr size="1" style="color:#D1D1E1">
+           <h2>Total Parameters</h2>
+           <hr size="1" style="color:#D1D1E1">
+           Total Parameters: 5383366<br>
+           Trainable Parameters: 3647878<br><br>
+
+
+           The reason only 3647878 are trainable is that the other 1735488 are being used in VGG.
+           
+           <hr size="1" style="color:#D1D1E1">
+           <h2>Data Generation (Self-Supervised)</h2>
+           <hr size="1" style="color:#D1D1E1">
+           This section contains: Watermark Generation, Watermark Application, Generate Pair, Data Augmentation, & Watermark Dataset Class. <br>
+           The model learns from synthetic watermark pairs that are generated from the myriad of 1000 clean images I used in the dataset.<br><br>
+           
+           <h4>Watermark Generation</h4>
+           Creates a diverse variety of synthetic watermarks.<br>
+           <ul>
+            <li>Watermark text contains 25 multi-langual phrases or watermarks. For example, ENG, SPAN, FR, GER, CH, JAP, KOR, RUSS, ARA, HIN.</li>
+            <li>The watermarks vary in size, rotations, opacity, & positions. As well as partial occlusion.</li>
+            <li>A slight amount of watermarks generated were lines, rectangles, & circles as opposed to text for more diversity.</li>
+            <li>Distortions: post processing with image filters to replicate low quality scanning or camera captures.
+</li>
+           </ul>
+           
+           <h4>Semi-Random Alpha Blending (Applying Watermark)</h4>
+           The watermark is integrated into the clean image via spatially varying alpha mask:<br>
+           <ul>
+            <li>Random opacity levels across image.</li>
+            <li>Occasional brightness & contrast adjustments.</li>
+            <li>Binary supervision mask generated simultaneously to mark affected regions.</li>
+           </ul>
+           
+           <h4>Generate Pair (Pairwise Training)</h4>
+           Each training sample is a triplet:<br>
+           <ul>
+            <li>wm_img1: The input with a synthetic watermark</li>
+            <li>Twm_img2: A second watermarked version (reference)</li>
+            <li>mask: The region where the watermark is present (used for masked L1 and Laplacian loss)</li>
+           </ul>
+           
+           This mirrors the core idea in the research paper referenced, Simulates watermark removal in the absence of ground truth. It simulates the learning signal by generating different but related views of the same clean image.
+           
+           <h4>Data Augmentation Pipeline (Albumentations)</h4>
+           Goal of enhancing robustness & domain generalization:<br>
+           <ul>
+            <li>Geometric: crop, rotate, flip</li>
+            <li>Photometric: jitter, grayscale, gamma</li>
+            <li>Noise/Artifacts: blur, compression, rain, shadows, pixel dropout</li>
+           </ul>
+           
+           <h4>Generate Pair (Pairwise Training)</h4>
+           Each training sample is a triplet:<br>
+           <ul>
+            <li>wm_img1: The input with a synthetic watermark</li>
+            <li>Twm_img2: A second watermarked version (reference)</li>
+            <li>mask: The region where the watermark is present (used for masked L1 and Laplacian loss)</li>
+           </ul>
+		<!-- / message -->
+		<hr size="1" style="color:#D1D1E1">
+		<h2>Hyperparameters</h2>
+		<hr size="1" style="color:#D1D1E1">
+		<li>batch_size = 8</li>
+        <li>epochs = 25</li>
+        <li>learning_rate = 0.001</li>
+        <li>weight_decay = 1e-5</li>
+		
+			<hr size="1" style="color:#D1D1E1">
+				<h2>Transform</h2>		
+			<hr size="1" style="color:#D1D1E1">
+			create transform variable and set image size to 256 pixels.<br>
+			transform = get_augmentations(image_size=256)
+			<hr size="1" style="color:#D1D1E1">
+				<h2>Pathing</h2>
+			<hr size="1" style="color:#D1D1E1">	
+				data/clean_images/.jpg & data/clean_images/.png<br>
+				convert clean image data to RGB<br><br>
+				
+				split %:<br>
+                train: 70%<br>
+                validate: 20%<br>
+                test: 10%<br><br>
+                
+                Train: 699, Val: 200, Test: 100
+                
+			<hr size="1" style="color:#D1D1E1">	
+			<h2>Loss, Optimizer, GradScaler for AMP & Learning Rate Scheduler</h2>
+			<hr size="1" style="color:#D1D1E1">	
+			criterion = ColorAwareLoss(alpha=0.3, beta=0.3, gamma=0.4, delta=0.1).to(device) <br><br>
+			Perceptual weight (alpha): = 0.3 <br>
+			Color weight (beta): = 0.3 <br>
+			SSIM weight (gamma): = 0.4 <br>
+			Laplacian weight (delta): = 0.1 <br>
+			
+			<hr size="1" style="color:#D1D1E1">	
+			<h2>AdamW Optimizer Algorithm</h2>
+			<hr size="1" style="color:#D1D1E1">	
+			optimizer = torch.optim.AdamW(net.parameters(), lr=learning_rate, weight_decay=weight_decay) <br><br>
+			Model is trained on AdamW optimization algorithm. It decouples weight decay from gradient updates which allows for better generalization & stability in training.<br>
+			AdamW applies weight decay directly to the parameters, not the gradients like Adam which in turn improves generalization.<br>
+			
+			<hr size="1" style="color:#D1D1E1">	
+			<h2>GradScaler for AMP</h2>
+			<hr size="1" style="color:#D1D1E1">	
+			scaler = torch.cuda.amp.GradScaler() <br><br>
+			
+			Keeping GPU memory & training speed in mind, I utilized Automatic Mixed Precision (AMP) through the GradScaler. It dynamically scales gradients preventing underflow during the mixed precision training.
+
+			<hr size="1" style="color:#D1D1E1">	
+			<h2>OneCycleLR Learning Rate Scheduler</h2>
+			<hr size="1" style="color:#D1D1E1">	
+			scheduler = torch.optim.lr_scheduler.OneCycleLR( <br>
+                optimizer, <br>
+                max_lr=0.001, <br>
+                steps_per_epoch=len(train_loader), <br>
+                epochs=epochs + 2, <br>
+                pct_start=0.3, <br>
+                div_factor=10, <br>
+                final_div_factor=100 <br>
+            )  <br>
+            
+            <h3>LR Scheduler Diagram</h3>
+            <img src="pictures/lrsched.png" alt="Seed Class Example" style="max-width:100%; height:auto; margin-top:10px;">
+            Using OneCycleLR Learning Rate Scheduler. It is a dynamic scheduelr that:<br>
+            <ul>
+            <li>warms up learning rate early in training.</li>
+            <li>Anneal to lower value nearing end of training.</li>
+            <li>Improves convergence & generalization.</li>
+            </ul>
+            
+			<hr size="1" style="color:#D1D1E1">	
+			<h2>Training</h2>
+			<hr size="1" style="color:#D1D1E1">	
+			Forward Propogation, Loss Calculation, Backward Propagation, Weight Update.<br>
+			<br>
+			
+			<h4>Warmup Loop</h4>
+			Making adjustments to the hyperparameters, architecture, loss functions, etc can cause early epochs to act up adjusting to the changes made. Thus implementing a warmup loop.<br>
+			<ul><li>A 2-epoch warmup with a reduced learning rate (1e-4) using a separate AdamW optimizer to stabilize initial convergence.</li></ul>
+			<br>
+			<h4>Training Loop</h4>
+			training runs for 25 epochs (27 including the 2 warmup) using the main AdamW optimizer & OneCycleLR learning rate scheduler.<br>
+			<ul>
+			<li>Manual learning rate decay is applied at epoch 15 (10x drop) to encourage finer convergence.</li>
+			<li>Epochs compute: Train Loss, Train PSNR, Train SSIM, Val Loss, VaL PSNR, Val SSIM, LR</li>
+			<li>Best-performing model (lowest val loss) is saved to wm_best_model.pth</li>
+			<li>Training halts early if no improvement is seen for early_stop_patience epochs.
+</li>
+			</ul>
+			<br>
+			<h4>Results:</h4>
+			<pre style="
+                background: #1e1e1e;
+                color: #d4d4d4;
+                padding: 1rem;
+                border-radius: 8px;
+                overflow-x: auto;
+                font-size: 0.9rem;
+                line-height: 1.4;
+                max-height: 500px;
+                white-space: pre-wrap;
+                font-family: 'Courier New', monospace;
+              ">Warmup Epoch 1 | Loss: 6.72903
+Warmup Epoch 2 | Loss: 3.8560
+Epoch 1: Train Loss=4.7524, Train PSNR=14.79, Train SSIM=0.3273 , Val Loss=4.1361, Val PSNR=15.20, Val SSIM=0.3542, LR=0.000134
+Epoch 2: Train Loss=3.8627, Train PSNR=16.61, Train SSIM=0.3853 , Val Loss=2.8606, Val PSNR=18.33, Val SSIM=0.4380, LR=0.000229
+Epoch 3: Train Loss=2.6319, Train PSNR=19.94, Train SSIM=0.4862 , Val Loss=1.6640, Val PSNR=22.47, Val SSIM=0.5786, LR=0.000372
+Epoch 4: Train Loss=1.5781, Train PSNR=23.88, Train SSIM=0.6011 , Val Loss=1.2799, Val PSNR=24.28, Val SSIM=0.6117, LR=0.000542
+Epoch 5: Train Loss=1.3406, Train PSNR=25.09, Train SSIM=0.6366 , Val Loss=1.1182, Val PSNR=25.67, Val SSIM=0.6214, LR=0.000713
+Epoch 6: Train Loss=1.3366, Train PSNR=25.31, Train SSIM=0.6567 , Val Loss=0.9333, Val PSNR=26.98, Val SSIM=0.6998, LR=0.000860
+Epoch 7: Train Loss=1.3522, Train PSNR=25.02, Train SSIM=0.6596 , Val Loss=1.0313, Val PSNR=26.46, Val SSIM=0.6463, LR=0.000960
+Epoch 8: Train Loss=1.2893, Train PSNR=25.61, Train SSIM=0.6700 , Val Loss=1.0174, Val PSNR=26.29, Val SSIM=0.6912, LR=0.001000
+Epoch 9: Train Loss=1.2259, Train PSNR=25.95, Train SSIM=0.6788 , Val Loss=0.9617, Val PSNR=26.69, Val SSIM=0.6800, LR=0.000994
+Epoch 10: Train Loss=1.2163, Train PSNR=26.00, Train SSIM=0.6792 , Val Loss=0.9782, Val PSNR=26.75, Val SSIM=0.6751, LR=0.000975
+Epoch 11: Train Loss=1.2225, Train PSNR=26.00, Train SSIM=0.6952 , Val Loss=0.8795, Val PSNR=27.65, Val SSIM=0.7164, LR=0.000943
+Epoch 12: Train Loss=1.2029, Train PSNR=26.03, Train SSIM=0.6865 , Val Loss=0.9174, Val PSNR=27.46, Val SSIM=0.6902, LR=0.000898
+Epoch 13: Train Loss=1.1444, Train PSNR=26.32, Train SSIM=0.6899 , Val Loss=0.8914, Val PSNR=27.29, Val SSIM=0.6994, LR=0.000843
+Epoch 14: Train Loss=1.2011, Train PSNR=26.00, Train SSIM=0.6932 , Val Loss=0.8762, Val PSNR=27.71, Val SSIM=0.7081, LR=0.000778
+Epoch 15: Train Loss=1.1981, Train PSNR=26.01, Train SSIM=0.6880 , Val Loss=0.8976, Val PSNR=27.41, Val SSIM=0.7213, LR=0.000705
+Lowering learning rate by 10x for fine-tuning phase.
+Epoch 16: Train Loss=1.1729, Train PSNR=26.21, Train SSIM=0.6848 , Val Loss=0.9213, Val PSNR=27.10, Val SSIM=0.6916, LR=0.000627
+Epoch 17: Train Loss=1.1742, Train PSNR=26.08, Train SSIM=0.6929 , Val Loss=0.9165, Val PSNR=26.96, Val SSIM=0.7061, LR=0.000545
+Epoch 18: Train Loss=1.1629, Train PSNR=26.25, Train SSIM=0.6963 , Val Loss=0.8613, Val PSNR=27.75, Val SSIM=0.7229, LR=0.000462
+Epoch 19: Train Loss=1.1667, Train PSNR=26.12, Train SSIM=0.6958 , Val Loss=0.8495, Val PSNR=27.56, Val SSIM=0.7105, LR=0.000380
+Epoch 20: Train Loss=1.1428, Train PSNR=26.28, Train SSIM=0.6810 , Val Loss=0.8530, Val PSNR=27.83, Val SSIM=0.7173, LR=0.000302
+Epoch 21: Train Loss=1.1608, Train PSNR=26.27, Train SSIM=0.6959 , Val Loss=0.8109, Val PSNR=27.90, Val SSIM=0.7294, LR=0.000229
+Epoch 22: Train Loss=1.1382, Train PSNR=26.19, Train SSIM=0.6985 , Val Loss=0.8479, Val PSNR=27.54, Val SSIM=0.7122, LR=0.000163
+Epoch 23: Train Loss=1.0897, Train PSNR=26.64, Train SSIM=0.7037 , Val Loss=0.8687, Val PSNR=27.52, Val SSIM=0.7099, LR=0.000107
+Epoch 24: Train Loss=1.1151, Train PSNR=26.60, Train SSIM=0.7008 , Val Loss=0.8570, Val PSNR=27.33, Val SSIM=0.7125, LR=0.000061
+Epoch 25: Train Loss=1.1098, Train PSNR=26.65, Train SSIM=0.6970 , Val Loss=0.8431, Val PSNR=27.54, Val SSIM=0.7151, LR=0.000028
+
+Training Time Elapsed: 228.00 Minutes  
+			</pre>
+			Summary:<br>
+			<ul>
+			<li>The warmup phase helped stabilize initial training as seen with the loss going from 6.72903 -> 3.8560 from first to second warmup epoch.</li>
+			<li>Train PSNR started at ~14.8 dB and reached ~26.6 dB</li>
+			<li>Val PSNR steadily improved to ~27.5–28 dB, a solid metric for image restoration tasks.
+</li>
+			<li>Val SSIM reached ~0.72, indicating perceptual quality and structure recovery are good.
+</li>
+			</ul>
+			<hr size="1" style="color:#D1D1E1">	
+			<h2>Metrics & Visuals</h2>
+			<hr size="1" style="color:#D1D1E1">	
+			All of the outputs that I used to make adjustments to the model as needed after each training run.<br><br>
+			
+			<h3>Metrics</h3>
+			<hr size="1" style="color:#D1D1E1">	
+			<h5>Evaluation</h5>
+			Test Loss: 0.7706<br>
+            Test PSNR: 28.67 dB<br>
+            Test SSIM: 0.7202<br>
+            
+			<h3>Visuals</h3>
+			<br>
+			<h4>Train & Val Loss, PSNR Progress</h4>
+			
+			<img src="pictures/TrainvallosspsnrProgress.png" alt="Seed Class Example" style="max-width:100%; height:auto; margin-top:10px;">
+			
+			Plots show loss & PSNR over time for both training and validation sets. These curves verify the convergence behavior of the network, confirm generalization to unseen validation data, and track performance metrics epoch-by-epoch.<br>
+			
+			<br>
+			<h4>Training Loss, Peak Signal to Noise Ratio, & Structural Similarity Plots</h4>
+			
+			<img src="pictures/TrainLossPSNRSSIMplots.png" alt="Seed Class Example" style="max-width:100%; height:auto; margin-top:10px;">
+			
+			Three synchronized subplots provide a compact summary of the network’s learning trajectory:
+			<ul>
+			<li>Loss Curve: steady convergence from high initial error.</li>
+			<li>PSNR Curve: clear climb toward 26–27 dB, a common benchmark in high-fidelity restoration.</li>
+			<li>SSIM Curve: shows perceptual similarity nearing ~0.70, indicating structural retention of clean images.</li>
+			</ul>
+			<br>
+			
+			<br>
+			<h4>Learning Rate Scheduler</h4>
+			
+			<img src="pictures/learningratescheduler.png" alt="Seed Class Example" style="max-width:100%; height:auto; margin-top:10px;">
+			
+			<br>OneCycleLR plot shows the cyclical learning rate schedule used during training. The LR increases for the first 30% of epochs (warm-up), then decays gradually helping the model converge quickly while avoiding sharp minima.
+<br>
+			<br>
+			<h4>Local PSNR & Local SSIM Maps</h4>
+			
+			<img src="pictures/local_psnr_map.png" alt="Seed Class Example" style="max-width:100%; height:auto; margin-top:10px;">
+			
+			<img src="pictures/local_ssim_map.png" alt="Seed Class Example" style="max-width:100%; height:auto; margin-top:10px;">
+			
+			<br>These heatmaps depict spatially localized Peak Signal-to-Noise Ratio (PSNR) and Structural Similarity Index (SSIM) metrics across image patches. Brighter regions indicate higher fidelity restoration, offering insight into performance variability across different spatial contexts.
+<br>
+			<br>
+			
+			<h4>Residual Histogram</h4>
+			<img src="pictures/residualhistogram.png" alt="res hist" style="max-width:100%; height:auto; margin-top:10px;">
+			<br>histogram displays the distribution of absolute pixel-wise residuals between the predicted image and the original watermark-free image. A sharp peak near zero indicates strong restoration fidelity, where most pixels are accurately reconstructed with minimal error.
+<br><br>
+			<h4>Side by Side Comparison</h4>
+			<img src="pictures/sidebysidecomp.png" alt="res hist" style="max-width:100%; height:auto; margin-top:10px;">
+			<br>Visual triplets are shown in three columns: the clean original, the watermarked version, and the predicted output. These qualitative results help highlight how well the model removes diverse watermark styles, maintaining visual structure and content.
+<br><br>
+			
+			<h4>Watermark Residual</h4>
+			
+			<img src="pictures/watermarkresidual.png" alt="res hist" style="max-width:100%; height:auto; margin-top:10px;">
+			
+			<br>A three-panel plot visualizes the residual heatmap, a binary thresholded mask, and the original vs predicted absolute difference. This highlights exactly where watermark artifacts remain and how well they’re suppressed in the output.
+<br><br>
+			
+			<h4>Watermark Attention</h4>
+			<img src="pictures/watermarkattention.png" alt="res hist" style="max-width:100%; height:auto; margin-top:10px;">
+			<br>Decoder-level attention maps (heatmaps) illustrate how different layers in the network respond to watermark perturbations. This diagnostic tool verifies that deeper layers are focusing on regions corrupted by watermarks—demonstrating task-specific feature learning.
+<br><br>
+			
+			<h4>Batch Processing</h4>
+			<img src="pictures/batchprocessing.png" alt="res hist" style="max-width:100%; height:auto; margin-top:10px;">
+			<br>This view shows the entire training batch as input, reference, and predicted samples across multiple augmentations. It’s useful to understand the model’s robustness to various synthetic watermark styles generated on-the-fly.
+<br><br>
+			
+			<h4>Residual Error</h4>
+			<img src="pictures/batchprocessing.png" alt="res hist" style="max-width:100%; height:auto; margin-top:10px;">
+			Highlights pixel-level discrepancies between the original and predicted outputs using three subplots:
+			<ul>
+			<li>Residual Heatmap: This shows the absolute error (|original - predicted|) in pixel intensities. Brighter areas signify larger prediction errors, often correlated with watermark regions.</li>
+			<li>Thresholded Mask (> 0.1): Highlights only those pixels where the residual exceeds a certain perceptual threshold (0.1). This isolates major prediction faults or watermark remnants.</li>
+			<li>Overlay of Original vs Predicted: Gives a side-by-side visual of the predicted error distribution relative to the original image, making it easy to spot spatial trends in reconstruction quality.</li>
+			</ul>
+			Helps pinpoint where the model struggles, and guides improvements to the network or loss function.<br><br>
+			
+			<h4>Multi-Layer Activation</h4>
+			<img src="pictures/multlayeract.png" alt="res hist" style="max-width:100%; height:auto; margin-top:10px;">
+			<br>Visualizes encoder and decoder layer outputs (e.g., enc1, enc2, dec1, dec2, dec3). Which reveals internal representation learning and feature abstraction across layers. It is useful for understanding how watermark-related features propagate through the network.<br><br>
+			
+			<h4>Feature Activation Maps (Decoder Focus)</h4>
+			<img src="pictures/featactdecodefocus.png" alt="res hist" style="max-width:100%; height:auto; margin-top:10px;">
+			<br>
+			Feature maps from deeper decoder layers of the U-Net architecture:
+			<ul>
+			<li>The right-side plot shows the activation map from dec3 (final decoder layer before output), scaled from 0 to 1.</li>
+			<li>It reveals where the model is focusing its attention during reconstruction, particularly in recovering watermark-affected areas.</li>
+			</ul>
+			The decoder's high response in watermark-heavy zones suggests successful spatial attention learning. This also acts as a diagnostic tool to ensure the decoder is not ignoring important visual features.<br>
+			
+			
+			<hr size="1" style="color:#D1D1E1">	
+			
+				
+			<h2>Referenced Paper</h2>					
+			<hr size="1" style="color:#D1D1E1">		
+
+<pre style="
+                background: #1e1e1e;
+                color: #d4d4d4;
+                padding: 1rem;
+                border-radius: 8px;
+                overflow-x: auto;
+                font-size: 0.9rem;
+                line-height: 1.4;
+                max-height: 500px;
+                white-space: pre-wrap;
+                font-family: 'Courier New', monospace;
+              ">@article{liu2024heterogeneous,
+  title={Heterogeneous U-Net for Image Restoration},
+  author={Liu, Jiang and Zhang, Yulun and Li, Wangmeng and others},
+  journal={arXiv preprint arXiv:2403.05807},
+  year={2024},
+  url={https://arxiv.org/abs/2403.05807}
+}
+</pre>
+			<hr size="1" style="color:#D1D1E1">					
+		<!-- sig -->
+			<div><br>
+				<div align="center"> <b><font color="Pink">Grá Mór</font></b><br>
+				<img src="images/forumsig.jpg" border="0" alt="" onload="NcodeImageResizer.createOn(this);"><br>
+				
+<img src="http://web.archive.org/web/20100223083908im_/http://img254.imageshack.us/img254/4593/struck.png" border="0" alt="" onload="NcodeImageResizer.createOn(this);"></div>
+			</div>
+		<!-- / sig -->
+		
+		
+		
+	
+	</td>
+</tr>
+<tr>
+	<td class="alt2" style="border: 0px solid #D1D1E1; border-top: 0px">
+		<img class="inlineimg" src="images/user_offline.png" alt="ian ryan is offline" border="0">
+
+
+						
+		
+		
+		
+		
+	</td>
+	
+	<td class="alt1" align="right" style="border: 0px solid #D1D1E1; border-left: 0px; border-top: 0px">
+	
+		<!-- controls -->
+		
+		
+		
+			<a href="newreply.php?do=newreply&p=28107194" rel="nofollow"><img src="images/quote.png" alt="Reply With Quote" border="0"></a>
+		
+		
+		
+		
+		
+		
+			
+			
+		<!-- / controls -->
+	</td>
+</tr>
+</tbody></table>
+
+<!-- post 28107194 popup menu -->
+<div class="vbmenu_popup" id="postmenu_28107194_menu" style="display:none">
+	<table cellpadding="4" cellspacing="1" border="0">
+	<tbody><tr>
+		<td class="thead">ian</td>
+	</tr>
+
+	<tr><td class="vbmenu_option"><a href="http://web.archive.org/web/20100223083908/http://gamebattles.com/profile/TS-SILVER/">View Public Profile</a></td></tr>
+
+	<tr><td class="vbmenu_option"><a href="http://web.archive.org/web/20100223083908/http://gamebattles.com/messages/compose?to=TS-SILVER" rel="nofollow">Send a private message to ian</a></td></tr>
+	
+	
+	
+	
+		<tr><td class="vbmenu_option"><a href="search.php?do=finduser&u=1213278" rel="nofollow">Find More Posts by ian ryan</a></td></tr>
+	
+	
+	</tbody></table>
+</div>
+<!-- / post 28107194 popup menu -->
+
+
+	</div>
+	
+		</div>	
+	</div>
+</div>
+
+<!-- / close content container -->
+
+<!-- / post #28107194 -->
+<!-- post #28107194 -->
+
+	<!-- open content container -->
+
+<div align="center">
+	<div class="page" style="width:938px; text-align:left">
+		<div style="padding:0px 0px 0px 0px">
+
+	<div id="edit28107194" style="padding:0px 0px 6px 0px">
+	<!-- this is not the last post shown on the page -->	
+
+
+<table id="post28107194" class="tborder" cellpadding="6" cellspacing="0" border="0" width="100%" align="center">
+<tbody><tr>
+	
+		<td class="thead" style="font-weight:normal; border: 0px solid #D1D1E1; border-right: 0px">		
+			<!-- status icon and date -->
+			<a name="post28107194"><img class="inlineimg" src="images/post_old.png" alt="Old" border="0"></a>
+			4 Feb 2010, 10:39 PM EST
+			
+			<!-- / status icon and date -->				
+		</td>
+		<td class="thead" style="font-weight:normal; border: 0px solid #D1D1E1; border-left: 0px" align="right">
+			
+			#<a href="showpost.php?p=28107194&postcount=1" target="new" rel="nofollow" id="postcount28107194" name="1"><strong>1</strong></a>
+			
+		</td>
+	
+</tr>
+<tr valign="top">
+	<td class="alt2" width="175" style="border: 0px solid #D1D1E1; border-top: 0px; border-bottom: 0px">
+			
+			<div id="postmenu_28107194">
+				
+				<a class="bigusername" href="member.php?u=1213278">ian ryan</a>
+				<script type="text/javascript"> vbmenu_register("postmenu_28107194", true); </script>
+				
+			</div>
+			
+			<div class="smallfont">forum dweller</div>
+			
 					<br><a href="member.php?u=5355375"><img src="pictures/avaids00613.gif" width="100" height="71" alt="ian ryan's Avatar" border="0"></a>
 				</div>		
 			
@@ -744,7 +1455,8 @@ This project is intended as a learning resource.<br><br>
 
 <!-- / close content container -->
 
-<!-- / post #28107194 --><!-- post #28108284 -->
+<!-- / post #28107194 -->
+<!-- post #28108284 -->
 
 	<!-- open content container -->
 
